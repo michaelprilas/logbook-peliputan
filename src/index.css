@@ -1,0 +1,192 @@
+@import "tailwindcss";
+
+@layer base {
+  html, body {
+    background-color: #F1F5F9;
+    color: #0F172A;
+  }
+  html {
+    scrollbar-gutter: stable;
+    overflow-y: scroll;
+  }
+  body {
+    font-family: 'Plus Jakarta Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    min-height: 100vh;
+    background-image: 
+      radial-gradient(at 0% 0%, rgba(219, 234, 254, 0.45) 0px, transparent 50%),
+      radial-gradient(at 100% 0%, rgba(224, 231, 255, 0.35) 0px, transparent 50%),
+      radial-gradient(at 50% 100%, rgba(241, 245, 249, 1) 0px, transparent 50%);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+}
+
+/* ------------------------------------------------------------- */
+/* Apple-Grade Motion Curves & Hardware-Accelerated Animations   */
+/* ------------------------------------------------------------- */
+
+/* Page entrance: smooth silky fade & lift without affecting top navbar */
+@keyframes pageEntrance {
+  0% {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.page-transition {
+  animation: pageEntrance 0.22s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Staggered card entrance */
+@keyframes fadeInUpSubtle {
+  0% {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.motion-card-enter {
+  animation: fadeInUpSubtle 0.22s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+/* Popover / Dropdown smooth scale & fade */
+@keyframes popoverIn {
+  0% {
+    opacity: 0;
+    transform: translateY(-4px) scale(0.97);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.popover-motion {
+  animation: popoverIn 0.16s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  transform-origin: top;
+}
+
+/* Slide-over Drawer & Backdrop */
+@keyframes drawerSlideInRight {
+  0% {
+    transform: translate3d(100%, 0, 0);
+  }
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes backdropFadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.drawer-slide-in {
+  animation: drawerSlideInRight 0.26s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.drawer-backdrop {
+  animation: backdropFadeIn 0.18s ease-out forwards;
+}
+
+/* Interactive Calendar Agenda switch motion */
+@keyframes agendaSlide {
+  0% {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.agenda-motion {
+  animation: agendaSlide 0.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Chart Bars Initial Grow */
+@keyframes barGrow {
+  0% {
+    transform: scaleY(0);
+    opacity: 0.2;
+  }
+  100% {
+    transform: scaleY(1);
+    opacity: 1;
+  }
+}
+
+.chart-bar-animated {
+  transform-origin: bottom;
+  animation: barGrow 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Interactive Card Physics */
+.invo-card {
+  background: #FFFFFF;
+  border-radius: 1.25rem; /* 20px */
+  border: 1px solid rgba(226, 232, 240, 0.8);
+  box-shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.03), 0 2px 6px -1px rgba(15, 23, 42, 0.02);
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.invo-card-hover:hover {
+  transform: translateY(-2.5px);
+  box-shadow: 0 14px 28px -6px rgba(24, 101, 242, 0.08), 0 4px 12px -2px rgba(15, 23, 42, 0.03);
+  border-color: rgba(191, 219, 254, 0.95);
+}
+
+.invo-card-hover:active {
+  transform: translateY(-0.5px) scale(0.995);
+}
+
+/* Interactive Button Micro-interactions */
+.btn-motion {
+  transition: transform 0.12s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.btn-motion:active {
+  transform: scale(0.96);
+}
+
+/* Custom subtle scrollbar */
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #CBD5E1;
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #94A3B8;
+}
+
+/* Respect user reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *, ::before, ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
