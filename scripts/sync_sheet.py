@@ -137,6 +137,12 @@ with zipfile.ZipFile(TMP_FILE, 'r') as z:
         
         video_val = row_vals.get('F', {}).get('val', '')
         video_link = row_vals.get('F', {}).get('link', '')
+        # Extract multiple video urls if present
+        video_urls = re.findall(r'https?://[^\s,;"\'<>]+[^\s,;"\'<>.)\]}]', video_val or '')
+        if video_link and video_link not in video_urls:
+            video_urls.insert(0, video_link)
+        if not video_link and video_urls:
+            video_link = video_urls[0]
         
         matched = news_titles.get(nomor)
         matched_title = matched['judul'] if matched else ''
@@ -161,8 +167,9 @@ with zipfile.ZipFile(TMP_FILE, 'r') as z:
             'ada_berita': bool(berita_link or (berita_val and berita_val.lower() not in ['-', 'tidak ada', ''])),
             'link_berita': berita_link,
             'judul_berita': matched_title,
-            'ada_video': bool(video_link or (video_val and video_val.lower() not in ['-', 'tidak ada', ''])),
+            'ada_video': bool(video_urls or video_link or (video_val and video_val.lower() not in ['-', 'tidak ada', ''])),
             'link_video': video_link,
+            'link_videos': video_urls,
             'petugas': petugas_list,
             'petugas_raw': petugas_raw
         })

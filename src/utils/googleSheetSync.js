@@ -18,6 +18,14 @@ export const SHEET_BERITA_ID = '19BIJfZg3ZzV4uDEAbQg77LDBzQtxYr2O3BQbYmy5caU';
  * - Escaped quotes ("")
  * - Multiline rows
  */
+// Extract multiple URLs from text (handles comma, newline, spaces, etc.)
+export function extractUrls(text) {
+  if (!text) return [];
+  const matches = text.match(/https?:\/\/[^\s,;"'<>]+[^\s,;"'<>.)\]}]/gi);
+  if (!matches) return [];
+  return Array.from(new Set(matches));
+}
+
 export function parseCSV(text) {
   const rows = [];
   let currentRow = [];
@@ -210,8 +218,9 @@ export async function fetchLiveActivities() {
       (beritaVal && !['-', 'tidak ada', ''].includes(beritaVal.toLowerCase()))
     );
 
+    const videoUrls = extractUrls(videoVal);
     const hasVideo = Boolean(
-      (videoVal.startsWith('http') ? videoVal : '') ||
+      videoUrls.length > 0 ||
       (videoVal && !['-', 'tidak ada', ''].includes(videoVal.toLowerCase()))
     );
 
@@ -236,7 +245,8 @@ export async function fetchLiveActivities() {
       link_berita: linkBerita,
       judul_berita: matchedTitle,
       ada_video: hasVideo,
-      link_video: videoVal.startsWith('http') ? videoVal : '',
+      link_video: videoUrls[0] || (videoVal.startsWith('http') ? videoVal : ''),
+      link_videos: videoUrls,
       petugas: petugasList,
       petugas_raw: petugasRaw
     });

@@ -509,13 +509,20 @@ export default function App() {
 
   // Copy WhatsApp Formatted Report
   const copyReport = (item) => {
+    let videoSection = '🎬 *Publikasi Video:* Belum ada\n';
+    if (item.link_videos && item.link_videos.length > 1) {
+      videoSection = `🎬 *Publikasi Video:*\n` + item.link_videos.map((v, i) => `   ${i + 1}. ${v}`).join('\n') + '\n';
+    } else if (item.link_video || (item.link_videos && item.link_videos.length > 0)) {
+      videoSection = `🎬 *Publikasi Video:* ${item.link_video || item.link_videos[0]}\n`;
+    }
+
     const waText = `📢 *LAPORAN PELIPUTAN PIMPINAN KEMENTERIAN PKP*\n\n` +
       `📅 *Tanggal:* ${item.tanggal_formatted || item.tanggal}\n` +
       `📍 *Lokasi:* ${item.lokasi || '-'}\n` +
       `📌 *Kegiatan:* ${item.kegiatan}\n` +
       `👥 *Petugas:* ${item.petugas.join(', ') || item.petugas_raw || '-'}\n` +
       (item.link_berita ? `📰 *Publikasi Berita:* ${item.link_berita}\n` : `📰 *Publikasi Berita:* Belum ada\n`) +
-      (item.link_video ? `🎬 *Publikasi Video:* ${item.link_video}\n` : `🎬 *Publikasi Video:* Belum ada\n`) +
+      videoSection +
       (item.judul_berita ? `📑 *Judul Berita:* ${item.judul_berita}\n` : '');
 
     navigator.clipboard.writeText(waText);
@@ -539,7 +546,7 @@ export default function App() {
       `"${(a.judul_berita || '').replace(/"/g, '""')}"`,
       `"${a.link_berita || ''}"`,
       a.ada_video ? '"Tercantum"' : '"Tidak ada"',
-      `"${a.link_video || ''}"`
+      `"${(a.link_videos && a.link_videos.length > 0 ? a.link_videos.join(' , ') : (a.link_video || ''))}"`
     ]);
 
     const csvContent = 'data:text/csv;charset=utf-8,' + [headers.join(','), ...rows.map(e => e.join(','))].join('\n');
@@ -1139,9 +1146,26 @@ export default function App() {
                             </span>
                           )}
 
-                          {item.link_video ? (
+                          {item.link_videos && item.link_videos.length > 1 ? (
+                            <div className="inline-flex items-center gap-1.5 flex-wrap">
+                              {item.link_videos.map((vUrl, idx) => (
+                                <a
+                                  key={idx}
+                                  href={vUrl}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg text-xs font-bold bg-blue-50 text-blue-700 border border-blue-200 hover:bg-blue-100 transition-colors"
+                                  title={`Video ${idx + 1}: ${vUrl}`}
+                                >
+                                  <Video className="w-3 h-3 text-blue-600" />
+                                  <span>Video {idx + 1}</span>
+                                  <ArrowUpRight className="w-2.5 h-2.5 opacity-60" />
+                                </a>
+                              ))}
+                            </div>
+                          ) : (item.link_video || (item.link_videos && item.link_videos.length > 0)) ? (
                             <a
-                              href={item.link_video}
+                              href={item.link_video || item.link_videos[0]}
                               target="_blank"
                               rel="noopener noreferrer"
                               className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg text-xs font-bold bg-blue-50 text-blue-700 border border-blue-200 hover:bg-blue-100 transition-colors"
@@ -2546,8 +2570,8 @@ export default function App() {
                   <tbody className="divide-y divide-slate-100 bg-white">
                     {rekapResults.map(item => {
                       const hasNews = item.ada_berita && item.link_berita;
-                      const hasVideo = item.ada_video && item.link_video;
-                      const videoNeedsCheck = item.ada_video && !item.link_video;
+                      const hasVideo = item.ada_video && (item.link_video || (item.link_videos && item.link_videos.length > 0));
+                      const videoNeedsCheck = item.ada_video && !hasVideo;
 
                       return (
                         <tr key={item.id} className="hover:bg-slate-50/80 transition-colors">
@@ -2622,20 +2646,39 @@ export default function App() {
                             )}
                           </td>
 
-                          {/* Kolom Video: 3 Status Visual + Camera Icon */}
+                          {/* Kolom Video: Multi-Video or Single Video */}
                           <td className="py-2.5 px-3 text-center">
                             {hasVideo ? (
-                              <a
-                                href={item.link_video}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="inline-flex items-center gap-1 text-[10px] font-bold text-blue-700 bg-blue-50 border border-blue-200 hover:bg-blue-100 px-2 py-0.5 rounded-md transition-colors"
-                                title="Buka tautan video liputan"
-                              >
-                                <Video className="w-3 h-3 text-blue-600" />
-                                <span>Tercantum</span>
-                                <ArrowUpRight className="w-2.5 h-2.5 opacity-60" />
-                              </a>
+                              item.link_videos && item.link_videos.length > 1 ? (
+                                <div className="inline-flex items-center gap-1 justify-center flex-wrap">
+                                  {item.link_videos.map((vUrl, idx) => (
+                                    <a
+                                      key={idx}
+                                      href={vUrl}
+                                      target="_blank"
+                                      rel="noopener noreferrer"
+                                      className="inline-flex items-center gap-0.5 text-[10px] font-bold text-blue-700 bg-blue-50 border border-blue-200 hover:bg-blue-100 px-1.5 py-0.5 rounded-md transition-colors"
+                                      title={`Video ${idx + 1}: ${vUrl}`}
+                                    >
+                                      <Video className="w-2.5 h-2.5 text-blue-600" />
+                                      <span>V{idx + 1}</span>
+                                      <ArrowUpRight className="w-2 h-2 opacity-60" />
+                                    </a>
+                                  ))}
+                                </div>
+                              ) : (
+                                <a
+                                  href={item.link_video || item.link_videos?.[0]}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  className="inline-flex items-center gap-1 text-[10px] font-bold text-blue-700 bg-blue-50 border border-blue-200 hover:bg-blue-100 px-2 py-0.5 rounded-md transition-colors"
+                                  title="Buka tautan video liputan"
+                                >
+                                  <Video className="w-3 h-3 text-blue-600" />
+                                  <span>Tercantum</span>
+                                  <ArrowUpRight className="w-2.5 h-2.5 opacity-60" />
+                                </a>
+                              )
                             ) : videoNeedsCheck ? (
                               <span className="inline-flex items-center gap-1 text-[10px] font-bold text-amber-700 bg-amber-50 border border-amber-200 px-1.5 py-0.5 rounded-md">
                                 <AlertCircle className="w-3 h-3 text-amber-500" />
@@ -3255,10 +3298,14 @@ export default function App() {
                     <Video className="w-4 h-4 text-blue-600" />
                     <span>Publikasi Video Liputan</span>
                   </div>
-                  {selectedDetailItem.ada_video && selectedDetailItem.link_video ? (
+                  {selectedDetailItem.ada_video && (selectedDetailItem.link_video || (selectedDetailItem.link_videos && selectedDetailItem.link_videos.length > 0)) ? (
                     <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md text-[10px] font-extrabold bg-blue-50 text-blue-700 border border-blue-200">
                       <CheckCircle2 className="w-3 h-3 text-blue-600" />
-                      <span>Tercantum</span>
+                      <span>
+                        {selectedDetailItem.link_videos && selectedDetailItem.link_videos.length > 1
+                          ? `${selectedDetailItem.link_videos.length} Video`
+                          : 'Tercantum'}
+                      </span>
                     </span>
                   ) : selectedDetailItem.ada_video ? (
                     <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md text-[10px] font-extrabold bg-amber-50 text-amber-700 border border-amber-200">
@@ -3273,9 +3320,27 @@ export default function App() {
                   )}
                 </div>
 
-                {selectedDetailItem.link_video && (
+                {selectedDetailItem.link_videos && selectedDetailItem.link_videos.length > 1 ? (
+                  <div className="space-y-1.5 pt-1">
+                    {selectedDetailItem.link_videos.map((vUrl, idx) => (
+                      <a
+                        key={idx}
+                        href={vUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-center justify-between p-2 rounded-lg bg-blue-50/70 hover:bg-blue-100 border border-blue-200 text-blue-700 font-bold text-xs transition-colors"
+                      >
+                        <span className="flex items-center gap-2 truncate">
+                          <Video className="w-3.5 h-3.5 text-blue-600 shrink-0" />
+                          <span>Tautan Video {idx + 1}</span>
+                        </span>
+                        <ExternalLink className="w-3.5 h-3.5 shrink-0 opacity-70" />
+                      </a>
+                    ))}
+                  </div>
+                ) : (selectedDetailItem.link_video || (selectedDetailItem.link_videos && selectedDetailItem.link_videos.length > 0)) ? (
                   <a
-                    href={selectedDetailItem.link_video}
+                    href={selectedDetailItem.link_video || selectedDetailItem.link_videos[0]}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="inline-flex items-center gap-1.5 text-blue-600 hover:text-blue-800 font-bold hover:underline"
@@ -3283,7 +3348,7 @@ export default function App() {
                     <span>Buka Tautan Video</span>
                     <ExternalLink className="w-3 h-3" />
                   </a>
-                )}
+                ) : null}
               </div>
 
               {/* Daftar Petugas */}
