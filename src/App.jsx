@@ -16,6 +16,7 @@ import {
   ChevronLeft,
   Building2,
   ArrowUpRight,
+  ArrowLeft,
   Download,
   X,
   FileText,
@@ -53,6 +54,7 @@ export default function App() {
 
   // Navigation: 'search' (default) | 'dashboard' | 'rekapitulasi' | 'laporan' | 'tim'
   const [currentMenu, setCurrentMenu] = useState('search');
+  const [menuHistory, setMenuHistory] = useState(['search']);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const dropdownRef = useRef(null);
 
@@ -236,10 +238,36 @@ export default function App() {
     setIsOfficerPickerOpen(false);
     setIsNewsSortPickerOpen(false);
     setIsCalendarMonthPickerOpen(false);
+    setMenuHistory(prev => (prev[prev.length - 1] === menu ? prev : [...prev, menu]));
     startTransition(() => {
       setCurrentMenu(menu);
     });
   };
+
+  // Functional Back Handler
+  const goBack = useCallback(() => {
+    if (selectedDetailItem) {
+      setSelectedDetailItem(null);
+      return;
+    }
+    if (selectedNewsDetail) {
+      setSelectedNewsDetail(null);
+      return;
+    }
+    if (menuHistory.length > 1) {
+      const newHistory = [...menuHistory];
+      newHistory.pop(); // Pop current
+      const prev = newHistory[newHistory.length - 1] || 'search';
+      setMenuHistory(newHistory);
+      startTransition(() => {
+        setCurrentMenu(prev);
+      });
+    } else {
+      startTransition(() => {
+        setCurrentMenu('search');
+      });
+    }
+  }, [selectedDetailItem, selectedNewsDetail, menuHistory]);
 
   // Close dropdowns on outside click or touch
   useEffect(() => {
@@ -732,49 +760,63 @@ export default function App() {
       {/* ======================================================== */}
       {/* TOP FLOATING NAVBAR (PENCARIAN - DASHBOARD - LANJUTAN)   */}
       {/* ======================================================== */}
-      <header className="sticky top-0 z-40 px-3 sm:px-6 pt-2.5 pb-2 backdrop-blur-md bg-white/85 border-b border-slate-200/70 shadow-xs">
-        <div className="max-w-7xl mx-auto flex items-center justify-between gap-4">
+      <header className="sticky top-0 z-40 px-3 sm:px-6 pt-2 pb-1.5 backdrop-blur-md bg-white/85 border-b border-slate-200/70 shadow-xs">
+        <div className="max-w-7xl mx-auto flex items-center justify-between gap-2.5 sm:gap-4">
           
-          {/* Brand Identity - ArchivePeliputan */}
-          <div 
-            onClick={() => navigateMenu('search')}
-            className="flex items-center gap-2.5 cursor-pointer group select-none shrink-0"
-          >
-            <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-blue-700 to-blue-500 text-white flex items-center justify-center shadow-md shadow-blue-500/20 group-hover:scale-105 transition-transform">
-              <Building2 className="w-4.5 h-4.5" />
-            </div>
-            <div>
-              <div className="flex items-center gap-2">
-                <span className="font-extrabold text-slate-900 text-base tracking-tight">
-                  Archive<span className="text-blue-600">Peliputan</span>
-                </span>
-                <span className="hidden sm:inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-extrabold bg-blue-50 text-blue-600 border border-blue-100">
-                  {activities.length} Kegiatan
-                </span>
+          {/* Brand Identity & Back Button */}
+          <div className="flex items-center gap-2 sm:gap-3 shrink-0">
+            {currentMenu !== 'search' && (
+              <button
+                type="button"
+                onClick={goBack}
+                className="inline-flex items-center gap-1 sm:gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-xl text-xs font-bold text-slate-700 bg-white hover:bg-slate-50 border border-slate-200/90 shadow-xs hover:border-blue-300 hover:text-blue-600 transition-all btn-motion select-none cursor-pointer"
+                title="Kembali ke halaman sebelumnya"
+              >
+                <ArrowLeft className="w-3.5 h-3.5 text-slate-500 group-hover:text-blue-600" />
+                <span className="hidden sm:inline">Kembali</span>
+              </button>
+            )}
 
-                {/* Direct Google Sheets Live Sync Button */}
-                <button
-                  type="button"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    triggerLiveSync(true);
-                  }}
-                  disabled={isSyncing}
-                  className={`inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[10px] font-extrabold border transition-all cursor-pointer select-none shadow-xs ${
-                    isSyncing
-                      ? 'bg-amber-50 text-amber-700 border-amber-200'
-                      : 'bg-emerald-50 hover:bg-emerald-100 text-emerald-700 border-emerald-200'
-                  }`}
-                  title={`Live Sync langsung ke Google Sheet.${lastSyncTime ? ` Terakhir: ${lastSyncTime}.` : ''} Klik untuk sinkronkan data sekarang.`}
-                >
-                  <span className={`w-1.5 h-1.5 rounded-full shrink-0 ${isSyncing ? 'bg-amber-500 animate-ping' : 'bg-emerald-500'}`} />
-                  <span>{isSyncing ? 'Sinkron...' : 'Live Sync'}</span>
-                  <RefreshCw className={`w-2.5 h-2.5 shrink-0 ${isSyncing ? 'animate-spin text-amber-600' : 'text-emerald-600'}`} />
-                </button>
+            <div 
+              onClick={() => navigateMenu('search')}
+              className="flex items-center gap-2.5 cursor-pointer group select-none"
+            >
+              <div className="w-8.5 h-8.5 rounded-xl bg-gradient-to-tr from-blue-700 to-blue-500 text-white flex items-center justify-center shadow-md shadow-blue-500/20 group-hover:scale-105 transition-transform">
+                <Building2 className="w-4 h-4" />
               </div>
-              <p className="text-[10px] text-slate-400 font-medium hidden md:block">
-                Tim Peliputan & Publikasi - Biro Komunikasi Publik PKP
-              </p>
+              <div>
+                <div className="flex items-center gap-2">
+                  <span className="font-extrabold text-slate-900 text-sm sm:text-base tracking-tight">
+                    Archive<span className="text-blue-600">Peliputan</span>
+                  </span>
+                  <span className="hidden sm:inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-extrabold bg-blue-50 text-blue-600 border border-blue-100">
+                    {activities.length} Kegiatan
+                  </span>
+
+                  {/* Direct Google Sheets Live Sync Button */}
+                  <button
+                    type="button"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      triggerLiveSync(true);
+                    }}
+                    disabled={isSyncing}
+                    className={`inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[10px] font-extrabold border transition-all cursor-pointer select-none shadow-xs ${
+                      isSyncing
+                        ? 'bg-amber-50 text-amber-700 border-amber-200'
+                        : 'bg-emerald-50 hover:bg-emerald-100 text-emerald-700 border-emerald-200'
+                    }`}
+                    title={`Live Sync langsung ke Google Sheet.${lastSyncTime ? ` Terakhir: ${lastSyncTime}.` : ''} Klik untuk sinkronkan data sekarang.`}
+                  >
+                    <span className={`w-1.5 h-1.5 rounded-full shrink-0 ${isSyncing ? 'bg-amber-500 animate-ping' : 'bg-emerald-500'}`} />
+                    <span>{isSyncing ? 'Sinkron...' : 'Live Sync'}</span>
+                    <RefreshCw className={`w-2.5 h-2.5 shrink-0 ${isSyncing ? 'animate-spin text-amber-600' : 'text-emerald-600'}`} />
+                  </button>
+                </div>
+                <p className="text-[10px] text-slate-400 font-medium hidden md:block">
+                  Tim Peliputan & Publikasi - Biro Komunikasi Publik PKP
+                </p>
+              </div>
             </div>
           </div>
 
@@ -983,18 +1025,18 @@ export default function App() {
       {/* ======================================================== */}
       {/* MAIN BODY CONTAINER                                      */}
       {/* ======================================================== */}
-      <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-5 space-y-5">
+      <main className="flex-1 max-w-7xl w-full mx-auto px-3 sm:px-5 lg:px-6 py-3.5 space-y-3.5">
         
         {/* ======================================================== */}
         {/* VIEW 1: PENCARIAN KEGIATAN (DEFAULT PAGE)                */}
         {/* ======================================================== */}
         {currentMenu === 'search' && (
-          <div className="max-w-3xl mx-auto space-y-4 page-transition">
+          <div className="max-w-3xl mx-auto space-y-3 page-transition">
             
             {/* Search Box Card */}
-            <div className="invo-card p-5 sm:p-6">
-              <div className="mb-3">
-                <h2 className="text-lg sm:text-xl font-extrabold text-slate-900 tracking-tight">
+            <div className="invo-card p-3.5 sm:p-4.5">
+              <div className="mb-2">
+                <h2 className="text-base sm:text-lg font-extrabold text-slate-900 tracking-tight">
                   Pencarian Dokumentasi & Agenda
                 </h2>
                 <p className="text-xs text-slate-400 mt-0.5">
@@ -1004,19 +1046,19 @@ export default function App() {
 
               {/* Main Search Input */}
               <div className="relative">
-                <Search className="w-4.5 h-4.5 absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none" />
+                <Search className="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none" />
                 <input
                   type="text"
                   autoFocus
                   placeholder="Ketik topik, kota, atau nama petugas (Rusun, Singkawang, Ilham)..."
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  className="w-full h-12 pl-11 pr-10 bg-slate-50 hover:bg-slate-100/70 focus:bg-white border border-slate-200 rounded-xl text-slate-900 text-sm font-semibold placeholder:text-slate-400 focus:outline-none focus:ring-4 focus:ring-blue-500/10 focus:border-blue-500 transition-all shadow-inner"
+                  className="w-full h-11 pl-10 pr-9 bg-slate-50 hover:bg-slate-100/70 focus:bg-white border border-slate-200 rounded-xl text-slate-900 text-sm font-semibold placeholder:text-slate-400 focus:outline-none focus:ring-4 focus:ring-blue-500/10 focus:border-blue-500 transition-all shadow-inner"
                 />
                 {searchQuery && (
                   <button
                     onClick={() => setSearchQuery('')}
-                    className="absolute right-3 top-1/2 -translate-y-1/2 p-1.5 text-slate-400 hover:text-slate-600 rounded-lg hover:bg-slate-200 transition-colors"
+                    className="absolute right-3 top-1/2 -translate-y-1/2 p-1 text-slate-400 hover:text-slate-600 rounded-lg hover:bg-slate-200 transition-colors cursor-pointer"
                   >
                     <X className="w-3.5 h-3.5" />
                   </button>
@@ -1024,13 +1066,13 @@ export default function App() {
               </div>
 
               {/* Popular Search Chips */}
-              <div className="flex items-center gap-1.5 flex-wrap mt-3 text-xs font-medium">
+              <div className="flex items-center gap-1.5 flex-wrap mt-2.5 text-xs font-medium">
                 <span className="text-slate-400 font-bold">Pencarian populer:</span>
                 {['Rusun', 'BSPS', 'Singkawang', 'Jatiwangi', 'Michael', 'Ilham', 'Fitrah', 'Jakarta', 'Kunker'].map(tag => (
                   <button
                     key={tag}
                     onClick={() => setSearchQuery(tag)}
-                    className="px-2.5 py-0.5 rounded-lg bg-slate-100 hover:bg-blue-50 hover:text-blue-700 text-slate-700 font-bold transition-colors btn-motion"
+                    className="px-2 py-0.5 rounded-lg bg-slate-100 hover:bg-blue-50 hover:text-blue-700 text-slate-700 font-bold text-[11px] transition-colors btn-motion cursor-pointer"
                   >
                     {tag}
                   </button>
@@ -1066,17 +1108,18 @@ export default function App() {
                   </div>
                 )}
 
-                {/* 1-Column Feed */}
-                <div className="space-y-3">
+                {/* 1-Column Feed (Card itself is clickable) */}
+                <div className="space-y-2.5">
                   {searchResults.map(item => (
                     <div
                       key={item.id}
-                      className="invo-card invo-card-hover p-4 sm:p-5 motion-card-enter"
+                      onClick={() => setSelectedDetailItem(item)}
+                      className="invo-card invo-card-hover p-3.5 sm:p-4 motion-card-enter cursor-pointer group hover:border-blue-300 transition-all"
                     >
                       {/* Top Row */}
-                      <div className="flex flex-wrap items-center justify-between gap-2 mb-2 text-xs">
+                      <div className="flex flex-wrap items-center justify-between gap-2 mb-1.5 text-xs">
                         <div className="flex items-center gap-2">
-                          <span className="font-extrabold px-2 py-0.5 rounded-md bg-slate-900 text-white text-[11px]">
+                          <span className="font-extrabold px-1.5 py-0.5 rounded-md bg-slate-900 text-white text-[11px] group-hover:bg-blue-600 transition-colors">
                             #{cleanNomor(item.nomor)}
                           </span>
                           <span className="font-semibold text-slate-600 flex items-center gap-1.5">
@@ -1094,13 +1137,13 @@ export default function App() {
                       </div>
 
                       {/* Title */}
-                      <h3 className="text-sm sm:text-base font-extrabold text-slate-900 leading-snug mb-2">
+                      <h3 className="text-sm sm:text-base font-extrabold text-slate-900 leading-snug mb-1.5 group-hover:text-blue-600 transition-colors">
                         {item.kegiatan}
                       </h3>
 
                       {/* News Quote */}
                       {item.judul_berita && (
-                        <div className="mb-2.5 p-2.5 rounded-xl bg-emerald-50/70 border border-emerald-100 text-xs flex items-start gap-2">
+                        <div className="mb-2 p-2 rounded-xl bg-emerald-50/70 border border-emerald-100 text-xs flex items-start gap-2">
                           <Newspaper className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
                           <div>
                             <span className="font-bold text-emerald-950 block mb-0.5">Rilis Berita Resmi:</span>
@@ -1110,13 +1153,13 @@ export default function App() {
                       )}
 
                       {/* Officers */}
-                      <div className="flex items-center gap-1 flex-wrap mb-3 text-xs">
+                      <div className="flex items-center gap-1 flex-wrap mb-2 text-xs">
                         <span className="text-slate-400 font-semibold mr-1">Petugas:</span>
                         {item.petugas.length > 0 ? (
                           item.petugas.map((officer, idx) => (
                             <span
                               key={idx}
-                              className="bg-slate-100 text-slate-800 font-bold px-2 py-0.5 rounded-md"
+                              className="bg-slate-100 text-slate-800 font-bold px-2 py-0.5 rounded-md text-[11px]"
                             >
                               {officer}
                             </span>
@@ -1127,13 +1170,14 @@ export default function App() {
                       </div>
 
                       {/* Action Bar */}
-                      <div className="pt-2.5 border-t border-slate-100 flex flex-wrap items-center justify-between gap-2">
+                      <div className="pt-2 border-t border-slate-100 flex flex-wrap items-center justify-between gap-2">
                         <div className="flex items-center gap-1.5 flex-wrap">
                           {item.link_berita ? (
                             <a
                               href={item.link_berita}
                               target="_blank"
                               rel="noopener noreferrer"
+                              onClick={(e) => e.stopPropagation()}
                               className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg text-xs font-bold bg-emerald-50 text-emerald-700 border border-emerald-200 hover:bg-emerald-100 transition-colors"
                             >
                               <Newspaper className="w-3 h-3 text-emerald-600" />
@@ -1147,7 +1191,7 @@ export default function App() {
                           )}
 
                           {item.link_videos && item.link_videos.length > 1 ? (
-                            <div className="inline-flex items-center gap-1.5 flex-wrap">
+                            <div className="inline-flex items-center gap-1.5 flex-wrap" onClick={(e) => e.stopPropagation()}>
                               {item.link_videos.map((vUrl, idx) => (
                                 <a
                                   key={idx}
@@ -1168,6 +1212,7 @@ export default function App() {
                               href={item.link_video || item.link_videos[0]}
                               target="_blank"
                               rel="noopener noreferrer"
+                              onClick={(e) => e.stopPropagation()}
                               className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg text-xs font-bold bg-blue-50 text-blue-700 border border-blue-200 hover:bg-blue-100 transition-colors"
                             >
                               <Video className="w-3 h-3 text-blue-600" />
@@ -1179,16 +1224,11 @@ export default function App() {
 
                         <div className="flex items-center gap-2">
                           <button
-                            onClick={() => setSelectedDetailItem(item)}
-                            className="inline-flex items-center gap-1 px-3 py-1 rounded-lg text-xs font-bold bg-slate-100 hover:bg-blue-50 text-slate-700 hover:text-blue-600 border border-slate-200 transition-colors"
-                          >
-                            <span>Detail</span>
-                            <ChevronRight className="w-3.5 h-3.5" />
-                          </button>
-
-                          <button
-                            onClick={() => copyReport(item)}
-                            className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-lg text-xs font-bold transition-all ${
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              copyReport(item);
+                            }}
+                            className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-lg text-xs font-bold transition-all cursor-pointer ${
                               copyStatus[item.id]
                                 ? 'bg-emerald-600 text-white shadow-xs'
                                 : 'bg-slate-900 hover:bg-slate-800 text-white shadow-xs'
@@ -1213,8 +1253,8 @@ export default function App() {
                 </div>
               </div>
             ) : (
-              /* When search input is empty: Show 5 Latest Activities (No Empty Void!) */
-              <div className="space-y-3">
+              /* When search input is empty: Show 5 Latest Activities (Clickable Card) */
+              <div className="space-y-2.5">
                 <div className="flex items-center justify-between px-1">
                   <div className="flex items-center gap-2">
                     <span className="w-2 h-2 rounded-full bg-blue-600"></span>
@@ -1223,19 +1263,20 @@ export default function App() {
                     </h3>
                   </div>
                   <span className="text-xs font-semibold text-slate-400">
-                    Ketik di atas untuk mencari seluruh 509 kegiatan
+                    Ketik di atas untuk mencari seluruh kegiatan
                   </span>
                 </div>
 
-                <div className="space-y-2.5">
+                <div className="space-y-2">
                   {recentActivities.map(item => (
                     <div
                       key={item.id}
-                      className="invo-card invo-card-hover p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3 motion-card-enter"
+                      onClick={() => setSelectedDetailItem(item)}
+                      className="invo-card invo-card-hover p-3 sm:p-3.5 flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 motion-card-enter cursor-pointer group hover:border-blue-300 transition-all"
                     >
                       <div className="space-y-1 flex-1">
                         <div className="flex items-center gap-2 text-xs">
-                          <span className="font-extrabold px-1.5 py-0.2 rounded bg-slate-900 text-white text-[10px]">
+                          <span className="font-extrabold px-1.5 py-0.2 rounded bg-slate-900 text-white text-[10px] group-hover:bg-blue-600 transition-colors">
                             #{cleanNomor(item.nomor)}
                           </span>
                           <span className="text-slate-500 font-medium">
@@ -1247,7 +1288,7 @@ export default function App() {
                             </span>
                           )}
                         </div>
-                        <h4 className="font-extrabold text-slate-900 text-sm leading-snug">
+                        <h4 className="font-extrabold text-slate-900 text-sm leading-snug group-hover:text-blue-600 transition-colors">
                           {item.kegiatan}
                         </h4>
                         <div className="text-[11px] text-slate-400 font-medium">
@@ -1257,15 +1298,11 @@ export default function App() {
 
                       <div className="flex items-center gap-2 shrink-0 self-end sm:self-center">
                         <button
-                          onClick={() => setSelectedDetailItem(item)}
-                          className="inline-flex items-center gap-1 px-3 py-1.5 rounded-xl text-xs font-bold bg-slate-100 hover:bg-blue-50 text-slate-700 hover:text-blue-600 border border-slate-200 transition-colors"
-                        >
-                          <span>Detail</span>
-                          <ChevronRight className="w-3.5 h-3.5" />
-                        </button>
-                        <button
-                          onClick={() => copyReport(item)}
-                          className={`p-1.5 rounded-xl border transition-all ${
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            copyReport(item);
+                          }}
+                          className={`p-1.5 rounded-xl border transition-all cursor-pointer ${
                             copyStatus[item.id]
                               ? 'bg-emerald-50 text-emerald-700 border-emerald-300'
                               : 'bg-white hover:bg-slate-50 text-slate-600 border-slate-200'
@@ -1287,10 +1324,28 @@ export default function App() {
         {/* VIEW 2: DASHBOARD (SEJAJAR & TEPAT SESUAI INSTRUKSI)      */}
         {/* ======================================================== */}
         {currentMenu === 'dashboard' && (
-          <div className="space-y-5 page-transition">
+          <div className="space-y-3.5 page-transition">
             
+            {/* Top Back Action Bar */}
+            <div className="flex items-center justify-between pb-0.5">
+              <div className="flex items-center gap-2">
+                <button
+                  type="button"
+                  onClick={goBack}
+                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold text-slate-700 bg-white hover:bg-slate-50 border border-slate-200/90 shadow-xs hover:border-blue-300 hover:text-blue-600 transition-all btn-motion select-none cursor-pointer"
+                  title="Kembali ke Pencarian"
+                >
+                  <ArrowLeft className="w-3.5 h-3.5 text-slate-500" />
+                  <span>Kembali ke Pencarian</span>
+                </button>
+                <span className="text-xs font-extrabold text-slate-800 hidden sm:inline">
+                  Dashboard Analisis & Ringkasan Peliputan 2026
+                </span>
+              </div>
+            </div>
+
             {/* ROW 1: 3 COMPACT KPI CARDS (COL-SPAN-3) + KALENDER (KIRI) & AGENDA (KANAN) (COL-SPAN-9) */}
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 items-stretch">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-3.5 items-stretch">
               
               {/* Left Column (3 cols): Ukuran ringkas, tanpa panah, teks deskriptif jelas */}
               <div className="lg:col-span-3 flex flex-col justify-between gap-3.5">
@@ -1624,10 +1679,14 @@ export default function App() {
                       <div key={selectedCalendarDate} className="space-y-2 max-h-[265px] overflow-y-auto pr-1 agenda-motion">
                         {selectedDateActivities.length > 0 ? (
                           selectedDateActivities.map(item => (
-                            <div key={item.id} className="p-3 rounded-xl bg-slate-50 hover:bg-blue-50/50 border border-slate-200/70 transition-all text-xs flex flex-col justify-between">
+                            <div
+                              key={item.id}
+                              onClick={() => setSelectedDetailItem(item)}
+                              className="p-2.5 rounded-xl bg-slate-50 hover:bg-blue-50/70 border border-slate-200/70 hover:border-blue-300 transition-all text-xs flex flex-col justify-between cursor-pointer group"
+                            >
                               <div>
                                 <div className="flex items-center justify-between gap-1.5 mb-1">
-                                  <span className="font-extrabold text-[10px] bg-slate-900 text-white px-1.5 py-0.2 rounded">
+                                  <span className="font-extrabold text-[10px] bg-slate-900 text-white px-1.5 py-0.2 rounded group-hover:bg-blue-600 transition-colors">
                                     #{cleanNomor(item.nomor)}
                                   </span>
                                   {item.lokasi && (
@@ -1636,7 +1695,7 @@ export default function App() {
                                     </span>
                                   )}
                                 </div>
-                                <p className="font-bold text-slate-900 line-clamp-2 leading-snug">
+                                <p className="font-bold text-slate-900 line-clamp-2 leading-snug group-hover:text-blue-600 transition-colors">
                                   {item.kegiatan}
                                 </p>
                               </div>
@@ -1647,25 +1706,23 @@ export default function App() {
                                 </span>
 
                                 <div className="flex items-center gap-1 shrink-0">
-                                  <button
-                                    onClick={() => setSelectedDetailItem(item)}
-                                    className="text-[10px] font-bold text-slate-700 bg-white hover:bg-slate-100 border border-slate-200 px-1.5 py-0.5 rounded transition-colors"
-                                  >
-                                    Detail
-                                  </button>
                                   {item.link_berita && (
                                     <a
                                       href={item.link_berita}
                                       target="_blank"
                                       rel="noopener noreferrer"
+                                      onClick={(e) => e.stopPropagation()}
                                       className="text-[10px] font-bold text-emerald-700 bg-emerald-100 px-1.5 py-0.5 rounded hover:bg-emerald-200 transition-colors"
                                     >
                                       Berita
                                     </a>
                                   )}
                                   <button
-                                    onClick={() => copyReport(item)}
-                                    className="p-1 text-slate-400 hover:text-slate-800 rounded-md hover:bg-white transition-colors"
+                                    onClick={(e) => {
+                                      e.stopPropagation();
+                                      copyReport(item);
+                                    }}
+                                    className="p-1 text-slate-400 hover:text-slate-800 rounded-md hover:bg-white transition-colors cursor-pointer"
                                     title="Salin WA"
                                   >
                                     {copyStatus[item.id] ? <Check className="w-3.5 h-3.5 text-emerald-600" /> : <Copy className="w-3.5 h-3.5" />}
@@ -1897,16 +1954,17 @@ export default function App() {
 
                 <div className="divide-y divide-slate-100">
                   {recentActivities.map(item => (
-                    <div key={item.id} className="py-2.5 flex items-start justify-between gap-2.5 group">
+                    <div
+                      key={item.id}
+                      onClick={() => setSelectedDetailItem(item)}
+                      className="py-2 flex items-start justify-between gap-2.5 group cursor-pointer hover:bg-slate-50/80 px-1.5 rounded-xl transition-colors"
+                    >
                       <div className="flex items-start gap-2.5">
-                        <div className="w-7 h-7 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center shrink-0 font-bold text-[11px] mt-0.5">
+                        <div className="w-7 h-7 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center shrink-0 font-bold text-[11px] mt-0.5 group-hover:bg-blue-600 group-hover:text-white transition-colors">
                           #{cleanNomor(item.nomor)}
                         </div>
                         <div>
-                          <p 
-                            onClick={() => setSelectedDetailItem(item)}
-                            className="font-bold text-slate-900 text-xs sm:text-sm line-clamp-1 group-hover:text-blue-600 transition-colors cursor-pointer"
-                          >
+                          <p className="font-bold text-slate-900 text-xs sm:text-sm line-clamp-1 group-hover:text-blue-600 transition-colors">
                             {item.kegiatan}
                           </p>
                           <div className="flex items-center gap-2 text-[10px] text-slate-400 mt-0.5">
@@ -1922,14 +1980,11 @@ export default function App() {
 
                       <div className="flex items-center gap-1 shrink-0">
                         <button
-                          onClick={() => setSelectedDetailItem(item)}
-                          className="px-2 py-0.5 text-[10px] font-bold text-slate-600 bg-slate-100 hover:bg-blue-50 hover:text-blue-600 rounded-md transition-colors"
-                        >
-                          Detail
-                        </button>
-                        <button
-                          onClick={() => copyReport(item)}
-                          className="p-1 text-slate-400 hover:text-slate-700 rounded-lg hover:bg-slate-100"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            copyReport(item);
+                          }}
+                          className="p-1 text-slate-400 hover:text-slate-700 rounded-lg hover:bg-slate-100 cursor-pointer"
                           title="Salin WA"
                         >
                           {copyStatus[item.id] ? <Check className="w-3 h-3 text-emerald-600" /> : <Copy className="w-3 h-3" />}
@@ -1989,19 +2044,30 @@ export default function App() {
         {/* VIEW 3: REKAPITULASI KEGIATAN                            */}
         {/* ======================================================== */}
         {currentMenu === 'rekapitulasi' && (
-          <div className="space-y-4 page-transition">
+          <div className="space-y-3 page-transition">
             
             {/* Filter Card */}
-            <div className="invo-card p-4 sm:p-5">
+            <div className="invo-card p-3 sm:p-4">
               
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-3.5">
-                <div>
-                  <h3 className="text-base sm:text-lg font-extrabold text-slate-900">
-                    Rekapitulasi Kegiatan
-                  </h3>
-                  <p className="text-xs text-slate-400 mt-0.5">
-                    Tabel data interaktif seluruh penugasan liputan pimpinan Kementerian PKP.
-                  </p>
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 mb-2.5">
+                <div className="flex items-center gap-2.5">
+                  <button
+                    type="button"
+                    onClick={goBack}
+                    className="inline-flex items-center gap-1 px-2.5 py-1.5 rounded-xl text-xs font-bold text-slate-700 bg-slate-100 hover:bg-slate-200 border border-slate-200 transition-colors cursor-pointer select-none"
+                    title="Kembali"
+                  >
+                    <ArrowLeft className="w-3.5 h-3.5" />
+                    <span>Kembali</span>
+                  </button>
+                  <div>
+                    <h3 className="text-base sm:text-lg font-extrabold text-slate-900 leading-tight">
+                      Rekapitulasi Kegiatan
+                    </h3>
+                    <p className="text-[11px] text-slate-400">
+                      Tabel data interaktif seluruh penugasan liputan pimpinan Kementerian PKP.
+                    </p>
+                  </div>
                 </div>
 
                 <div className="flex items-center gap-2">
@@ -2574,27 +2640,34 @@ export default function App() {
                       const videoNeedsCheck = item.ada_video && !hasVideo;
 
                       return (
-                        <tr key={item.id} className="hover:bg-slate-50/80 transition-colors">
-                          <td className="py-2.5 px-3 text-center font-extrabold text-slate-700">
+                        <tr
+                          key={item.id}
+                          onClick={() => setSelectedDetailItem(item)}
+                          className="hover:bg-blue-50/50 cursor-pointer transition-colors group"
+                        >
+                          <td className="py-2 px-2.5 text-center font-extrabold text-slate-700 group-hover:text-blue-600 transition-colors">
                             #{cleanNomor(item.nomor)}
                           </td>
-                          <td className="py-2.5 px-3 whitespace-nowrap text-slate-700 font-semibold">
+                          <td className="py-2 px-2.5 whitespace-nowrap text-slate-700 font-semibold">
                             {item.tanggal_formatted || item.tanggal}
                           </td>
-                          <td className="py-2.5 px-3 font-bold text-slate-900 leading-snug">
+                          <td className="py-2 px-2.5 font-bold text-slate-900 leading-snug group-hover:text-blue-600 transition-colors">
                             {item.kegiatan}
                           </td>
-                          <td className="py-2.5 px-3 text-slate-600 font-medium">
+                          <td className="py-2 px-2.5 text-slate-600 font-medium">
                             {item.lokasi || '-'}
                           </td>
                           
                           {/* Petugas: Max 2 names + '+N' chip to maintain uniform row height */}
-                          <td className="py-2.5 px-3">
+                          <td className="py-2 px-2.5">
                             <div className="flex flex-wrap items-center gap-1">
                               {item.petugas.slice(0, 2).map((o, idx) => (
                                 <span
                                   key={idx}
-                                  onClick={() => toggleOfficer(o)}
+                                  onClick={(e) => {
+                                    e.stopPropagation();
+                                    toggleOfficer(o);
+                                  }}
                                   className={`px-1.5 py-0.5 rounded text-[10px] font-bold cursor-pointer transition-colors border ${
                                     selectedOfficers.includes(o)
                                       ? 'bg-blue-600 text-white border-blue-600'
@@ -2607,8 +2680,11 @@ export default function App() {
                               ))}
                               {item.petugas.length > 2 && (
                                 <button
-                                  onClick={() => setSelectedDetailItem(item)}
-                                  className="px-1.5 py-0.5 rounded text-[10px] font-extrabold bg-blue-50 hover:bg-blue-100 text-blue-700 border border-blue-200 transition-colors"
+                                  onClick={(e) => {
+                                    e.stopPropagation();
+                                    setSelectedDetailItem(item);
+                                  }}
+                                  className="px-1.5 py-0.5 rounded text-[10px] font-extrabold bg-blue-50 hover:bg-blue-100 text-blue-700 border border-blue-200 transition-colors cursor-pointer"
                                   title={item.petugas.slice(2).join(', ')}
                                 >
                                   +{item.petugas.length - 2}
@@ -2621,12 +2697,13 @@ export default function App() {
                           </td>
 
                           {/* Kolom Berita: Hanya Tercantum saja */}
-                          <td className="py-2.5 px-3 text-center">
+                          <td className="py-2 px-2.5 text-center">
                             {hasNews ? (
                               <a
                                 href={item.link_berita}
                                 target="_blank"
                                 rel="noopener noreferrer"
+                                onClick={(e) => e.stopPropagation()}
                                 title={item.judul_berita || 'Buka rilis resmi pkp.go.id'}
                                 className="inline-flex items-center gap-1 text-[10px] font-bold text-emerald-700 bg-emerald-50 hover:bg-emerald-100 border border-emerald-200 px-2 py-0.5 rounded-md transition-colors"
                               >
@@ -2647,10 +2724,10 @@ export default function App() {
                           </td>
 
                           {/* Kolom Video: Multi-Video or Single Video */}
-                          <td className="py-2.5 px-3 text-center">
+                          <td className="py-2 px-2.5 text-center">
                             {hasVideo ? (
                               item.link_videos && item.link_videos.length > 1 ? (
-                                <div className="inline-flex items-center gap-1 justify-center flex-wrap">
+                                <div className="inline-flex items-center gap-1 justify-center flex-wrap" onClick={(e) => e.stopPropagation()}>
                                   {item.link_videos.map((vUrl, idx) => (
                                     <a
                                       key={idx}
@@ -2671,6 +2748,7 @@ export default function App() {
                                   href={item.link_video || item.link_videos?.[0]}
                                   target="_blank"
                                   rel="noopener noreferrer"
+                                  onClick={(e) => e.stopPropagation()}
                                   className="inline-flex items-center gap-1 text-[10px] font-bold text-blue-700 bg-blue-50 border border-blue-200 hover:bg-blue-100 px-2 py-0.5 rounded-md transition-colors"
                                   title="Buka tautan video liputan"
                                 >
@@ -2692,15 +2770,11 @@ export default function App() {
                             )}
                           </td>
 
-                          {/* Kolom Aksi: Tombol Detail dengan panah (Salin WA ada di dalam Drawer) */}
-                          <td className="py-2.5 px-3 text-center">
-                            <button
-                              onClick={() => setSelectedDetailItem(item)}
-                              className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg text-[11px] font-bold bg-slate-100 hover:bg-blue-50 text-slate-700 hover:text-blue-600 border border-slate-200 hover:border-blue-200 transition-all shadow-xs"
-                            >
-                              <span>Detail</span>
-                              <ChevronRight className="w-3 h-3" />
-                            </button>
+                          {/* Kolom Aksi: Indikator Buka Detail */}
+                          <td className="py-2 px-2.5 text-center">
+                            <span className="inline-flex items-center justify-center w-6 h-6 rounded-lg bg-slate-100 group-hover:bg-blue-600 text-slate-400 group-hover:text-white transition-all shadow-2xs">
+                              <ChevronRight className="w-3.5 h-3.5" />
+                            </span>
                           </td>
                         </tr>
                       );
@@ -2717,16 +2791,27 @@ export default function App() {
         {/* VIEW 4: TIM PELIPUTAN (25 PERSONIL WITH AVATARS & BARS)  */}
         {/* ======================================================== */}
         {currentMenu === 'tim' && (
-          <div className="space-y-4 page-transition">
-            <div className="invo-card p-5 sm:p-6">
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-5">
-                <div>
-                  <h3 className="text-lg sm:text-xl font-extrabold text-slate-900">
-                    Tim Peliputan
-                  </h3>
-                  <p className="text-xs text-slate-400 mt-0.5">
-                    Daftar seluruh personil liputan Biro Komunikasi Publik Kementerian PKP 2026.
-                  </p>
+          <div className="space-y-3 page-transition">
+            <div className="invo-card p-3.5 sm:p-4.5">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 mb-3.5 pb-2.5 border-b border-slate-100">
+                <div className="flex items-center gap-2.5">
+                  <button
+                    type="button"
+                    onClick={goBack}
+                    className="inline-flex items-center gap-1 px-2.5 py-1.5 rounded-xl text-xs font-bold text-slate-700 bg-slate-100 hover:bg-slate-200 border border-slate-200 transition-colors cursor-pointer select-none"
+                    title="Kembali"
+                  >
+                    <ArrowLeft className="w-3.5 h-3.5" />
+                    <span>Kembali</span>
+                  </button>
+                  <div>
+                    <h3 className="text-base sm:text-lg font-extrabold text-slate-900 leading-tight">
+                      Tim Peliputan
+                    </h3>
+                    <p className="text-[11px] text-slate-400">
+                      Daftar seluruh personil liputan Biro Komunikasi Publik Kementerian PKP 2026.
+                    </p>
+                  </div>
                 </div>
                 <div className="text-xs font-extrabold bg-blue-50 text-blue-600 px-3 py-1 rounded-xl border border-blue-100 self-start sm:self-auto">
                   Total {officerStats.length} Personil
@@ -2813,10 +2898,11 @@ export default function App() {
 
               <button
                 type="button"
-                onClick={() => navigateMenu('rekapitulasi')}
-                className="mt-5 px-4 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-white text-xs font-bold shadow-md transition-colors"
+                onClick={goBack}
+                className="mt-4 px-4 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-white text-xs font-bold shadow-md transition-colors inline-flex items-center gap-1.5 cursor-pointer"
               >
-                Kembali ke Rekapitulasi Kegiatan
+                <ArrowLeft className="w-3.5 h-3.5" />
+                <span>Kembali</span>
               </button>
             </div>
           </div>
@@ -2826,25 +2912,36 @@ export default function App() {
         {/* VIEW 6: BERITA (KLIPING & RILIS PERS RESMI)              */}
         {/* ======================================================== */}
         {currentMenu === 'berita' && (
-          <div className="space-y-4 page-transition">
+          <div className="space-y-3 page-transition">
             
             {/* Top Card: Filter Bar, Year Selector, Search & Statistics */}
-            <div className="invo-card p-4 sm:p-5">
+            <div className="invo-card p-3 sm:p-4">
               
-              <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-4 border-b border-slate-100">
-                <div>
-                  <div className="flex items-center gap-2">
-                    <span className="w-2.5 h-2.5 rounded-full bg-blue-600 animate-pulse"></span>
-                    <h2 className="text-base sm:text-lg font-black text-slate-900 tracking-tight">
-                      Kliping & Rilis Berita Pers
-                    </h2>
-                    <span className="px-2 py-0.5 rounded-full text-[10px] font-extrabold bg-blue-50 text-blue-700 border border-blue-200">
-                      {filteredNews.length} Rilis
-                    </span>
+              <div className="flex flex-col md:flex-row md:items-center justify-between gap-3 pb-3 border-b border-slate-100">
+                <div className="flex items-center gap-2.5">
+                  <button
+                    type="button"
+                    onClick={goBack}
+                    className="inline-flex items-center gap-1 px-2.5 py-1.5 rounded-xl text-xs font-bold text-slate-700 bg-slate-100 hover:bg-slate-200 border border-slate-200 transition-colors cursor-pointer select-none"
+                    title="Kembali"
+                  >
+                    <ArrowLeft className="w-3.5 h-3.5" />
+                    <span>Kembali</span>
+                  </button>
+                  <div>
+                    <div className="flex items-center gap-2">
+                      <span className="w-2.5 h-2.5 rounded-full bg-blue-600 animate-pulse"></span>
+                      <h2 className="text-base sm:text-lg font-black text-slate-900 tracking-tight">
+                        Kliping & Rilis Berita Pers
+                      </h2>
+                      <span className="px-2 py-0.5 rounded-full text-[10px] font-extrabold bg-blue-50 text-blue-700 border border-blue-200">
+                        {filteredNews.length} Rilis
+                      </span>
+                    </div>
+                    <p className="text-[11px] text-slate-400">
+                      Arsip rilis pers resmi Kementerian Perumahan dan Kawasan Permukiman (pkp.go.id).
+                    </p>
                   </div>
-                  <p className="text-xs text-slate-400 mt-0.5">
-                    Arsip rilis pers resmi Kementerian Perumahan dan Kawasan Permukiman (pkp.go.id).
-                  </p>
                 </div>
 
                 {/* Year Switcher Pills */}
@@ -3059,15 +3156,16 @@ export default function App() {
                 <p className="text-xs text-slate-400 mt-1">Coba gunakan kata kunci lain atau pilih tab tahun yang berbeda.</p>
               </div>
             ) : (
-              <div className="space-y-3">
+              <div className="space-y-2.5">
                 {displayedNews.map(item => (
                   <div
                     key={item.id}
-                    className="invo-card invo-card-hover p-4 sm:p-5 flex flex-col justify-between group motion-card-enter"
+                    onClick={() => setSelectedNewsDetail(item)}
+                    className="invo-card invo-card-hover p-3.5 sm:p-4 flex flex-col justify-between group motion-card-enter cursor-pointer hover:border-blue-300 transition-all"
                   >
                     <div>
                       {/* Top Meta Row */}
-                      <div className="flex flex-wrap items-center justify-between gap-2 mb-2">
+                      <div className="flex flex-wrap items-center justify-between gap-2 mb-1.5">
                         <div className="flex items-center gap-2 text-xs">
                           <span className="px-2 py-0.5 rounded-md bg-blue-50 text-blue-700 border border-blue-200 font-extrabold text-[10px]">
                             {item.tahun}
@@ -3094,38 +3192,28 @@ export default function App() {
                       </div>
 
                       {/* Title */}
-                      <h3
-                        onClick={() => setSelectedNewsDetail(item)}
-                        className="text-sm sm:text-base font-extrabold text-slate-900 group-hover:text-blue-600 transition-colors cursor-pointer leading-snug"
-                      >
+                      <h3 className="text-sm sm:text-base font-extrabold text-slate-900 group-hover:text-blue-600 transition-colors leading-snug">
                         {item.judul}
                       </h3>
 
                       {/* Lead Paragraph / Summary */}
                       {item.ringkasan && (
-                        <p className="text-xs text-slate-600 font-medium line-clamp-2 leading-relaxed mt-2">
+                        <p className="text-xs text-slate-600 font-medium line-clamp-2 leading-relaxed mt-1.5">
                           {item.ringkasan}
                         </p>
                       )}
                     </div>
 
                     {/* Bottom Actions Row */}
-                    <div className="mt-3 pt-3 border-t border-slate-100 flex items-center justify-between text-xs gap-2">
+                    <div className="mt-2.5 pt-2.5 border-t border-slate-100 flex items-center justify-between text-xs gap-2">
                       <div className="flex items-center gap-2">
-                        <button
-                          type="button"
-                          onClick={() => setSelectedNewsDetail(item)}
-                          className="px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-bold text-[11px] transition-colors cursor-pointer"
-                        >
-                          Baca Selengkapnya
-                        </button>
-
                         {item.link && (
                           <a
                             href={item.link}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="inline-flex items-center gap-1 px-3 py-1.5 rounded-xl bg-blue-50 hover:bg-blue-100 text-blue-700 font-bold text-[11px] transition-colors"
+                            onClick={(e) => e.stopPropagation()}
+                            className="inline-flex items-center gap-1 px-3 py-1 rounded-xl bg-blue-50 hover:bg-blue-100 text-blue-700 font-bold text-[11px] transition-colors"
                           >
                             <span>pkp.go.id</span>
                             <ArrowUpRight className="w-3 h-3" />
@@ -3135,7 +3223,10 @@ export default function App() {
 
                       <button
                         type="button"
-                        onClick={() => copyNewsWA(item)}
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          copyNewsWA(item);
+                        }}
                         className="p-1.5 rounded-lg text-slate-400 hover:text-slate-700 hover:bg-slate-100 transition-colors flex items-center gap-1 text-[11px] font-semibold cursor-pointer"
                         title="Salin ringkasan rilis untuk WhatsApp"
                       >
@@ -3152,7 +3243,6 @@ export default function App() {
                         )}
                       </button>
                     </div>
-
                   </div>
                 ))}
 
@@ -3190,19 +3280,30 @@ export default function App() {
           {/* Drawer Container */}
           <div className="relative w-full max-w-[480px] bg-white h-full shadow-2xl flex flex-col z-10 drawer-slide-in overflow-hidden">
             
-            {/* Header */}
-            <div className="p-4 sm:p-5 border-b border-slate-100 flex items-center justify-between">
+            {/* Header with Back button */}
+            <div className="p-3 sm:p-4 border-b border-slate-100 flex items-center justify-between bg-slate-50/50">
               <div className="flex items-center gap-2">
+                <button
+                  type="button"
+                  onClick={() => setSelectedDetailItem(null)}
+                  className="inline-flex items-center gap-1 px-2.5 py-1 rounded-xl text-xs font-bold text-slate-700 bg-white hover:bg-slate-100 border border-slate-200 transition-colors shadow-xs cursor-pointer select-none"
+                  title="Kembali"
+                >
+                  <ArrowLeft className="w-3.5 h-3.5" />
+                  <span>Kembali</span>
+                </button>
                 <span className="px-2 py-0.5 rounded-md bg-slate-900 text-white text-xs font-extrabold">
                   #{cleanNomor(selectedDetailItem.nomor)}
                 </span>
-                <h3 className="text-base font-extrabold text-slate-900">
+                <h3 className="text-sm font-extrabold text-slate-900 truncate">
                   Detail Kegiatan
                 </h3>
               </div>
               <button
+                type="button"
                 onClick={() => setSelectedDetailItem(null)}
-                className="p-1.5 text-slate-400 hover:text-slate-700 hover:bg-slate-100 rounded-xl transition-colors"
+                className="p-1.5 text-slate-400 hover:text-slate-700 hover:bg-slate-100 rounded-xl transition-colors cursor-pointer"
+                title="Tutup (Esc)"
               >
                 <X className="w-5 h-5" />
               </button>
@@ -3374,11 +3475,20 @@ export default function App() {
 
             </div>
 
-            {/* Footer with Salin Format WA Button */}
-            <div className="p-4 border-t border-slate-100 bg-slate-50/70 space-y-2">
+            {/* Footer with Salin Format WA & Back Button */}
+            <div className="p-3.5 sm:p-4 border-t border-slate-100 bg-slate-50/70 flex items-center gap-2">
               <button
+                type="button"
+                onClick={() => setSelectedDetailItem(null)}
+                className="px-3.5 py-2.5 rounded-xl text-xs font-bold text-slate-700 bg-white hover:bg-slate-100 border border-slate-200 transition-colors inline-flex items-center gap-1.5 shrink-0 shadow-xs cursor-pointer select-none"
+              >
+                <ArrowLeft className="w-3.5 h-3.5" />
+                <span>Kembali</span>
+              </button>
+              <button
+                type="button"
                 onClick={() => copyReport(selectedDetailItem)}
-                className={`w-full h-10 rounded-xl font-bold text-xs flex items-center justify-center gap-2 transition-all ${
+                className={`flex-1 h-10 rounded-xl font-bold text-xs flex items-center justify-center gap-2 transition-all cursor-pointer ${
                   copyStatus[selectedDetailItem.id]
                     ? 'bg-emerald-600 text-white shadow-md'
                     : 'bg-slate-900 hover:bg-slate-800 text-white shadow-sm'
@@ -3416,19 +3526,30 @@ export default function App() {
           {/* Drawer Container */}
           <div className="relative w-full max-w-[560px] bg-white h-full shadow-2xl flex flex-col z-10 drawer-slide-in overflow-hidden">
             
-            {/* Header */}
-            <div className="p-4 sm:p-5 border-b border-slate-100 flex items-center justify-between">
+            {/* Header with Back button */}
+            <div className="p-3 sm:p-4 border-b border-slate-100 flex items-center justify-between bg-slate-50/50">
               <div className="flex items-center gap-2">
+                <button
+                  type="button"
+                  onClick={() => setSelectedNewsDetail(null)}
+                  className="inline-flex items-center gap-1 px-2.5 py-1 rounded-xl text-xs font-bold text-slate-700 bg-white hover:bg-slate-100 border border-slate-200 transition-colors shadow-xs cursor-pointer select-none"
+                  title="Kembali"
+                >
+                  <ArrowLeft className="w-3.5 h-3.5" />
+                  <span>Kembali</span>
+                </button>
                 <span className="px-2 py-0.5 rounded-md bg-blue-600 text-white text-xs font-extrabold">
                   {selectedNewsDetail.tahun}
                 </span>
-                <h3 className="text-base font-extrabold text-slate-900">
+                <h3 className="text-sm font-extrabold text-slate-900 truncate">
                   Rilis Berita Resmi
                 </h3>
               </div>
               <button
+                type="button"
                 onClick={() => setSelectedNewsDetail(null)}
                 className="p-1.5 text-slate-400 hover:text-slate-700 hover:bg-slate-100 rounded-xl transition-colors cursor-pointer"
+                title="Tutup (Esc)"
               >
                 <X className="w-5 h-5" />
               </button>
@@ -3504,9 +3625,19 @@ export default function App() {
 
             </div>
 
-            {/* Bottom Actions */}
-            <div className="p-4 border-t border-slate-100 bg-slate-50/80 flex items-center gap-2">
+            {/* Bottom Actions with Back Button */}
+            <div className="p-3.5 sm:p-4 border-t border-slate-100 bg-slate-50/80 flex items-center gap-2">
               <button
+                type="button"
+                onClick={() => setSelectedNewsDetail(null)}
+                className="px-3.5 py-2.5 rounded-xl text-xs font-bold text-slate-700 bg-white hover:bg-slate-100 border border-slate-200 transition-colors inline-flex items-center gap-1.5 shrink-0 shadow-xs cursor-pointer select-none"
+              >
+                <ArrowLeft className="w-4 h-4" />
+                <span>Kembali</span>
+              </button>
+
+              <button
+                type="button"
                 onClick={() => copyNewsWA(selectedNewsDetail)}
                 className={`flex-1 h-10 rounded-xl font-bold text-xs flex items-center justify-center gap-2 transition-all cursor-pointer ${
                   newsCopyStatus[selectedNewsDetail.id]
