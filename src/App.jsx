@@ -1,6 +1,7 @@
 import React, { useState, useMemo, useRef, useEffect, useCallback, startTransition } from 'react';
 import initialActivities from './data/activities.json';
 import initialNews from './data/news.json';
+import { fetchLiveActivities, fetchLiveNews } from './utils/googleSheetSync';
 import {
   Search,
   Calendar,
@@ -33,6 +34,7 @@ import {
   RotateCcw,
   Sparkles,
   Clock,
+  RefreshCw,
   Info,
   Eye,
   TrendingUp,
@@ -125,61 +127,92 @@ export default function App() {
     return `${y}-${m}-${d}`;
   });
 
-  // Silent Background Realtime Sync Function for Activities
-  const performSilentSync = useCallback(async () => {
+  // Live Sync states
+  const [isSyncing, setIsSyncing] = useState(false);
+  const [lastSyncTime, setLastSyncTime] = useState(null);
+  const [syncToast, setSyncToast] = useState(null);
+
+  // Live Sync function: directly queries Google Sheets with fallback to /api/sync
+  const triggerLiveSync = useCallback(async (isManual = false) => {
+    setIsSyncing(true);
+    let success = false;
+    let actCount = 0;
+
     try {
-      const res = await fetch('/api/sync', { cache: 'no-store' });
-      const result = await res.json();
-      if (result.success && Array.isArray(result.data)) {
-        setActivities(prev => {
-          if (
-            prev.length === result.data.length &&
-            prev[prev.length - 1]?.nomor === result.data[result.data.length - 1]?.nomor
-          ) {
-            return prev; // Data identik, jangan re-render
-          }
-          return result.data;
-        });
+      // 1. Direct fetch from Google Sheet (works on GitHub Pages & Localhost)
+      const liveActivities = await fetchLiveActivities();
+      if (Array.isArray(liveActivities) && liveActivities.length > 0) {
+        setActivities(liveActivities);
+        actCount = liveActivities.length;
+        success = true;
       }
-    } catch {
-      // silent fallback
+    } catch (directErr) {
+      console.warn('Direct Google Sheet fetch failed, trying local middleware fallback...', directErr);
+      // 2. Fallback to /api/sync if on local dev server
+      try {
+        const res = await fetch('/api/sync', { cache: 'no-store' });
+        const result = await res.json();
+        if (result.success && Array.isArray(result.data) && result.data.length > 0) {
+          setActivities(result.data);
+          actCount = result.data.length;
+          success = true;
+        }
+      } catch (localErr) {
+        console.warn('Local sync fallback failed:', localErr);
+      }
     }
-  }, []);
 
-  // Run silent sync on mount and periodically every 2 minutes
-  useEffect(() => {
-    performSilentSync();
-    const interval = setInterval(performSilentSync, 120000);
-    return () => clearInterval(interval);
-  }, [performSilentSync]);
-
-  // Silent Background Realtime Sync Function for News
-  const performSilentNewsSync = useCallback(async () => {
+    // Also update news in background
     try {
-      const res = await fetch('/api/sync-berita', { cache: 'no-store' });
-      const result = await res.json();
-      if (result.success && Array.isArray(result.data)) {
+      const liveNews2026 = await fetchLiveNews();
+      if (Array.isArray(liveNews2026) && liveNews2026.length > 0) {
         setNews(prev => {
-          if (
-            prev.length === result.data.length &&
-            prev[0]?.id === result.data[0]?.id
-          ) {
-            return prev;
-          }
-          return result.data;
+          const non2026 = prev.filter(n => n.tahun !== '2026');
+          return [...liveNews2026, ...non2026];
         });
       }
     } catch {
-      // silent fallback
+      // Optional news sync failure is non-fatal
+    }
+
+    setIsSyncing(false);
+
+    if (success) {
+      const now = new Date();
+      const timeStr = `${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')} WIB`;
+      setLastSyncTime(timeStr);
+
+      if (isManual) {
+        setSyncToast({
+          type: 'success',
+          message: `Live Sync berhasil! ${actCount} kegiatan terdata langsung dari Google Sheet.`
+        });
+        setTimeout(() => setSyncToast(null), 4000);
+      }
+    } else if (isManual) {
+      setSyncToast({
+        type: 'error',
+        message: 'Tidak dapat terhubung ke Google Sheet saat ini. Menampilkan data tersimpan.'
+      });
+      setTimeout(() => setSyncToast(null), 4000);
     }
   }, []);
 
-  // Run silent news sync on mount and periodically every 3 minutes
+  // Run live sync immediately on mount, on tab visibility change, and periodically every 45s
   useEffect(() => {
-    performSilentNewsSync();
-    const interval = setInterval(performSilentNewsSync, 180000);
-    return () => clearInterval(interval);
-  }, [performSilentNewsSync]);
+    triggerLiveSync(false);
+    const interval = setInterval(() => triggerLiveSync(false), 45000);
+    const handleVisibilityChange = () => {
+      if (document.visibilityState === 'visible') {
+        triggerLiveSync(false);
+      }
+    };
+    document.addEventListener('visibilitychange', handleVisibilityChange);
+    return () => {
+      clearInterval(interval);
+      document.removeEventListener('visibilitychange', handleVisibilityChange);
+    };
+  }, [triggerLiveSync]);
 
   // Close all popovers and dropdowns whenever currentMenu changes to prevent stuck states
   useEffect(() => {
@@ -675,6 +708,20 @@ export default function App() {
   return (
     <div className="min-h-screen text-slate-800 flex flex-col font-sans antialiased">
       
+      {/* Floating Live Sync Notification Toast */}
+      {syncToast && (
+        <div className="fixed top-4 left-1/2 -translate-x-1/2 z-50 popover-motion">
+          <div className={`flex items-center gap-2.5 px-4 py-2.5 rounded-2xl shadow-2xl border text-xs font-bold ${
+            syncToast.type === 'success'
+              ? 'bg-slate-900 text-white border-slate-700'
+              : 'bg-rose-900 text-white border-rose-800'
+          }`}>
+            <span className={`w-2 h-2 rounded-full shrink-0 ${syncToast.type === 'success' ? 'bg-emerald-400 animate-pulse' : 'bg-rose-400'}`} />
+            <span>{syncToast.message}</span>
+          </div>
+        </div>
+      )}
+
       {/* ======================================================== */}
       {/* TOP FLOATING NAVBAR (PENCARIAN - DASHBOARD - LANJUTAN)   */}
       {/* ======================================================== */}
@@ -697,6 +744,26 @@ export default function App() {
                 <span className="hidden sm:inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-extrabold bg-blue-50 text-blue-600 border border-blue-100">
                   {activities.length} Kegiatan
                 </span>
+
+                {/* Direct Google Sheets Live Sync Button */}
+                <button
+                  type="button"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    triggerLiveSync(true);
+                  }}
+                  disabled={isSyncing}
+                  className={`inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[10px] font-extrabold border transition-all cursor-pointer select-none shadow-xs ${
+                    isSyncing
+                      ? 'bg-amber-50 text-amber-700 border-amber-200'
+                      : 'bg-emerald-50 hover:bg-emerald-100 text-emerald-700 border-emerald-200'
+                  }`}
+                  title={`Live Sync langsung ke Google Sheet.${lastSyncTime ? ` Terakhir: ${lastSyncTime}.` : ''} Klik untuk sinkronkan data sekarang.`}
+                >
+                  <span className={`w-1.5 h-1.5 rounded-full shrink-0 ${isSyncing ? 'bg-amber-500 animate-ping' : 'bg-emerald-500'}`} />
+                  <span>{isSyncing ? 'Sinkron...' : 'Live Sync'}</span>
+                  <RefreshCw className={`w-2.5 h-2.5 shrink-0 ${isSyncing ? 'animate-spin text-amber-600' : 'text-emerald-600'}`} />
+                </button>
               </div>
               <p className="text-[10px] text-slate-400 font-medium hidden md:block">
                 Tim Peliputan & Publikasi - Biro Komunikasi Publik PKP
@@ -841,6 +908,32 @@ export default function App() {
                       </div>
                     </div>
                     <ChevronRight className="w-3.5 h-3.5 text-slate-400" />
+                  </button>
+
+                  <div className="my-1 border-t border-slate-100" />
+
+                  {/* Manual Live Sync Trigger */}
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setIsDropdownOpen(false);
+                      triggerLiveSync(true);
+                    }}
+                    disabled={isSyncing}
+                    className="w-full px-3 py-2 rounded-xl text-left text-xs sm:text-sm font-semibold flex items-center justify-between text-blue-700 hover:bg-blue-50 transition-colors cursor-pointer"
+                  >
+                    <div className="flex items-center gap-2.5">
+                      <RefreshCw className={`w-4 h-4 text-blue-600 shrink-0 ${isSyncing ? 'animate-spin' : ''}`} />
+                      <div>
+                        <div className="font-bold">Sinkronkan Database</div>
+                        <div className="text-[10px] text-slate-400 font-normal">
+                          {isSyncing ? 'Menyinkronkan data...' : `Live Sync (${lastSyncTime || 'Klik untuk perbarui'})`}
+                        </div>
+                      </div>
+                    </div>
+                    <span className="text-[10px] font-bold px-1.5 py-0.5 rounded bg-blue-100 text-blue-800">
+                      Sync
+                    </span>
                   </button>
 
                   <div className="my-1 border-t border-slate-100" />
