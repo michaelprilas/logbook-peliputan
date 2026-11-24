@@ -17,6 +17,9 @@ import {
   Building2,
   ArrowUpRight,
   ArrowLeft,
+  ArrowUpDown,
+  ArrowUp,
+  ArrowDown,
   Download,
   X,
   FileText,
@@ -87,6 +90,11 @@ export default function App() {
   const [isOfficerPickerOpen, setIsOfficerPickerOpen] = useState(false);
   const [officerSearch, setOfficerSearch] = useState('');
   const officerPickerRef = useRef(null);
+
+  // Sort state for "Rekapitulasi Kegiatan" (Table)
+  const [rekapSort, setRekapSort] = useState({ field: 'nomor', direction: 'asc' });
+  const [isSortPickerOpen, setIsSortPickerOpen] = useState(false);
+  const sortPickerRef = useRef(null);
 
   // Detail Drawer state
   const [selectedDetailItem, setSelectedDetailItem] = useState(null);
@@ -290,6 +298,9 @@ export default function App() {
       if (officerPickerRef.current && !officerPickerRef.current.contains(event.target)) {
         setIsOfficerPickerOpen(false);
       }
+      if (sortPickerRef.current && !sortPickerRef.current.contains(event.target)) {
+        setIsSortPickerOpen(false);
+      }
       if (newsSortPickerRef.current && !newsSortPickerRef.current.contains(event.target)) {
         setIsNewsSortPickerOpen(false);
       }
@@ -461,11 +472,13 @@ export default function App() {
     setSelectedProvince('all');
     setSelectedOfficers([]);
     setProvinceSearch('');
+    setRekapSort({ field: 'nomor', direction: 'asc' });
     setIsMonthPickerOpen(false);
     setIsNewsStatusPickerOpen(false);
     setIsVideoStatusPickerOpen(false);
     setIsProvincePickerOpen(false);
     setIsOfficerPickerOpen(false);
+    setIsSortPickerOpen(false);
   };
 
   // Active filters count
@@ -477,8 +490,9 @@ export default function App() {
     if (selectedVideoStatus !== 'all') count++;
     if (selectedProvince !== 'all') count++;
     if (selectedOfficers.length > 0) count++;
+    if (rekapSort.field !== 'nomor' || rekapSort.direction !== 'asc') count++;
     return count;
-  }, [rekapSearch, selectedMonths, selectedNewsStatus, selectedVideoStatus, selectedProvince, selectedOfficers]);
+  }, [rekapSearch, selectedMonths, selectedNewsStatus, selectedVideoStatus, selectedProvince, selectedOfficers, rekapSort]);
 
   // Results for "Pencarian Kegiatan" (1-column cards)
   const searchResults = useMemo(() => {
@@ -535,6 +549,93 @@ export default function App() {
     selectedOfficers
   ]);
 
+  // Sort Options for Rekapitulasi Table
+  const SORT_OPTIONS = [
+    { id: 'nomor-asc', field: 'nomor', direction: 'asc', label: 'Nomor (1 → Terakhir)' },
+    { id: 'nomor-desc', field: 'nomor', direction: 'desc', label: 'Nomor (Terakhir → 1)' },
+    { id: 'tanggal-desc', field: 'tanggal', direction: 'desc', label: 'Tanggal (Terbaru → Terlama)' },
+    { id: 'tanggal-asc', field: 'tanggal', direction: 'asc', label: 'Tanggal (Terlama → Terbaru)' },
+    { id: 'kegiatan-asc', field: 'kegiatan', direction: 'asc', label: 'Nama Kegiatan (A → Z)' },
+    { id: 'kegiatan-desc', field: 'kegiatan', direction: 'desc', label: 'Nama Kegiatan (Z → A)' },
+    { id: 'lokasi-asc', field: 'lokasi', direction: 'asc', label: 'Lokasi (A → Z)' },
+    { id: 'petugas-asc', field: 'petugas', direction: 'asc', label: 'Petugas (A → Z)' },
+    { id: 'berita-desc', field: 'berita', direction: 'desc', label: 'Status Berita (Ada Dahulu)' },
+    { id: 'video-desc', field: 'video', direction: 'desc', label: 'Status Video (Ada Dahulu)' },
+  ];
+
+  const handleToggleSort = (field) => {
+    setRekapSort(prev => {
+      if (prev.field === field) {
+        return { field, direction: prev.direction === 'asc' ? 'desc' : 'asc' };
+      }
+      const defaultDesc = ['tanggal', 'berita', 'video'].includes(field);
+      return { field, direction: defaultDesc ? 'desc' : 'asc' };
+    });
+  };
+
+  const currentSortLabel = useMemo(() => {
+    const found = SORT_OPTIONS.find(opt => opt.field === rekapSort.field && opt.direction === rekapSort.direction);
+    return found ? found.label : `${rekapSort.field} (${rekapSort.direction})`;
+  }, [rekapSort]);
+
+  // Sorted results for "Rekapitulasi Kegiatan" (Table)
+  const sortedRekapResults = useMemo(() => {
+    const list = [...rekapResults];
+    const { field, direction } = rekapSort;
+    if (!field) return list;
+
+    const multiplier = direction === 'asc' ? 1 : -1;
+
+    return list.sort((a, b) => {
+      if (field === 'nomor') {
+        const numA = parseInt(cleanNomor(a.nomor), 10) || 0;
+        const numB = parseInt(cleanNomor(b.nomor), 10) || 0;
+        return (numA - numB) * multiplier;
+      }
+      if (field === 'tanggal') {
+        const dateA = a.tanggal || '';
+        const dateB = b.tanggal || '';
+        const diff = dateA.localeCompare(dateB);
+        if (diff !== 0) return diff * multiplier;
+        const numA = parseInt(cleanNomor(a.nomor), 10) || 0;
+        const numB = parseInt(cleanNomor(b.nomor), 10) || 0;
+        return (numA - numB) * multiplier;
+      }
+      if (field === 'kegiatan') {
+        const strA = (a.kegiatan || '').toLowerCase();
+        const strB = (b.kegiatan || '').toLowerCase();
+        return strA.localeCompare(strB, 'id') * multiplier;
+      }
+      if (field === 'lokasi') {
+        const strA = (a.lokasi || '').toLowerCase();
+        const strB = (b.lokasi || '').toLowerCase();
+        return strA.localeCompare(strB, 'id') * multiplier;
+      }
+      if (field === 'petugas') {
+        const strA = (a.petugas[0] || '').toLowerCase();
+        const strB = (b.petugas[0] || '').toLowerCase();
+        return strA.localeCompare(strB, 'id') * multiplier;
+      }
+      if (field === 'berita') {
+        const scoreA = a.ada_berita && a.link_berita ? 2 : a.ada_berita ? 1 : 0;
+        const scoreB = b.ada_berita && b.link_berita ? 2 : b.ada_berita ? 1 : 0;
+        if (scoreA !== scoreB) return (scoreA - scoreB) * multiplier;
+        const numA = parseInt(cleanNomor(a.nomor), 10) || 0;
+        const numB = parseInt(cleanNomor(b.nomor), 10) || 0;
+        return (numA - numB) * multiplier;
+      }
+      if (field === 'video') {
+        const scoreA = (a.link_videos && a.link_videos.length > 0) || a.link_video ? 2 : a.ada_video ? 1 : 0;
+        const scoreB = (b.link_videos && b.link_videos.length > 0) || b.link_video ? 2 : b.ada_video ? 1 : 0;
+        if (scoreA !== scoreB) return (scoreA - scoreB) * multiplier;
+        const numA = parseInt(cleanNomor(a.nomor), 10) || 0;
+        const numB = parseInt(cleanNomor(b.nomor), 10) || 0;
+        return (numA - numB) * multiplier;
+      }
+      return 0;
+    });
+  }, [rekapResults, rekapSort]);
+
   // Copy WhatsApp Formatted Report
   const copyReport = (item) => {
     let videoSection = '🎬 *Publikasi Video:* Belum ada\n';
@@ -563,7 +664,7 @@ export default function App() {
   // Export table data to CSV
   const exportCSV = () => {
     const headers = ['Nomor', 'Tanggal', 'Kegiatan', 'Lokasi', 'Provinsi', 'Petugas', 'Status Berita', 'Judul Berita', 'Link Berita', 'Status Video', 'Link Video'];
-    const rows = rekapResults.map(a => [
+    const rows = sortedRekapResults.map(a => [
       cleanNomor(a.nomor),
       `"${a.tanggal_formatted || a.tanggal}"`,
       `"${(a.kegiatan || '').replace(/"/g, '""')}"`,
@@ -2598,6 +2699,20 @@ export default function App() {
                     </span>
                   ))}
 
+                  {(rekapSort.field !== 'nomor' || rekapSort.direction !== 'asc') && (
+                    <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200 font-bold text-[11px]">
+                      Urutan: {currentSortLabel}
+                      <button
+                        type="button"
+                        onClick={() => setRekapSort({ field: 'nomor', direction: 'asc' })}
+                        className="hover:text-blue-900"
+                        title="Kembalikan urutan default"
+                      >
+                        <X className="w-3 h-3" />
+                      </button>
+                    </span>
+                  )}
+
                   <button
                     type="button"
                     onClick={resetRekapFilters}
@@ -2610,31 +2725,193 @@ export default function App() {
 
             </div>
 
-            {/* Results Counter Above Table */}
-            <div className="flex items-center justify-between px-1 text-xs font-bold text-slate-500">
+            {/* Results Counter & Sort Selector Above Table */}
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 px-1 text-xs font-bold text-slate-500">
               <p>
-                Menampilkan <span className="text-blue-600 font-extrabold">{rekapResults.length}</span> dari {activities.length} kegiatan
+                Menampilkan <span className="text-blue-600 font-extrabold">{sortedRekapResults.length}</span> dari {activities.length} kegiatan
               </p>
+
+              <div className="flex items-center gap-2">
+                {/* Sort Dropdown Selector */}
+                <div className="relative" ref={sortPickerRef}>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setIsSortPickerOpen(!isSortPickerOpen);
+                      setIsMonthPickerOpen(false);
+                      setIsNewsStatusPickerOpen(false);
+                      setIsVideoStatusPickerOpen(false);
+                      setIsProvincePickerOpen(false);
+                      setIsOfficerPickerOpen(false);
+                    }}
+                    className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold border shadow-2xs transition-colors cursor-pointer select-none ${
+                      rekapSort.field !== 'nomor' || rekapSort.direction !== 'asc'
+                        ? 'bg-blue-50/70 border-blue-300 text-blue-700'
+                        : 'bg-white hover:bg-slate-50 border-slate-200 text-slate-700'
+                    }`}
+                  >
+                    <ArrowUpDown className="w-3.5 h-3.5 text-blue-600 shrink-0" />
+                    <span>Urutkan: <strong className="text-blue-600 font-extrabold">{currentSortLabel}</strong></span>
+                    <ChevronDown className={`w-3 h-3 text-slate-400 shrink-0 transition-transform duration-200 ${isSortPickerOpen ? 'rotate-180' : ''}`} />
+                  </button>
+
+                  {isSortPickerOpen && (
+                    <div className="absolute right-0 mt-1.5 w-64 bg-white rounded-2xl shadow-xl border border-slate-100 p-2 z-30 popover-motion origin-top-right">
+                      <div className="px-2 py-1 text-[10px] font-extrabold text-slate-400 uppercase tracking-wider border-b border-slate-100 mb-1">
+                        Pilihan Urutan Data
+                      </div>
+                      <div className="space-y-0.5 max-h-64 overflow-y-auto">
+                        {SORT_OPTIONS.map(opt => {
+                          const isSelected = rekapSort.field === opt.field && rekapSort.direction === opt.direction;
+                          return (
+                            <button
+                              key={opt.id}
+                              type="button"
+                              onClick={() => {
+                                setRekapSort({ field: opt.field, direction: opt.direction });
+                                setIsSortPickerOpen(false);
+                              }}
+                              className={`w-full flex items-center justify-between px-2.5 py-1.5 rounded-xl text-xs transition-all text-left cursor-pointer ${
+                                isSelected
+                                  ? 'bg-blue-50 text-blue-700 font-bold'
+                                  : 'hover:bg-slate-50 text-slate-700 font-medium'
+                              }`}
+                            >
+                              <span>{opt.label}</span>
+                              {isSelected && <Check className="w-3.5 h-3.5 text-blue-600 shrink-0 ml-2" />}
+                            </button>
+                          );
+                        })}
+                      </div>
+                    </div>
+                  )}
+                </div>
+              </div>
             </div>
 
             {/* Table Card */}
             <div className="invo-card overflow-hidden">
               <div className="overflow-x-auto max-h-[640px]">
                 <table className="w-full text-left text-xs border-collapse">
-                  <thead className="sticky top-0 z-10 bg-slate-50/95 backdrop-blur-md border-b border-slate-200 text-slate-500 font-extrabold text-[11px] uppercase tracking-wider">
+                  <thead className="sticky top-0 z-10 bg-slate-50/95 backdrop-blur-md border-b border-slate-200 text-slate-500 font-extrabold text-[11px] uppercase tracking-wider select-none">
                     <tr>
-                      <th className="py-2.5 px-3 w-12 text-center">No</th>
-                      <th className="py-2.5 px-3 w-28 whitespace-nowrap">Tanggal</th>
-                      <th className="py-2.5 px-3 min-w-[240px]">Nama Kegiatan</th>
-                      <th className="py-2.5 px-3 min-w-[150px]">Lokasi</th>
-                      <th className="py-2.5 px-3 min-w-[160px]">Petugas</th>
-                      <th className="py-2.5 px-3 w-28 text-center">Berita</th>
-                      <th className="py-2.5 px-3 w-28 text-center">Video</th>
-                      <th className="py-2.5 px-3 w-20 text-center">Aksi</th>
+                      {/* No */}
+                      <th
+                        onClick={() => handleToggleSort('nomor')}
+                        className="py-2.5 px-3 w-14 text-center cursor-pointer hover:bg-slate-100/70 hover:text-blue-600 transition-colors group/th"
+                        title="Klik untuk mengurutkan nomor (1-N / N-1)"
+                      >
+                        <div className="inline-flex items-center gap-1 justify-center">
+                          <span className={rekapSort.field === 'nomor' ? 'text-blue-600 font-black' : ''}>No</span>
+                          {rekapSort.field === 'nomor' ? (
+                            rekapSort.direction === 'asc' ? <ArrowUp className="w-3 h-3 text-blue-600" /> : <ArrowDown className="w-3 h-3 text-blue-600" />
+                          ) : (
+                            <ArrowUpDown className="w-2.5 h-2.5 text-slate-300 opacity-40 group-hover/th:opacity-100 transition-opacity" />
+                          )}
+                        </div>
+                      </th>
+
+                      {/* Tanggal */}
+                      <th
+                        onClick={() => handleToggleSort('tanggal')}
+                        className="py-2.5 px-3 w-32 whitespace-nowrap cursor-pointer hover:bg-slate-100/70 hover:text-blue-600 transition-colors group/th"
+                        title="Klik untuk mengurutkan tanggal (Terbaru / Terlama)"
+                      >
+                        <div className="flex items-center gap-1">
+                          <span className={rekapSort.field === 'tanggal' ? 'text-blue-600 font-black' : ''}>Tanggal</span>
+                          {rekapSort.field === 'tanggal' ? (
+                            rekapSort.direction === 'asc' ? <ArrowUp className="w-3 h-3 text-blue-600" /> : <ArrowDown className="w-3 h-3 text-blue-600" />
+                          ) : (
+                            <ArrowUpDown className="w-2.5 h-2.5 text-slate-300 opacity-40 group-hover/th:opacity-100 transition-opacity" />
+                          )}
+                        </div>
+                      </th>
+
+                      {/* Nama Kegiatan */}
+                      <th
+                        onClick={() => handleToggleSort('kegiatan')}
+                        className="py-2.5 px-3 min-w-[240px] cursor-pointer hover:bg-slate-100/70 hover:text-blue-600 transition-colors group/th"
+                        title="Klik untuk mengurutkan nama kegiatan (A-Z / Z-A)"
+                      >
+                        <div className="flex items-center gap-1">
+                          <span className={rekapSort.field === 'kegiatan' ? 'text-blue-600 font-black' : ''}>Nama Kegiatan</span>
+                          {rekapSort.field === 'kegiatan' ? (
+                            rekapSort.direction === 'asc' ? <ArrowUp className="w-3 h-3 text-blue-600" /> : <ArrowDown className="w-3 h-3 text-blue-600" />
+                          ) : (
+                            <ArrowUpDown className="w-2.5 h-2.5 text-slate-300 opacity-40 group-hover/th:opacity-100 transition-opacity" />
+                          )}
+                        </div>
+                      </th>
+
+                      {/* Lokasi */}
+                      <th
+                        onClick={() => handleToggleSort('lokasi')}
+                        className="py-2.5 px-3 min-w-[150px] cursor-pointer hover:bg-slate-100/70 hover:text-blue-600 transition-colors group/th"
+                        title="Klik untuk mengurutkan lokasi wilayah (A-Z / Z-A)"
+                      >
+                        <div className="flex items-center gap-1">
+                          <span className={rekapSort.field === 'lokasi' ? 'text-blue-600 font-black' : ''}>Lokasi</span>
+                          {rekapSort.field === 'lokasi' ? (
+                            rekapSort.direction === 'asc' ? <ArrowUp className="w-3 h-3 text-blue-600" /> : <ArrowDown className="w-3 h-3 text-blue-600" />
+                          ) : (
+                            <ArrowUpDown className="w-2.5 h-2.5 text-slate-300 opacity-40 group-hover/th:opacity-100 transition-opacity" />
+                          )}
+                        </div>
+                      </th>
+
+                      {/* Petugas */}
+                      <th
+                        onClick={() => handleToggleSort('petugas')}
+                        className="py-2.5 px-3 min-w-[160px] cursor-pointer hover:bg-slate-100/70 hover:text-blue-600 transition-colors group/th"
+                        title="Klik untuk mengurutkan nama petugas (A-Z / Z-A)"
+                      >
+                        <div className="flex items-center gap-1">
+                          <span className={rekapSort.field === 'petugas' ? 'text-blue-600 font-black' : ''}>Petugas</span>
+                          {rekapSort.field === 'petugas' ? (
+                            rekapSort.direction === 'asc' ? <ArrowUp className="w-3 h-3 text-blue-600" /> : <ArrowDown className="w-3 h-3 text-blue-600" />
+                          ) : (
+                            <ArrowUpDown className="w-2.5 h-2.5 text-slate-300 opacity-40 group-hover/th:opacity-100 transition-opacity" />
+                          )}
+                        </div>
+                      </th>
+
+                      {/* Berita */}
+                      <th
+                        onClick={() => handleToggleSort('berita')}
+                        className="py-2.5 px-3 w-28 text-center cursor-pointer hover:bg-slate-100/70 hover:text-blue-600 transition-colors group/th"
+                        title="Klik untuk mengurutkan status berita (Ada / Tidak Ada)"
+                      >
+                        <div className="inline-flex items-center gap-1 justify-center">
+                          <span className={rekapSort.field === 'berita' ? 'text-blue-600 font-black' : ''}>Berita</span>
+                          {rekapSort.field === 'berita' ? (
+                            rekapSort.direction === 'asc' ? <ArrowUp className="w-3 h-3 text-blue-600" /> : <ArrowDown className="w-3 h-3 text-blue-600" />
+                          ) : (
+                            <ArrowUpDown className="w-2.5 h-2.5 text-slate-300 opacity-40 group-hover/th:opacity-100 transition-opacity" />
+                          )}
+                        </div>
+                      </th>
+
+                      {/* Video */}
+                      <th
+                        onClick={() => handleToggleSort('video')}
+                        className="py-2.5 px-3 w-28 text-center cursor-pointer hover:bg-slate-100/70 hover:text-blue-600 transition-colors group/th"
+                        title="Klik untuk mengurutkan status video (Ada / Tidak Ada)"
+                      >
+                        <div className="inline-flex items-center gap-1 justify-center">
+                          <span className={rekapSort.field === 'video' ? 'text-blue-600 font-black' : ''}>Video</span>
+                          {rekapSort.field === 'video' ? (
+                            rekapSort.direction === 'asc' ? <ArrowUp className="w-3 h-3 text-blue-600" /> : <ArrowDown className="w-3 h-3 text-blue-600" />
+                          ) : (
+                            <ArrowUpDown className="w-2.5 h-2.5 text-slate-300 opacity-40 group-hover/th:opacity-100 transition-opacity" />
+                          )}
+                        </div>
+                      </th>
+
+                      <th className="py-2.5 px-3 w-16 text-center">Aksi</th>
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-slate-100 bg-white">
-                    {rekapResults.map(item => {
+                    {sortedRekapResults.map(item => {
                       const hasNews = item.ada_berita && item.link_berita;
                       const hasVideo = item.ada_video && (item.link_video || (item.link_videos && item.link_videos.length > 0));
                       const videoNeedsCheck = item.ada_video && !hasVideo;
