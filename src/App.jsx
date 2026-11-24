@@ -864,20 +864,8 @@ export default function App() {
       <header className="sticky top-0 z-40 px-3 sm:px-6 pt-2 pb-1.5 backdrop-blur-md bg-white/85 border-b border-slate-200/70 shadow-xs">
         <div className="max-w-7xl mx-auto flex items-center justify-between gap-2.5 sm:gap-4">
           
-          {/* Brand Identity & Back Button */}
+          {/* Brand Identity */}
           <div className="flex items-center gap-2 sm:gap-3 shrink-0">
-            {currentMenu !== 'search' && (
-              <button
-                type="button"
-                onClick={goBack}
-                className="inline-flex items-center gap-1 sm:gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-xl text-xs font-bold text-slate-700 bg-white hover:bg-slate-50 border border-slate-200/90 shadow-xs hover:border-blue-300 hover:text-blue-600 transition-all btn-motion select-none cursor-pointer"
-                title="Kembali ke halaman sebelumnya"
-              >
-                <ArrowLeft className="w-3.5 h-3.5 text-slate-500 group-hover:text-blue-600" />
-                <span className="hidden sm:inline">Kembali</span>
-              </button>
-            )}
-
             <div 
               onClick={() => navigateMenu('search')}
               className="flex items-center gap-2.5 cursor-pointer group select-none"
