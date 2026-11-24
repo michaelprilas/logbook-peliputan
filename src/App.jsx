@@ -912,32 +912,6 @@ export default function App() {
 
                   <div className="my-1 border-t border-slate-100" />
 
-                  {/* Manual Live Sync Trigger */}
-                  <button
-                    type="button"
-                    onClick={() => {
-                      setIsDropdownOpen(false);
-                      triggerLiveSync(true);
-                    }}
-                    disabled={isSyncing}
-                    className="w-full px-3 py-2 rounded-xl text-left text-xs sm:text-sm font-semibold flex items-center justify-between text-blue-700 hover:bg-blue-50 transition-colors cursor-pointer"
-                  >
-                    <div className="flex items-center gap-2.5">
-                      <RefreshCw className={`w-4 h-4 text-blue-600 shrink-0 ${isSyncing ? 'animate-spin' : ''}`} />
-                      <div>
-                        <div className="font-bold">Sinkronkan Database</div>
-                        <div className="text-[10px] text-slate-400 font-normal">
-                          {isSyncing ? 'Menyinkronkan data...' : `Live Sync (${lastSyncTime || 'Klik untuk perbarui'})`}
-                        </div>
-                      </div>
-                    </div>
-                    <span className="text-[10px] font-bold px-1.5 py-0.5 rounded bg-blue-100 text-blue-800">
-                      Sync
-                    </span>
-                  </button>
-
-                  <div className="my-1 border-t border-slate-100" />
-
                   {/* d. Database Logbook (Google Sheet) */}
                   <a
                     href="https://docs.google.com/spreadsheets/d/16Q_Mrbs2oHPMv-xcCaB9zJ5_JMjAfr9F/edit?usp=sharing&ouid=110437050343134361164&rtpof=true&sd=true"
