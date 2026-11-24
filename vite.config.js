@@ -10,6 +10,7 @@ const execPromise = promisify(execFile);
 
 // https://vite.dev/config/
 export default defineConfig({
+  base: process.env.NODE_ENV === 'production' ? '/logbook-peliputan/' : '/',
   plugins: [
     react(),
     tailwindcss(),
