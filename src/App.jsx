@@ -1566,36 +1566,37 @@ export default function App() {
                       Hari Ini
                     </button>
 
-                    <div className="relative flex items-center gap-1 bg-slate-50 border border-slate-200/80 rounded-xl p-0.5 shadow-xs" ref={calendarMonthPickerRef}>
+                    {/* Fixed-width month switcher container: locked width so controls never jitter or shift */}
+                    <div className="relative flex items-center gap-1 bg-slate-50 border border-slate-200/80 rounded-xl p-0.5 shadow-xs shrink-0 w-[215px] sm:w-[230px] justify-between" ref={calendarMonthPickerRef}>
                       <button
                         type="button"
                         onClick={() => setCalendarMonth(prev => (prev === 0 ? 11 : prev - 1))}
-                        className="p-1.5 rounded-lg hover:bg-white text-slate-600 hover:text-slate-900 transition-all cursor-pointer shadow-xs"
+                        className="p-1.5 rounded-lg hover:bg-white text-slate-600 hover:text-slate-900 transition-all cursor-pointer shadow-xs shrink-0"
                         title="Bulan sebelumnya"
                       >
                         <ChevronLeft className="w-3.5 h-3.5" />
                       </button>
 
-                      {/* Month Picker Trigger Button */}
+                      {/* Month Picker Trigger Button: locked width */}
                       <button
                         type="button"
                         onClick={() => setIsCalendarMonthPickerOpen(prev => !prev)}
-                        className={`inline-flex items-center justify-center gap-1.5 px-2.5 py-1 rounded-lg text-xs font-extrabold transition-all cursor-pointer select-none ${
+                        className={`w-38 sm:w-42 flex-1 inline-flex items-center justify-center gap-1.5 px-2 py-1 rounded-lg text-xs font-extrabold transition-all cursor-pointer select-none shrink-0 ${
                           isCalendarMonthPickerOpen
                             ? 'bg-blue-600 text-white shadow-xs'
                             : 'bg-white hover:bg-slate-100/80 text-slate-900 shadow-xs'
                         }`}
                         title="Klik untuk memilih bulan"
                       >
-                        <Calendar className="w-3.5 h-3.5" />
-                        <span>{MONTH_ORDER[calendarMonth]} {calendarYear}</span>
-                        <ChevronDown className={`w-3 h-3 transition-transform duration-200 ${isCalendarMonthPickerOpen ? 'rotate-180' : ''}`} />
+                        <Calendar className="w-3.5 h-3.5 shrink-0" />
+                        <span className="truncate text-center">{MONTH_ORDER[calendarMonth]} {calendarYear}</span>
+                        <ChevronDown className={`w-3 h-3 shrink-0 transition-transform duration-200 ${isCalendarMonthPickerOpen ? 'rotate-180' : ''}`} />
                       </button>
 
                       <button
                         type="button"
                         onClick={() => setCalendarMonth(prev => (prev === 11 ? 0 : prev + 1))}
-                        className="p-1.5 rounded-lg hover:bg-white text-slate-600 hover:text-slate-900 transition-all cursor-pointer shadow-xs"
+                        className="p-1.5 rounded-lg hover:bg-white text-slate-600 hover:text-slate-900 transition-all cursor-pointer shadow-xs shrink-0"
                         title="Bulan berikutnya"
                       >
                         <ChevronRight className="w-3.5 h-3.5" />
