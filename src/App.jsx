@@ -1445,21 +1445,21 @@ export default function App() {
               </div>
             </div>
 
-            {/* ROW 1: 3 COMPACT KPI CARDS (COL-SPAN-3) + KALENDER (KIRI) & AGENDA (KANAN) (COL-SPAN-9) */}
+            {/* ROW 1: 3 COMPACT KPI CARDS (COL-SPAN-2) + KALENDER & AGENDA (COL-SPAN-10) */}
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-3.5 items-stretch">
               
-              {/* Left Column (3 cols): Ukuran ringkas, tanpa panah, teks deskriptif jelas */}
-              <div className="lg:col-span-3 flex flex-col justify-between gap-3.5">
+              {/* Left Column (2 cols): Ukuran ringkas, tanpa memakan ruang berlebih */}
+              <div className="lg:col-span-2 flex flex-col justify-between gap-3">
                 
                 {/* 1. Total Kegiatan */}
-                <div className="invo-card invo-card-hover p-4 flex-1 flex flex-col justify-between">
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-1.5 text-xs font-bold text-slate-400">
-                      <span className="w-2 h-2 rounded-full bg-orange-500"></span>
-                      <span>Total Kegiatan</span>
+                <div className="invo-card invo-card-hover p-3 sm:p-3.5 flex-1 flex flex-col justify-between">
+                  <div className="flex items-center justify-between gap-1">
+                    <div className="flex items-center gap-1.5 text-xs font-bold text-slate-500 truncate">
+                      <span className="w-2 h-2 rounded-full bg-orange-500 shrink-0"></span>
+                      <span className="truncate">Total Kegiatan</span>
                     </div>
-                    <div className="w-9 h-9 rounded-xl bg-orange-50 text-orange-600 flex items-center justify-center shrink-0">
-                      <PieChart className="w-4.5 h-4.5" />
+                    <div className="w-8 h-8 rounded-xl bg-orange-50 text-orange-600 flex items-center justify-center shrink-0">
+                      <PieChart className="w-4 h-4" />
                     </div>
                   </div>
 
@@ -1469,23 +1469,23 @@ export default function App() {
                     </div>
                   </div>
 
-                  <div className="flex items-center justify-between text-[11px] pt-1.5 border-t border-slate-100">
-                    <span className="font-bold text-slate-600">
-                      Total agenda terdata 2026
+                  <div className="flex items-center justify-between text-[10px] sm:text-[11px] pt-1.5 border-t border-slate-100">
+                    <span className="font-semibold text-slate-500 truncate">
+                      Agenda terdata
                     </span>
-                    <span className="text-slate-400 font-semibold">Tahun 2026</span>
+                    <span className="text-slate-400 font-bold shrink-0">2026</span>
                   </div>
                 </div>
 
                 {/* 2. Publikasi Rilis Berita */}
-                <div className="invo-card invo-card-hover p-4 flex-1 flex flex-col justify-between">
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-1.5 text-xs font-bold text-slate-400">
-                      <span className="w-2 h-2 rounded-full bg-emerald-500"></span>
-                      <span>Rilis Berita</span>
+                <div className="invo-card invo-card-hover p-3 sm:p-3.5 flex-1 flex flex-col justify-between">
+                  <div className="flex items-center justify-between gap-1">
+                    <div className="flex items-center gap-1.5 text-xs font-bold text-slate-500 truncate">
+                      <span className="w-2 h-2 rounded-full bg-emerald-500 shrink-0"></span>
+                      <span className="truncate">Rilis Berita</span>
                     </div>
-                    <div className="w-9 h-9 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center shrink-0">
-                      <Newspaper className="w-4.5 h-4.5" />
+                    <div className="w-8 h-8 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center shrink-0">
+                      <Newspaper className="w-4 h-4" />
                     </div>
                   </div>
 
@@ -1495,23 +1495,23 @@ export default function App() {
                     </div>
                   </div>
 
-                  <div className="flex items-center justify-between text-[11px] pt-1.5 border-t border-slate-100">
-                    <span className="font-bold text-emerald-700 bg-emerald-50 px-2 py-0.2 rounded-md">
-                      {percentBerita}% kegiatan punya berita
+                  <div className="flex items-center justify-between text-[10px] sm:text-[11px] pt-1.5 border-t border-slate-100">
+                    <span className="font-bold text-emerald-700 bg-emerald-50 px-1.5 py-0.2 rounded truncate">
+                      {percentBerita}% kegiatan
                     </span>
-                    <span className="text-slate-400 font-semibold">pkp.go.id</span>
+                    <span className="text-slate-400 font-semibold shrink-0">pkp.go.id</span>
                   </div>
                 </div>
 
                 {/* 3. Publikasi Video */}
-                <div className="invo-card invo-card-hover p-4 flex-1 flex flex-col justify-between">
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-1.5 text-xs font-bold text-slate-400">
-                      <span className="w-2 h-2 rounded-full bg-blue-500"></span>
-                      <span>Publikasi Video</span>
+                <div className="invo-card invo-card-hover p-3 sm:p-3.5 flex-1 flex flex-col justify-between">
+                  <div className="flex items-center justify-between gap-1">
+                    <div className="flex items-center gap-1.5 text-xs font-bold text-slate-500 truncate">
+                      <span className="w-2 h-2 rounded-full bg-blue-500 shrink-0"></span>
+                      <span className="truncate">Publikasi Video</span>
                     </div>
-                    <div className="w-9 h-9 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center shrink-0">
-                      <Video className="w-4.5 h-4.5" />
+                    <div className="w-8 h-8 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center shrink-0">
+                      <Video className="w-4 h-4" />
                     </div>
                   </div>
 
@@ -1521,18 +1521,18 @@ export default function App() {
                     </div>
                   </div>
 
-                  <div className="flex items-center justify-between text-[11px] pt-1.5 border-t border-slate-100">
-                    <span className="font-bold text-blue-700 bg-blue-50 px-2 py-0.2 rounded-md">
-                      {percentVideo}% kegiatan punya video
+                  <div className="flex items-center justify-between text-[10px] sm:text-[11px] pt-1.5 border-t border-slate-100">
+                    <span className="font-bold text-blue-700 bg-blue-50 px-1.5 py-0.2 rounded truncate">
+                      {percentVideo}% kegiatan
                     </span>
-                    <span className="text-slate-400 font-semibold">Dokumentasi</span>
+                    <span className="text-slate-400 font-semibold shrink-0">Dokumentasi</span>
                   </div>
                 </div>
 
               </div>
 
-              {/* Right Column (9 cols): KALENDER DI SEBELAH KIRI, AGENDA DI SEBELAH KANAN */}
-              <div className="lg:col-span-9 invo-card p-5 sm:p-6 flex flex-col justify-between h-full">
+              {/* Right Column (10 cols): KALENDER LEBIH BESAR & AGENDA */}
+              <div className="lg:col-span-10 invo-card p-5 sm:p-6 flex flex-col justify-between h-full">
                 
                 {/* Header Kalender & Month Switcher */}
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-4 pb-3 border-b border-slate-100">
@@ -1691,25 +1691,25 @@ export default function App() {
                 {/* DUA KOLOM: KALENDER DI SEBELAH KIRI, AGENDA DI SEBELAH KANAN */}
                 <div className="grid grid-cols-1 md:grid-cols-12 gap-5 flex-1 items-stretch">
                   
-                  {/* SISI KIRI (7 Kolom): Matriks Kalender Bulanan */}
-                  <div className="md:col-span-7 flex flex-col justify-between">
+                  {/* SISI KIRI (7-8 Kolom): Matriks Kalender Bulanan (Ukuran Lebih Besar & Luas) */}
+                  <div className="md:col-span-7 xl:col-span-8 flex flex-col justify-between">
                     
                     {/* Header Hari (Sen - Min) */}
-                    <div className="grid grid-cols-7 gap-1.5 text-center text-xs font-black text-slate-400 uppercase tracking-wider mb-2">
-                      <span className="py-1 bg-slate-50 rounded-lg">Sen</span>
-                      <span className="py-1 bg-slate-50 rounded-lg">Sel</span>
-                      <span className="py-1 bg-slate-50 rounded-lg">Rab</span>
-                      <span className="py-1 bg-slate-50 rounded-lg">Kam</span>
-                      <span className="py-1 bg-slate-50 rounded-lg">Jum</span>
-                      <span className="py-1 bg-slate-50 rounded-lg">Sab</span>
-                      <span className="py-1 bg-slate-50 rounded-lg">Min</span>
+                    <div className="grid grid-cols-7 gap-1.5 sm:gap-2 text-center text-xs font-black text-slate-500 uppercase tracking-wider mb-2.5">
+                      <span className="py-1.5 bg-slate-50 rounded-xl">Sen</span>
+                      <span className="py-1.5 bg-slate-50 rounded-xl">Sel</span>
+                      <span className="py-1.5 bg-slate-50 rounded-xl">Rab</span>
+                      <span className="py-1.5 bg-slate-50 rounded-xl">Kam</span>
+                      <span className="py-1.5 bg-slate-50 rounded-xl">Jum</span>
+                      <span className="py-1.5 bg-slate-50 rounded-xl">Sab</span>
+                      <span className="py-1.5 bg-slate-50 rounded-xl">Min</span>
                     </div>
 
                     {/* Matriks Tanggal */}
                     <div className="grid grid-cols-7 gap-1.5 sm:gap-2 flex-1">
                       {calendarDaysMatrix.map((item, idx) => {
                         if (!item) {
-                          return <div key={`empty-${idx}`} className="h-10 sm:h-11 rounded-xl bg-transparent" />;
+                          return <div key={`empty-${idx}`} className="h-12 sm:h-13 md:h-14 rounded-xl sm:rounded-2xl bg-transparent" />;
                         }
 
                         const isSelected = selectedCalendarDate === item.dateKey;
@@ -1721,7 +1721,7 @@ export default function App() {
                           <button
                             key={item.dateKey}
                             onClick={() => setSelectedCalendarDate(item.dateKey)}
-                            className={`h-10 sm:h-11 rounded-xl flex flex-col items-center justify-between p-1 text-xs font-extrabold btn-motion relative ${
+                            className={`h-12 sm:h-13 md:h-14 rounded-xl sm:rounded-2xl flex flex-col items-center justify-between p-1.5 text-xs sm:text-sm font-extrabold btn-motion relative cursor-pointer ${
                               isSelected
                                 ? 'bg-blue-600 text-white shadow-md shadow-blue-500/30 scale-[1.03] ring-2 ring-blue-500 ring-offset-2 ring-offset-white'
                                 : isToday
@@ -1731,14 +1731,14 @@ export default function App() {
                                 : 'bg-transparent hover:bg-slate-50 text-slate-400 border border-transparent'
                             }`}
                           >
-                            <span className="leading-none mt-0.5">{item.dayNumber}</span>
+                            <span className="leading-none mt-0.5 text-xs sm:text-sm font-black">{item.dayNumber}</span>
                             {hasActivities && (
-                              <div className={`flex items-center gap-1 text-[9px] font-bold px-1.5 py-0.2 rounded-full ${
+                              <div className={`flex items-center gap-1 text-[9px] sm:text-[10px] font-bold px-1.5 py-0.5 rounded-full ${
                                 isSelected
-                                  ? 'bg-white/20 text-white'
+                                  ? 'bg-white/25 text-white'
                                   : 'bg-blue-100 text-blue-700'
                               }`}>
-                                <span className={`w-1 h-1 rounded-full ${isSelected ? 'bg-white' : 'bg-blue-600'}`}></span>
+                                <span className={`w-1.5 h-1.5 rounded-full ${isSelected ? 'bg-white' : 'bg-blue-600'}`}></span>
                                 <span>{count}</span>
                               </div>
                             )}
@@ -1748,15 +1748,18 @@ export default function App() {
                       })}
                     </div>
 
-                    <div className="pt-2 text-[11px] text-slate-400 flex items-center justify-between">
-                      <span>• Titik biru menandakan hari dengan agenda liputan</span>
+                    <div className="pt-2.5 text-[11px] text-slate-400 flex items-center justify-between">
+                      <span className="flex items-center gap-1.5">
+                        <span className="w-2 h-2 rounded-full bg-blue-600 inline-block"></span>
+                        Titik biru menandakan hari dengan agenda liputan
+                      </span>
                       <span className="text-blue-600 font-bold">Pilih tanggal</span>
                     </div>
 
                   </div>
 
-                  {/* SISI KANAN (5 Kolom): Rincian Agenda pada Tanggal Terpilih */}
-                  <div className="md:col-span-5 border-t md:border-t-0 md:border-l border-slate-100 md:pl-5 pt-4 md:pt-0 flex flex-col justify-between">
+                  {/* SISI KANAN (4-5 Kolom): Rincian Agenda pada Tanggal Terpilih */}
+                  <div className="md:col-span-5 xl:col-span-4 border-t md:border-t-0 md:border-l border-slate-100 md:pl-5 pt-4 md:pt-0 flex flex-col justify-between">
                     <div>
                       {/* Header Agenda */}
                       <div className="flex items-center justify-between mb-3 pb-2 border-b border-slate-100">
@@ -1777,7 +1780,7 @@ export default function App() {
                       </div>
 
                       {/* List of activities for the selected date */}
-                      <div key={selectedCalendarDate} className="space-y-2 max-h-[265px] overflow-y-auto pr-1 agenda-motion">
+                      <div key={selectedCalendarDate} className="space-y-2 max-h-[340px] sm:max-h-[360px] overflow-y-auto pr-1 agenda-motion">
                         {selectedDateActivities.length > 0 ? (
                           selectedDateActivities.map(item => (
                             <div
