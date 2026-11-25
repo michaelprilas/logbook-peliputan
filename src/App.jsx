@@ -1,4 +1,5 @@
 import React, { useState, useMemo, useRef, useEffect, useCallback, startTransition } from 'react';
+import pkpLogo from './assets/logo-pkp.svg';
 import initialActivities from './data/activities.json';
 import initialNews from './data/news.json';
 import { fetchLiveActivities, fetchLiveNews } from './utils/googleSheetSync';
@@ -903,7 +904,7 @@ export default function App() {
               aria-label="Kembali ke Beranda Pencarian Kegiatan"
             >
               <img
-                src="/logo-pkp.svg"
+                src={pkpLogo}
                 alt="Logo Kementerian Perumahan dan Kawasan Permukiman RI"
                 className="w-8 h-8 object-contain shrink-0"
               />
