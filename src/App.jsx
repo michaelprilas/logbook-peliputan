@@ -3389,7 +3389,6 @@ export default function App() {
                   {['2026', '2025', '2024', 'all'].map(year => {
                     const isSelected = selectedNewsYear === year;
                     const label = year === 'all' ? 'Semua Tahun' : year;
-                    const count = newsYearCounts[year] || 0;
 
                     return (
                       <button
@@ -3399,18 +3398,13 @@ export default function App() {
                           setSelectedNewsYear(year);
                           setNewsLimit(30);
                         }}
-                        className={`px-3 py-1.5 rounded-full text-xs font-sans font-medium transition-all duration-150 flex items-center gap-1.5 cursor-pointer ${
+                        className={`px-3.5 py-1.5 rounded-full text-xs font-sans transition-all duration-150 cursor-pointer ${
                           isSelected
                             ? 'bg-[#01B6BC] text-white shadow-xs font-bold'
-                            : 'text-[#9A9BA9] hover:text-[#2B2D42] hover:bg-white/60'
+                            : 'text-[#9A9BA9] hover:text-[#2B2D42] hover:bg-white/60 font-medium'
                         }`}
                       >
-                        <span>{label}</span>
-                        <span className={`text-[10px] px-1.5 py-0.2 rounded-full font-sans ${
-                          isSelected ? 'bg-white/20 text-white' : 'bg-[#EFF1F3] text-[#363853]'
-                        }`}>
-                          {count}
-                        </span>
+                        {label}
                       </button>
                     );
                   })}
