@@ -853,6 +853,10 @@ export default function App() {
         items: activitiesByDate[dateKey] || []
       });
     }
+    // Pad to exactly 42 slots (6 full weeks of 7 days) to lock the calendar height across all months
+    while (days.length < 42) {
+      days.push(null);
+    }
     return days;
   }, [calendarYear, calendarMonth, activitiesByDate]);
 
@@ -1578,7 +1582,7 @@ export default function App() {
               </div>
 
               {/* Right Column (10 cols): iFraldas Harmonious Calendar & Agenda */}
-              <div className="lg:col-span-10 invo-card p-5 sm:p-6 flex flex-col justify-between h-full">
+              <div className="lg:col-span-10 invo-card p-5 sm:p-6 flex flex-col justify-between h-full lg:h-[540px]">
                 
                 {/* Header Kalender & Month Switcher */}
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-4 pb-3 border-b border-[#EFF1F3]">
@@ -1735,13 +1739,13 @@ export default function App() {
                 </div>
 
                 {/* DUA KOLOM: KALENDER DI SEBELAH KIRI, AGENDA DI SEBELAH KANAN */}
-                <div className="grid grid-cols-1 md:grid-cols-12 gap-5 flex-1 items-stretch">
+                <div className="grid grid-cols-1 md:grid-cols-12 gap-5 flex-1 items-stretch min-h-0">
                   
                   {/* SISI KIRI (7-8 Kolom): Matriks Kalender Bulanan */}
-                  <div className="md:col-span-7 xl:col-span-8 flex flex-col justify-between">
+                  <div className="md:col-span-7 xl:col-span-8 flex flex-col justify-between h-full">
                     
                     {/* Header Hari (Sen - Min) */}
-                    <div className="grid grid-cols-7 gap-1 sm:gap-1.5 text-center text-xs font-bold uppercase tracking-wider text-[#9A9BA9] mb-2">
+                    <div className="grid grid-cols-7 gap-1 sm:gap-1.5 text-center text-xs font-bold uppercase tracking-wider text-[#9A9BA9] mb-2 shrink-0">
                       <span className="py-1 rounded-lg bg-[#F7F8F9] border border-[#EFF1F3]">Sen</span>
                       <span className="py-1 rounded-lg bg-[#F7F8F9] border border-[#EFF1F3]">Sel</span>
                       <span className="py-1 rounded-lg bg-[#F7F8F9] border border-[#EFF1F3]">Rab</span>
@@ -1751,11 +1755,11 @@ export default function App() {
                       <span className="py-1 rounded-lg bg-[#F7F8F9] border border-[#EFF1F3]">Min</span>
                     </div>
 
-                    {/* Matriks Tanggal (iFraldas Rounded Grid) */}
-                    <div className="grid grid-cols-7 gap-1 sm:gap-1.5 flex-1">
+                    {/* Matriks Tanggal (Locked 6 Rows Grid) */}
+                    <div className="grid grid-cols-7 grid-rows-6 gap-1 sm:gap-1.5 h-[340px] sm:h-[350px]">
                       {calendarDaysMatrix.map((item, idx) => {
                         if (!item) {
-                          return <div key={`empty-${idx}`} className="h-12 sm:h-13 md:h-14 bg-transparent border border-transparent" />;
+                          return <div key={`empty-${idx}`} className="h-full bg-transparent border border-transparent" />;
                         }
 
                         const isSelected = selectedCalendarDate === item.dateKey;
@@ -1768,7 +1772,7 @@ export default function App() {
                             key={item.dateKey}
                             type="button"
                             onClick={() => setSelectedCalendarDate(item.dateKey)}
-                            className={`h-12 sm:h-13 md:h-14 rounded-xl flex flex-col items-center justify-between p-1.5 text-xs transition-all relative cursor-pointer border ${
+                            className={`h-full rounded-xl flex flex-col items-center justify-between p-1 text-xs transition-all relative cursor-pointer border ${
                               isSelected
                                 ? 'bg-[#01B6BC] text-white border-[#01B6BC] shadow-md ring-2 ring-[#01B6BC]/30'
                                 : isToday
@@ -1778,7 +1782,7 @@ export default function App() {
                                 : 'bg-white hover:bg-[#F7F8F9] text-[#9A9BA9] border-[#EFF1F3]'
                             }`}
                           >
-                            <span className="leading-none mt-0.5 text-xs sm:text-sm font-bold">{item.dayNumber}</span>
+                            <span className="leading-none mt-0.5 text-xs font-bold">{item.dayNumber}</span>
                             {hasActivities && (
                               <div className={`flex items-center gap-1 text-[9px] font-bold px-1.5 py-0.2 rounded-full ${
                                 isSelected
@@ -1788,13 +1792,13 @@ export default function App() {
                                 <span>{count}</span>
                               </div>
                             )}
-                            {!hasActivities && <div className="h-1"></div>}
+                            {!hasActivities && <div className="h-0.5"></div>}
                           </button>
                         );
                       })}
                     </div>
 
-                    <div className="pt-3 text-xs text-[#9A9BA9] flex items-center justify-between">
+                    <div className="pt-2 text-[11px] text-[#9A9BA9] flex items-center justify-between shrink-0">
                       <span className="flex items-center gap-2">
                         <span className="w-2 h-2 rounded-full bg-[#01B6BC] inline-block" aria-hidden="true"></span>
                         Angka menandakan jumlah agenda liputan pada tanggal tersebut
@@ -1805,10 +1809,10 @@ export default function App() {
                   </div>
 
                   {/* SISI KANAN (4-5 Kolom): Rincian Agenda pada Tanggal Terpilih */}
-                  <div className="md:col-span-5 xl:col-span-4 border-t md:border-t-0 md:border-l border-[#EFF1F3] md:pl-5 pt-4 md:pt-0 flex flex-col justify-between">
-                    <div>
+                  <div className="md:col-span-5 xl:col-span-4 border-t md:border-t-0 md:border-l border-[#EFF1F3] md:pl-5 pt-4 md:pt-0 flex flex-col justify-between h-full min-h-0">
+                    <div className="flex flex-col h-full min-h-0">
                       {/* Header Agenda */}
-                      <div className="flex items-center justify-between mb-3 pb-2 border-b border-[#EFF1F3]">
+                      <div className="flex items-center justify-between mb-3 pb-2 border-b border-[#EFF1F3] shrink-0">
                         <div className="flex items-center gap-2">
                           <span className="w-2 h-2 rounded-full bg-[#01B6BC]" aria-hidden="true"></span>
                           <span className="text-xs sm:text-sm font-bold text-[#2B2D42]">
@@ -1825,8 +1829,8 @@ export default function App() {
                         </span>
                       </div>
 
-                      {/* List of activities for the selected date */}
-                      <div key={selectedCalendarDate} className="space-y-2 max-h-[340px] sm:max-h-[360px] overflow-y-auto pr-1 agenda-motion">
+                      {/* List of activities for the selected date - Locked Height */}
+                      <div key={selectedCalendarDate} className="space-y-2 h-[340px] sm:h-[350px] overflow-y-auto pr-1 agenda-motion">
                         {selectedDateActivities.length > 0 ? (
                           selectedDateActivities.map(item => (
                             <div
@@ -1895,7 +1899,7 @@ export default function App() {
                             </div>
                           ))
                         ) : (
-                          <div className="py-12 px-4 text-center bg-[#F7F8F9] border border-dashed border-[#D7D7DD] rounded-xl">
+                          <div className="h-full flex flex-col items-center justify-center p-6 text-center bg-[#F7F8F9] border border-dashed border-[#EFF1F3] rounded-xl">
                             <Calendar className="w-7 h-7 text-[#9A9BA9] mx-auto mb-2" aria-hidden="true" />
                             <p className="text-xs text-[#2B2D42] font-bold">
                               Tidak ada agenda pada tanggal ini
