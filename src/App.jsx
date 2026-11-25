@@ -3055,8 +3055,6 @@ export default function App() {
                           )}
                         </div>
                       </th>
-
-                      <th className="py-3 px-3 w-16 text-center font-heading font-bold text-xs">Aksi</th>
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-[#EFF1F3] bg-white">
@@ -3207,13 +3205,6 @@ export default function App() {
                                 <span>Tidak Ada</span>
                               </span>
                             )}
-                          </td>
-
-                          {/* Kolom Aksi: Indikator Buka Detail */}
-                          <td className="py-2.5 px-3 text-center">
-                            <span className="inline-flex items-center justify-center w-6 h-6 rounded-full bg-[#F7F8F9] group-hover:bg-[#01B6BC] text-[#9A9BA9] group-hover:text-white transition-all shadow-xs">
-                              <ChevronRight className="w-3.5 h-3.5" />
-                            </span>
                           </td>
                         </tr>
                       );
