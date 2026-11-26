@@ -1520,18 +1520,18 @@ export default function App() {
                     <span className="text-xs font-bold uppercase tracking-wider text-[#646f79] truncate">
                       Total Kegiatan
                     </span>
-                    <PieChart className="w-4 h-4 text-[#646f79] shrink-0" aria-hidden="true" />
+                    <PieChart className="w-4 h-4 text-[#323ca8] shrink-0" aria-hidden="true" />
                   </div>
 
                   <div className="my-1">
-                    <div className="text-3xl font-heading font-black text-[#0d0d0d] tracking-tight">
+                    <div className="text-3xl font-heading font-black text-[#323ca8] tracking-tight">
                       {activities.length}
                     </div>
                   </div>
 
                   <div className="flex items-center justify-between text-xs pt-2 border-t border-[#e5e5e5] text-[#646f79]">
                     <span className="truncate">Tahun 2026</span>
-                    <span className="font-bold text-[#646f79] shrink-0">100%</span>
+                    <span className="font-bold text-[#323ca8] shrink-0">100%</span>
                   </div>
                 </div>
 
@@ -1564,17 +1564,17 @@ export default function App() {
                     <span className="text-xs font-bold uppercase tracking-wider text-[#646f79] truncate">
                       Publikasi Video
                     </span>
-                    <Video className="w-4 h-4 text-[#ab3434] shrink-0" aria-hidden="true" />
+                    <Video className="w-4 h-4 text-[#0d0d0d] shrink-0" aria-hidden="true" />
                   </div>
 
                   <div className="my-1">
-                    <div className="text-3xl font-heading font-black text-[#323ca8] tracking-tight">
+                    <div className="text-3xl font-heading font-black text-[#0d0d0d] tracking-tight">
                       {totalVideo}
                     </div>
                   </div>
 
                   <div className="flex items-center justify-between text-xs pt-2 border-t border-[#e5e5e5]">
-                    <span className="text-[#323ca8] font-bold">
+                    <span className="text-[#0d0d0d] font-bold">
                       {percentVideo}% Video
                     </span>
                     <span className="text-[#646f79] shrink-0 text-[11px]">Dokumentasi</span>
