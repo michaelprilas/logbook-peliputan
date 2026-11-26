@@ -2,24 +2,24 @@
 
 @layer base {
   html, body {
-    background-color: #f7f7f4;
-    color: #26251e;
+    background-color: #ffffff;
+    color: #0d0d0d;
   }
   html {
     scrollbar-gutter: stable;
     overflow-y: scroll;
   }
   body {
-    font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Helvetica, sans-serif;
     min-height: 100vh;
-    background-color: #f7f7f4;
-    color: #26251e;
+    background-color: #ffffff;
+    color: #0d0d0d;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
 
   h1, h2, h3, h4, h5, h6, .font-heading {
-    font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Helvetica, sans-serif;
   }
 
   code, kbd, samp, pre, .font-mono {
@@ -34,36 +34,36 @@
     cursor: not-allowed;
   }
 
-  /* Cursor Focus: 2px solid Cursor Orange (#f54e00) with 2px offset */
+  /* Asana Focus: 2px solid primary gray (#646f79) with 2px offset */
   :focus-visible {
-    outline: 2px solid #f54e00;
+    outline: 2px solid #646f79;
     outline-offset: 2px;
   }
 }
 
 /* ------------------------------------------------------------- */
-/* Cursor Hairline Cards & Surfaces (No heavy drop shadows)      */
+/* Asana Work Management Surfaces & Cards                        */
 /* ------------------------------------------------------------- */
 
-.cursor-card, .invo-card {
+.asana-card, .invo-card {
   background-color: #ffffff;
-  border-radius: 12px !important;
-  border: 1px solid #e6e5e0;
-  box-shadow: none !important;
-  transition: border-color 0.15s ease;
+  border-radius: 16px !important;
+  border: 1px solid #f3f3f3;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04) !important;
+  transition: all 0.2s ease-in-out;
 }
 
-.cursor-card-hover:hover, .invo-card-hover:hover {
-  border-color: #cfcdc4;
-  box-shadow: none !important;
-  transform: none !important;
+.asana-card-hover:hover, .invo-card-hover:hover {
+  border-color: #e5e5e5;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.07) !important;
+  transform: translateY(-1px);
 }
 
-/* Popover / Dropdown pure flat transition */
+/* Popover / Dropdown smooth transition */
 @keyframes popoverIn {
   0% {
     opacity: 0;
-    transform: translateY(-2px);
+    transform: translateY(-4px);
   }
   100% {
     opacity: 1;
@@ -72,7 +72,7 @@
 }
 
 .popover-motion {
-  animation: popoverIn 0.12s ease-out forwards;
+  animation: popoverIn 0.15s ease-out forwards;
   transform-origin: top;
 }
 
@@ -96,7 +96,7 @@
 }
 
 .drawer-slide-in {
-  animation: drawerSlideInRight 0.18s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation: drawerSlideInRight 0.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 .drawer-backdrop {
@@ -114,7 +114,7 @@
 }
 
 .agenda-motion {
-  animation: agendaSlide 0.12s ease-out forwards;
+  animation: agendaSlide 0.15s ease-out forwards;
 }
 
 /* Page Entrance */
@@ -128,20 +128,22 @@
 }
 
 .page-transition {
-  animation: pageEntrance 0.12s ease-out forwards;
+  animation: pageEntrance 0.15s ease-out forwards;
 }
 
 @keyframes fadeInUpSubtle {
   0% {
     opacity: 0;
+    transform: translateY(2px);
   }
   100% {
     opacity: 1;
+    transform: translateY(0);
   }
 }
 
 .motion-card-enter {
-  animation: fadeInUpSubtle 0.12s ease-out both;
+  animation: fadeInUpSubtle 0.15s ease-out both;
 }
 
 /* Chart Bars Initial Grow */
@@ -156,12 +158,12 @@
 
 .chart-bar-animated {
   transform-origin: bottom;
-  animation: barGrow 0.2s ease-out forwards;
+  animation: barGrow 0.25s ease-out forwards;
 }
 
 /* Buttons & Interactive Elements */
 .btn-motion {
-  transition: all 0.15s ease;
+  transition: all 0.2s ease-in-out;
 }
 
 /* R-03: Minimum touch target helper */
@@ -173,23 +175,23 @@
   justify-content: center;
 }
 
-/* Custom subtle scrollbar (Cursor hairline & warm neutral) */
+/* Custom subtle scrollbar (Asana light clean) */
 ::-webkit-scrollbar {
-  width: 5px;
-  height: 5px;
+  width: 6px;
+  height: 6px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #f7f7f4;
+  background: #ffffff;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #cfcdc4;
+  background: #e0e0e0;
   border-radius: 9999px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #a09c92;
+  background: #b5b5b5;
 }
 
 /* Respect user reduced motion */

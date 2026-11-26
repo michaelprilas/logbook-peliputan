@@ -886,10 +886,10 @@ export default function App() {
         <div className="fixed top-4 left-1/2 -translate-x-1/2 z-50 popover-motion">
           <div className={`flex items-center gap-2.5 px-4 py-2 border text-xs font-mono ${
             syncToast.type === 'success'
-              ? 'bg-[#26251e] text-[#f7f7f4] border-[#26251e] rounded-[6px]'
-              : 'bg-[#cf2d56] text-[#f7f7f4] border-[#cf2d56] rounded-[6px]'
+              ? 'bg-[#0d0e10] text-white border-[#0d0e10] rounded-md'
+              : 'bg-[#f06a6a] text-white border-[#f06a6a] rounded-md'
           }`}>
-            <span className={`w-2 h-2 shrink-0 ${syncToast.type === 'success' ? 'bg-[#1f8a65]' : 'bg-white'}`} />
+            <span className={`w-2 h-2 shrink-0 ${syncToast.type === 'success' ? 'bg-[#45a985]' : 'bg-white'}`} />
             <span>{syncToast.message}</span>
           </div>
         </div>
@@ -898,7 +898,7 @@ export default function App() {
       {/* ======================================================== */}
       {/* TOP NAVBAR (IFRALDAS CLEAN MODERN BAR)                   */}
       {/* ======================================================== */}
-      <header className="sticky top-0 z-40 px-4 sm:px-8 py-3 bg-white/95 backdrop-blur-xs border-b border-[#e6e5e0] shadow-none">
+      <header className="sticky top-0 z-40 px-4 sm:px-8 py-3 bg-white/95 backdrop-blur-xs border-b border-[#e5e5e5] shadow-xs">
         <div className="max-w-7xl mx-auto flex items-center justify-between gap-3 sm:gap-6">
           
           {/* Brand Identity */}
@@ -906,7 +906,7 @@ export default function App() {
             <button 
               type="button"
               onClick={() => navigateMenu('search')}
-              className="flex items-center gap-3 text-left select-none cursor-pointer focus-visible:outline-2 focus-visible:outline-[#f54e00] rounded-xl p-1 -m-1"
+              className="flex items-center gap-3 text-left select-none cursor-pointer focus-visible:outline-2 focus-visible:outline-[#646f79] rounded-2xl p-1 -m-1"
               aria-label="Kembali ke Beranda Pencarian Kegiatan"
             >
               <img
@@ -915,17 +915,17 @@ export default function App() {
                 className="w-8 h-8 object-contain shrink-0"
               />
               <div>
-                <span className="font-heading font-extrabold text-[#26251e] text-base sm:text-lg tracking-tight block">
-                  Archive<span className="text-[#f54e00]">Peliputan</span>
+                <span className="font-heading font-extrabold text-[#0d0d0d] text-base sm:text-lg tracking-tight block">
+                  Archive<span className="text-[#646f79] font-medium">Peliputan</span>
                 </span>
-                <p className="text-[10px] text-[#807d72] tracking-wider uppercase font-medium hidden md:block">
+                <p className="text-[10px] text-[#646f79] tracking-wider uppercase font-medium hidden md:block">
                   Biro Komunikasi Publik PKP
                 </p>
               </div>
             </button>
 
             <div className="hidden md:flex items-center gap-2">
-              <span className="hidden lg:inline-flex items-center px-2.5 py-0.5 text-[11px] font-bold text-[#f54e00] bg-[#fafaf7] rounded-full border border-[#e6e5e0]">
+              <span className="hidden lg:inline-flex items-center px-2.5 py-0.5 text-[11px] font-bold text-[#646f79] bg-[#f3f3f3] rounded-full border border-[#e5e5e5]">
                 {activities.length} KEGIATAN
               </span>
 
@@ -936,8 +936,8 @@ export default function App() {
                 disabled={isSyncing}
                 className={`inline-flex items-center gap-1.5 px-3.5 py-1 text-xs font-semibold rounded-full border transition-all cursor-pointer select-none ${
                   isSyncing
-                    ? 'bg-[#efeee8] text-[#807d72] border-[#cfcdc4]'
-                    : 'bg-white hover:bg-[#fafaf7] text-[#f54e00] border-[#f54e00] shadow-none hover:shadow-none'
+                    ? 'bg-[#f3f3f3] text-[#646f79] border-[#d1d5db]'
+                    : 'bg-white hover:bg-[#f3f3f3] text-[#646f79] border-[#646f79] shadow-xs hover:shadow-xs'
                 }`}
                 title={`Live Sync Google Sheet.${lastSyncTime ? ` Terakhir: ${lastSyncTime}.` : ''} Klik untuk sinkronkan data.`}
               >
@@ -948,7 +948,7 @@ export default function App() {
           </div>
 
           {/* Top Menu Navigation (iFraldas Pill Segmented Control) */}
-          <nav className="flex items-center bg-white border border-[#e6e5e0] p-1 rounded-[8px] shrink-0">
+          <nav className="flex items-center bg-white border border-[#e5e5e5] p-1 rounded-[8px] shrink-0">
             
             {/* 1. Pencarian */}
             <button
@@ -956,8 +956,8 @@ export default function App() {
               onClick={() => navigateMenu('search')}
               className={`inline-flex items-center justify-center gap-1.5 px-4 py-1.5 text-xs font-bold rounded-full select-none whitespace-nowrap transition-all duration-200 cursor-pointer ${
                 currentMenu === 'search'
-                  ? 'bg-[#f54e00] text-white shadow-none'
-                  : 'text-[#807d72] hover:text-[#26251e] hover:bg-white/80'
+                  ? 'bg-[#0d0e10] text-white shadow-xs'
+                  : 'text-[#646f79] hover:text-[#0d0d0d] hover:bg-white/80'
               }`}
             >
               <Search className="w-3.5 h-3.5 shrink-0" />
@@ -970,8 +970,8 @@ export default function App() {
               onClick={() => navigateMenu('dashboard')}
               className={`inline-flex items-center justify-center gap-1.5 px-4 py-1.5 text-xs font-bold rounded-full select-none whitespace-nowrap transition-all duration-200 cursor-pointer ${
                 currentMenu === 'dashboard'
-                  ? 'bg-[#f54e00] text-white shadow-none'
-                  : 'text-[#807d72] hover:text-[#26251e] hover:bg-white/80'
+                  ? 'bg-[#0d0e10] text-white shadow-xs'
+                  : 'text-[#646f79] hover:text-[#0d0d0d] hover:bg-white/80'
               }`}
             >
               <LayoutDashboard className="w-3.5 h-3.5 shrink-0" />
@@ -985,8 +985,8 @@ export default function App() {
                 onClick={() => setIsDropdownOpen(prev => !prev)}
                 className={`inline-flex items-center justify-center gap-1.5 px-4 py-1.5 text-xs font-bold rounded-full select-none whitespace-nowrap transition-all duration-200 cursor-pointer ${
                   currentMenu !== 'search' && currentMenu !== 'dashboard'
-                    ? 'bg-[#f54e00] text-white shadow-none'
-                    : 'text-[#807d72] hover:text-[#26251e] hover:bg-white/80'
+                    ? 'bg-[#0d0e10] text-white shadow-xs'
+                    : 'text-[#646f79] hover:text-[#0d0d0d] hover:bg-white/80'
                 }`}
               >
                 <Layers className="w-3.5 h-3.5 shrink-0" />
@@ -996,8 +996,8 @@ export default function App() {
 
               {/* iFraldas Dropdown Popover */}
               {isDropdownOpen && (
-                <div className="absolute right-0 mt-1.5 w-64 bg-white rounded-xl shadow-none border border-[#e6e5e0] p-1.5 z-50 popover-motion origin-top-right">
-                  <div className="px-3 py-1.5 text-[10px] font-bold uppercase tracking-wider text-[#807d72]">
+                <div className="absolute right-0 mt-1.5 w-64 bg-white rounded-2xl shadow-xs border border-[#e5e5e5] p-1.5 z-50 popover-motion origin-top-right">
+                  <div className="px-3 py-1.5 text-[10px] font-bold uppercase tracking-wider text-[#646f79]">
                     Modul Liputan
                   </div>
 
@@ -1005,70 +1005,70 @@ export default function App() {
                   <button
                     type="button"
                     onClick={() => navigateMenu('rekapitulasi')}
-                    className={`w-full px-3 py-2 rounded-xl text-left text-xs font-medium flex items-center justify-between cursor-pointer transition-colors ${
+                    className={`w-full px-3 py-2 rounded-2xl text-left text-xs font-medium flex items-center justify-between cursor-pointer transition-colors ${
                       currentMenu === 'rekapitulasi'
-                        ? 'bg-[#fafaf7] text-[#f54e00] font-bold'
-                        : 'text-[#5a5852] hover:bg-[#f7f7f4]'
+                        ? 'bg-[#f3f3f3] text-[#646f79] font-bold'
+                        : 'text-[#0d0d0d] hover:bg-[#ffffff]'
                     }`}
                   >
                     <div className="flex items-center gap-2.5">
-                      <FileText className="w-4 h-4 shrink-0 text-[#f54e00]" />
+                      <FileText className="w-4 h-4 shrink-0 text-[#646f79]" />
                       <div>
                         <div className="font-bold">Rekapitulasi Kegiatan</div>
-                        <div className="text-[10px] text-[#807d72]">Tabel data interaktif & filter</div>
+                        <div className="text-[10px] text-[#646f79]">Tabel data interaktif & filter</div>
                       </div>
                     </div>
-                    <ChevronRight className="w-3.5 h-3.5 text-[#807d72]" />
+                    <ChevronRight className="w-3.5 h-3.5 text-[#646f79]" />
                   </button>
 
                   {/* b. Tim Peliputan */}
                   <button
                     type="button"
                     onClick={() => navigateMenu('tim')}
-                    className={`w-full px-3 py-2 rounded-xl text-left text-xs font-medium flex items-center justify-between cursor-pointer transition-colors ${
+                    className={`w-full px-3 py-2 rounded-2xl text-left text-xs font-medium flex items-center justify-between cursor-pointer transition-colors ${
                       currentMenu === 'tim'
-                        ? 'bg-[#fafaf7] text-[#f54e00] font-bold'
-                        : 'text-[#5a5852] hover:bg-[#f7f7f4]'
+                        ? 'bg-[#f3f3f3] text-[#646f79] font-bold'
+                        : 'text-[#0d0d0d] hover:bg-[#ffffff]'
                     }`}
                   >
                     <div className="flex items-center gap-2.5">
-                      <Users className="w-4 h-4 shrink-0 text-[#553c7b]" />
+                      <Users className="w-4 h-4 shrink-0 text-[#0d0d0d]" />
                       <div>
                         <div className="font-bold">Tim Peliputan</div>
-                        <div className="text-[10px] text-[#807d72]">{officerStats.length} personil & penugasan</div>
+                        <div className="text-[10px] text-[#646f79]">{officerStats.length} personil & penugasan</div>
                       </div>
                     </div>
-                    <ChevronRight className="w-3.5 h-3.5 text-[#807d72]" />
+                    <ChevronRight className="w-3.5 h-3.5 text-[#646f79]" />
                   </button>
 
                   {/* c. Berita */}
                   <button
                     type="button"
                     onClick={() => navigateMenu('berita')}
-                    className={`w-full px-3 py-2 rounded-xl text-left text-xs font-medium flex items-center justify-between cursor-pointer transition-colors ${
+                    className={`w-full px-3 py-2 rounded-2xl text-left text-xs font-medium flex items-center justify-between cursor-pointer transition-colors ${
                       currentMenu === 'berita'
-                        ? 'bg-[#fafaf7] text-[#f54e00] font-bold'
-                        : 'text-[#5a5852] hover:bg-[#f7f7f4]'
+                        ? 'bg-[#f3f3f3] text-[#646f79] font-bold'
+                        : 'text-[#0d0d0d] hover:bg-[#ffffff]'
                     }`}
                   >
                     <div className="flex items-center gap-2.5">
-                      <Newspaper className="w-4 h-4 shrink-0 text-[#dfa88f]" />
+                      <Newspaper className="w-4 h-4 shrink-0 text-[#ab3434]" />
                       <div>
                         <div className="font-bold">Berita Resmi</div>
-                        <div className="text-[10px] text-[#807d72]">Kliping & rilis resmi pkp.go.id</div>
+                        <div className="text-[10px] text-[#646f79]">Kliping & rilis resmi pkp.go.id</div>
                       </div>
                     </div>
-                    <ChevronRight className="w-3.5 h-3.5 text-[#807d72]" />
+                    <ChevronRight className="w-3.5 h-3.5 text-[#646f79]" />
                   </button>
 
                   {/* d. Laporan (Segera) */}
                   <button
                     type="button"
                     onClick={() => navigateMenu('laporan')}
-                    className={`w-full px-3 py-2 rounded-xl text-left text-xs font-medium flex items-center justify-between cursor-pointer transition-colors ${
+                    className={`w-full px-3 py-2 rounded-2xl text-left text-xs font-medium flex items-center justify-between cursor-pointer transition-colors ${
                       currentMenu === 'laporan'
-                        ? 'bg-[#fafaf7] text-[#f54e00] font-bold'
-                        : 'text-[#5a5852] hover:bg-[#f7f7f4]'
+                        ? 'bg-[#f3f3f3] text-[#646f79] font-bold'
+                        : 'text-[#0d0d0d] hover:bg-[#ffffff]'
                     }`}
                   >
                     <div className="flex items-center gap-2.5">
@@ -1080,13 +1080,13 @@ export default function App() {
                             SEGERA
                           </span>
                         </div>
-                        <div className="text-[10px] text-[#807d72]">Format rekap pimpinan</div>
+                        <div className="text-[10px] text-[#646f79]">Format rekap pimpinan</div>
                       </div>
                     </div>
-                    <ChevronRight className="w-3.5 h-3.5 text-[#807d72]" />
+                    <ChevronRight className="w-3.5 h-3.5 text-[#646f79]" />
                   </button>
 
-                  <div className="my-1 border-t border-[#e6e5e0]" />
+                  <div className="my-1 border-t border-[#e5e5e5]" />
 
                   {/* d. Database Logbook (Google Sheet) */}
                   <a
@@ -1094,16 +1094,16 @@ export default function App() {
                     target="_blank"
                     rel="noopener noreferrer"
                     onClick={() => setIsDropdownOpen(false)}
-                    className="w-full px-3 py-2 rounded-xl text-left text-xs font-medium flex items-center justify-between text-[#5a5852] hover:bg-[#f7f7f4] transition-colors"
+                    className="w-full px-3 py-2 rounded-2xl text-left text-xs font-medium flex items-center justify-between text-[#0d0d0d] hover:bg-[#ffffff] transition-colors"
                   >
                     <div className="flex items-center gap-2.5">
-                      <FileSpreadsheet className="w-4 h-4 text-[#1f8a65] shrink-0" />
+                      <FileSpreadsheet className="w-4 h-4 text-[#216950] shrink-0" />
                       <div>
                         <div className="font-bold">Database Logbook</div>
-                        <div className="text-[10px] text-[#807d72]">Spreadsheet logbook peliputan</div>
+                        <div className="text-[10px] text-[#646f79]">Spreadsheet logbook peliputan</div>
                       </div>
                     </div>
-                    <ArrowUpRight className="w-4 h-4 text-[#807d72] shrink-0" />
+                    <ArrowUpRight className="w-4 h-4 text-[#646f79] shrink-0" />
                   </a>
 
                   {/* e. Database Berita (Google Sheet) */}
@@ -1112,16 +1112,16 @@ export default function App() {
                     target="_blank"
                     rel="noopener noreferrer"
                     onClick={() => setIsDropdownOpen(false)}
-                    className="w-full px-3 py-2 rounded-xl text-left text-xs font-medium flex items-center justify-between text-[#5a5852] hover:bg-[#f7f7f4] transition-colors"
+                    className="w-full px-3 py-2 rounded-2xl text-left text-xs font-medium flex items-center justify-between text-[#0d0d0d] hover:bg-[#ffffff] transition-colors"
                   >
                     <div className="flex items-center gap-2.5">
-                      <FileSpreadsheet className="w-4 h-4 text-[#f54e00] shrink-0" />
+                      <FileSpreadsheet className="w-4 h-4 text-[#646f79] shrink-0" />
                       <div>
                         <div className="font-bold">Database Berita</div>
-                        <div className="text-[10px] text-[#807d72]">Spreadsheet arsip rilis berita</div>
+                        <div className="text-[10px] text-[#646f79]">Spreadsheet arsip rilis berita</div>
                       </div>
                     </div>
-                    <ArrowUpRight className="w-4 h-4 text-[#807d72] shrink-0" />
+                    <ArrowUpRight className="w-4 h-4 text-[#646f79] shrink-0" />
                   </a>
 
                   {/* f. Dokumentasi (SharePoint) */}
@@ -1130,16 +1130,16 @@ export default function App() {
                     target="_blank"
                     rel="noopener noreferrer"
                     onClick={() => setIsDropdownOpen(false)}
-                    className="w-full px-3 py-2 rounded-xl text-left text-xs font-medium flex items-center justify-between text-[#5a5852] hover:bg-[#f7f7f4] transition-colors"
+                    className="w-full px-3 py-2 rounded-2xl text-left text-xs font-medium flex items-center justify-between text-[#0d0d0d] hover:bg-[#ffffff] transition-colors"
                   >
                     <div className="flex items-center gap-2.5">
-                      <FolderArchive className="w-4 h-4 text-[#553c7b] shrink-0" />
+                      <FolderArchive className="w-4 h-4 text-[#0d0d0d] shrink-0" />
                       <div>
                         <div className="font-bold">Dokumentasi</div>
-                        <div className="text-[10px] text-[#807d72]">Folder arsip SharePoint</div>
+                        <div className="text-[10px] text-[#646f79]">Folder arsip SharePoint</div>
                       </div>
                     </div>
-                    <ArrowUpRight className="w-4 h-4 text-[#807d72] shrink-0" />
+                    <ArrowUpRight className="w-4 h-4 text-[#646f79] shrink-0" />
                   </a>
                 </div>
               )}
@@ -1163,17 +1163,17 @@ export default function App() {
             {/* Search Box Card */}
             <div className="invo-card p-5 sm:p-6">
               <div className="mb-3">
-                <h2 className="font-normal text-2xl sm:text-3xl text-[#26251e] tracking-[-0.02em] text-[#26251e] tracking-tight">
+                <h2 className="font-normal text-2xl sm:text-3xl text-[#0d0d0d] tracking-[-0.02em] text-[#0d0d0d] tracking-tight">
                   Pencarian Dokumentasi & Agenda
                 </h2>
-                <p className="text-xs sm:text-sm text-[#807d72] mt-1">
+                <p className="text-xs sm:text-sm text-[#646f79] mt-1">
                   Temukan rilis berita, video liputan, dan riwayat penugasan personil sepanjang tahun 2026.
                 </p>
               </div>
 
               {/* Main Search Input */}
               <div className="relative">
-                <Search className="w-4 h-4 absolute left-4 top-1/2 -translate-y-1/2 text-[#807d72] pointer-events-none" aria-hidden="true" />
+                <Search className="w-4 h-4 absolute left-4 top-1/2 -translate-y-1/2 text-[#646f79] pointer-events-none" aria-hidden="true" />
                 <input
                   type="text"
                   autoFocus
@@ -1181,14 +1181,14 @@ export default function App() {
                   placeholder="Ketik topik, kota, atau nama petugas (Rusun, Singkawang, Ilham)..."
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  className="w-full h-11 pl-11 pr-10 bg-white hover:border-[#807d72] focus:border-[#f54e00] border border-[#cfcdc4] rounded-full text-[#5a5852] text-sm placeholder:text-[#807d72] focus:outline-none focus:ring-3 focus:ring-[#f54e00]/20 transition-all shadow-none"
+                  className="w-full h-11 pl-11 pr-10 bg-white hover:border-[#646f79] focus:border-[#0d0e10] border border-[#e5e5e5] rounded-full text-[#0d0d0d] text-sm placeholder:text-[#646f79] focus:outline-none focus:ring-2 focus:ring-[#646f79]/20 transition-all shadow-xs"
                 />
                 {searchQuery && (
                   <button
                     type="button"
                     aria-label="Hapus kata kunci pencarian"
                     onClick={() => setSearchQuery('')}
-                    className="absolute right-3.5 top-1/2 -translate-y-1/2 p-1 text-[#807d72] hover:text-[#26251e] transition-colors cursor-pointer touch-target"
+                    className="absolute right-3.5 top-1/2 -translate-y-1/2 p-1 text-[#646f79] hover:text-[#0d0d0d] transition-colors cursor-pointer touch-target"
                   >
                     <X className="w-4 h-4" aria-hidden="true" />
                   </button>
@@ -1197,13 +1197,13 @@ export default function App() {
 
               {/* Popular Search Chips (iFraldas Rounded Pills) */}
               <div className="flex items-center gap-1.5 flex-wrap mt-3.5 text-xs">
-                <span className="text-[#807d72] font-bold text-[11px] mr-1">Populer:</span>
+                <span className="text-[#646f79] font-bold text-[11px] mr-1">Populer:</span>
                 {['Rusun', 'BSPS', 'Singkawang', 'Jatiwangi', 'Michael', 'Ilham', 'Fitrah', 'Jakarta', 'Kunker'].map(tag => (
                   <button
                     key={tag}
                     type="button"
                     onClick={() => setSearchQuery(tag)}
-                    className="px-3 py-1 rounded-full border border-[#e6e5e0] bg-[#f7f7f4] hover:bg-[#fafaf7] hover:border-[#e6e5e0] text-[#5a5852] hover:text-[#f54e00] text-xs font-semibold transition-all cursor-pointer shadow-none"
+                    className="px-3 py-1 rounded-full border border-[#e5e5e5] bg-[#ffffff] hover:bg-[#f3f3f3] hover:border-[#e5e5e5] text-[#0d0d0d] hover:text-[#646f79] text-xs font-semibold transition-all cursor-pointer shadow-xs"
                   >
                     {tag}
                   </button>
@@ -1215,33 +1215,33 @@ export default function App() {
             {searchQuery.trim() ? (
               <div className="space-y-3">
                 
-                <div className="flex items-center justify-between px-1 text-xs text-[#807d72] font-medium">
+                <div className="flex items-center justify-between px-1 text-xs text-[#646f79] font-medium">
                   <p>
-                    Ditemukan <span className="text-[#f54e00] font-bold">{searchResults.length}</span> kegiatan
+                    Ditemukan <span className="text-[#646f79] font-bold">{searchResults.length}</span> kegiatan
                   </p>
                   <button
                     type="button"
                     onClick={() => setSearchQuery('')}
-                    className="text-[#f54e00] hover:underline font-bold cursor-pointer"
+                    className="text-[#646f79] hover:underline font-bold cursor-pointer"
                   >
                     Reset Pencarian
                   </button>
                 </div>
 
                 {searchResults.length === 0 && (
-                  <div className="invo-card p-10 text-center space-y-2 border border-dashed border-[#cfcdc4]">
-                    <Search className="w-8 h-8 text-[#807d72] mx-auto" aria-hidden="true" />
-                    <h4 className="font-heading font-bold text-[#26251e] text-base">
+                  <div className="invo-card p-10 text-center space-y-2 border border-dashed border-[#d1d5db]">
+                    <Search className="w-8 h-8 text-[#646f79] mx-auto" aria-hidden="true" />
+                    <h4 className="font-heading font-bold text-[#0d0d0d] text-base">
                       Tidak ditemukan kegiatan yang cocok
                     </h4>
-                    <p className="text-xs text-[#807d72] max-w-sm mx-auto">
+                    <p className="text-xs text-[#646f79] max-w-sm mx-auto">
                       Coba gunakan kata kunci umum lainnya seperti nama daerah atau nama personil.
                     </p>
                     <div className="pt-2">
                       <button
                         type="button"
                         onClick={() => setSearchQuery('')}
-                        className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-[#f54e00] text-white hover:bg-[#d04200] text-xs font-bold transition-all shadow-none hover:shadow cursor-pointer"
+                        className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-[#0d0e10] text-white hover:bg-[#26282c] text-xs font-bold transition-all shadow-xs hover:shadow cursor-pointer"
                       >
                         Reset Kata Kunci
                       </button>
@@ -1264,63 +1264,63 @@ export default function App() {
                         }
                       }}
                       aria-label={`Detail kegiatan: ${item.kegiatan}`}
-                      className="invo-card invo-card-hover p-4 sm:p-5 motion-card-enter cursor-pointer group transition-all focus-visible:outline-2 focus-visible:outline-[#f54e00]"
+                      className="invo-card invo-card-hover p-4 sm:p-5 motion-card-enter cursor-pointer group transition-all focus-visible:outline-2 focus-visible:outline-[#646f79]"
                     >
                       {/* Top Row */}
                       <div className="flex flex-wrap items-center justify-between gap-2 mb-2 text-xs">
                         <div className="flex items-center gap-2">
-                          <span className="font-bold px-2.5 py-0.5 bg-[#fafaf7] text-[#f54e00] border border-[#e6e5e0] rounded-md text-xs">
+                          <span className="font-bold px-2.5 py-0.5 bg-[#f3f3f3] text-[#646f79] border border-[#e5e5e5] rounded-md text-xs">
                             #{cleanNomor(item.nomor)}
                           </span>
-                          <span className="text-xs text-[#807d72] font-medium flex items-center gap-1.5">
-                            <Calendar className="w-3.5 h-3.5 text-[#807d72]" aria-hidden="true" />
+                          <span className="text-xs text-[#646f79] font-medium flex items-center gap-1.5">
+                            <Calendar className="w-3.5 h-3.5 text-[#646f79]" aria-hidden="true" />
                             {item.tanggal_formatted || item.tanggal}
                           </span>
                         </div>
 
                         {item.lokasi && (
-                          <div className="flex items-center gap-1 text-[#5a5852] bg-[#f7f7f4] px-2.5 py-0.5 rounded-full border border-[#e6e5e0] text-xs font-medium">
-                            <MapPin className="w-3 h-3 text-[#dfa88f] shrink-0" aria-hidden="true" />
+                          <div className="flex items-center gap-1 text-[#0d0d0d] bg-[#ffffff] px-2.5 py-0.5 rounded-full border border-[#e5e5e5] text-xs font-medium">
+                            <MapPin className="w-3 h-3 text-[#ab3434] shrink-0" aria-hidden="true" />
                             <span className="truncate max-w-[220px]">{item.lokasi}</span>
                           </div>
                         )}
                       </div>
 
                       {/* Title */}
-                      <h3 className="font-heading font-bold text-base sm:text-lg text-[#26251e] leading-snug mb-2 group-hover:text-[#f54e00] transition-colors">
+                      <h3 className="font-heading font-bold text-base sm:text-lg text-[#0d0d0d] leading-snug mb-2 group-hover:text-[#646f79] transition-colors">
                         {item.kegiatan}
                       </h3>
 
                       {/* News Quote (Editorial Border) */}
                       {item.judul_berita && (
-                        <div className="mb-2.5 p-3 border-l-4 border-[#f54e00] bg-[#fafaf7]/50 rounded-r-xl text-xs space-y-1">
-                          <div className="flex items-center gap-1.5 font-bold uppercase tracking-wider text-[11px] text-[#f54e00]">
+                        <div className="mb-2.5 p-3 border-l-4 border-[#646f79] bg-[#f3f3f3]/50 rounded-r-xl text-xs space-y-1">
+                          <div className="flex items-center gap-1.5 font-bold uppercase tracking-wider text-[11px] text-[#646f79]">
                             <Newspaper className="w-3.5 h-3.5" aria-hidden="true" />
                             <span>Rilis Berita Resmi</span>
                           </div>
-                          <p className="text-[#5a5852] leading-relaxed font-medium">{item.judul_berita}</p>
+                          <p className="text-[#0d0d0d] leading-relaxed font-medium">{item.judul_berita}</p>
                         </div>
                       )}
 
                       {/* Officers */}
                       <div className="flex items-center gap-1.5 flex-wrap mb-3 text-xs">
-                        <span className="text-[11px] font-bold text-[#807d72] uppercase tracking-wider">Petugas:</span>
+                        <span className="text-[11px] font-bold text-[#646f79] uppercase tracking-wider">Petugas:</span>
                         {item.petugas.length > 0 ? (
                           item.petugas.map((officer, idx) => (
                             <span
                               key={idx}
-                              className="bg-[#f4effa] text-[#553c7b] border border-[#c0a8dd]/50 px-2.5 py-0.5 rounded-full text-xs font-medium"
+                              className="bg-[#f3f3f3] text-[#0d0d0d] border border-[#e5e5e5] px-2.5 py-0.5 rounded-full text-xs font-medium"
                             >
                               {officer}
                             </span>
                           ))
                         ) : (
-                          <span className="text-[#807d72] text-xs italic">Tidak tercatat</span>
+                          <span className="text-[#646f79] text-xs italic">Tidak tercatat</span>
                         )}
                       </div>
 
                       {/* Action Bar */}
-                      <div className="pt-3 border-t border-[#e6e5e0] flex flex-wrap items-center justify-between gap-2">
+                      <div className="pt-3 border-t border-[#e5e5e5] flex flex-wrap items-center justify-between gap-2">
                         <div className="flex items-center gap-2 flex-wrap">
                           {item.link_berita ? (
                             <a
@@ -1328,14 +1328,14 @@ export default function App() {
                               target="_blank"
                               rel="noopener noreferrer"
                               onClick={(e) => e.stopPropagation()}
-                              className="inline-flex items-center gap-1.5 px-3 py-1 text-xs font-bold rounded-full bg-[#fafaf7] text-[#f54e00] hover:bg-[#efeee8] transition-colors"
+                              className="inline-flex items-center gap-1.5 px-3 py-1 text-xs font-bold rounded-full bg-[#f3f3f3] text-[#646f79] hover:bg-[#f3f3f3] transition-colors"
                             >
                               <Newspaper className="w-3 h-3" aria-hidden="true" />
                               <span>pkp.go.id</span>
                               <ArrowUpRight className="w-3 h-3 opacity-60" aria-hidden="true" />
                             </a>
                           ) : (
-                            <span className="text-xs text-[#807d72] font-medium">
+                            <span className="text-xs text-[#646f79] font-medium">
                               Belum ada rilis
                             </span>
                           )}
@@ -1348,7 +1348,7 @@ export default function App() {
                                   href={vUrl}
                                   target="_blank"
                                   rel="noopener noreferrer"
-                                  className="inline-flex items-center gap-1.5 px-3 py-1 text-xs font-bold rounded-full bg-[#f4effa] text-[#553c7b] hover:bg-[#D4D1F0] transition-colors"
+                                  className="inline-flex items-center gap-1.5 px-3 py-1 text-xs font-bold rounded-full bg-[#f3f3f3] text-[#0d0d0d] hover:bg-[#D4D1F0] transition-colors"
                                   title={`Video ${idx + 1}: ${vUrl}`}
                                 >
                                   <Video className="w-3 h-3" aria-hidden="true" />
@@ -1363,7 +1363,7 @@ export default function App() {
                               target="_blank"
                               rel="noopener noreferrer"
                               onClick={(e) => e.stopPropagation()}
-                              className="inline-flex items-center gap-1.5 px-3 py-1 text-xs font-bold rounded-full bg-[#f4effa] text-[#553c7b] hover:bg-[#D4D1F0] transition-colors"
+                              className="inline-flex items-center gap-1.5 px-3 py-1 text-xs font-bold rounded-full bg-[#f3f3f3] text-[#0d0d0d] hover:bg-[#D4D1F0] transition-colors"
                             >
                               <Video className="w-3 h-3" aria-hidden="true" />
                               <span>Video</span>
@@ -1380,10 +1380,10 @@ export default function App() {
                               e.stopPropagation();
                               copyReport(item);
                             }}
-                            className={`inline-flex items-center gap-1.5 px-3.5 py-1.5 text-xs font-bold rounded-full transition-all cursor-pointer shadow-none ${
+                            className={`inline-flex items-center gap-1.5 px-3.5 py-1.5 text-xs font-bold rounded-full transition-all cursor-pointer shadow-xs ${
                               copyStatus[item.id]
-                                ? 'bg-[#1f8a65] text-white shadow-none'
-                                : 'bg-[#f54e00] hover:bg-[#d04200] text-white shadow-none hover:shadow'
+                                ? 'bg-[#45a985] text-white shadow-xs'
+                                : 'bg-[#0d0e10] hover:bg-[#26282c] text-white shadow-xs hover:shadow'
                             }`}
                           >
                             {copyStatus[item.id] ? (
@@ -1409,12 +1409,12 @@ export default function App() {
               <div className="space-y-3">
                 <div className="flex items-center justify-between px-1">
                   <div className="flex items-center gap-2">
-                    <span className="w-2.5 h-2.5 rounded-full bg-[#f54e00]" aria-hidden="true"></span>
-                    <h3 className="font-heading font-extrabold text-sm sm:text-base text-[#26251e]">
+                    <span className="w-2.5 h-2.5 rounded-full bg-[#0d0e10]" aria-hidden="true"></span>
+                    <h3 className="font-heading font-extrabold text-sm sm:text-base text-[#0d0d0d]">
                       5 Kegiatan Liputan Terbaru
                     </h3>
                   </div>
-                  <span className="text-xs text-[#807d72]">
+                  <span className="text-xs text-[#646f79]">
                     Ketik di atas untuk mencari seluruh data
                   </span>
                 </div>
@@ -1433,28 +1433,28 @@ export default function App() {
                         }
                       }}
                       aria-label={`Detail kegiatan terbaru: ${item.kegiatan}`}
-                      className="invo-card invo-card-hover p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3 motion-card-enter cursor-pointer group transition-all focus-visible:outline-2 focus-visible:outline-[#f54e00]"
+                      className="invo-card invo-card-hover p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3 motion-card-enter cursor-pointer group transition-all focus-visible:outline-2 focus-visible:outline-[#646f79]"
                     >
                       <div className="space-y-1.5 flex-1">
                         <div className="flex items-center gap-2 text-xs">
-                          <span className="font-bold px-2 py-0.5 bg-[#fafaf7] text-[#f54e00] border border-[#e6e5e0] rounded-md text-xs">
+                          <span className="font-bold px-2 py-0.5 bg-[#f3f3f3] text-[#646f79] border border-[#e5e5e5] rounded-md text-xs">
                             #{cleanNomor(item.nomor)}
                           </span>
-                          <span className="text-xs text-[#807d72] font-medium">
+                          <span className="text-xs text-[#646f79] font-medium">
                             {item.tanggal_formatted || item.tanggal}
                           </span>
                           {item.lokasi && (
-                            <span className="text-[#807d72] truncate max-w-[200px] inline-flex items-center gap-1 text-xs font-medium">
-                              • <MapPin className="w-3 h-3 text-[#dfa88f] shrink-0" aria-hidden="true" />
+                            <span className="text-[#646f79] truncate max-w-[200px] inline-flex items-center gap-1 text-xs font-medium">
+                              • <MapPin className="w-3 h-3 text-[#ab3434] shrink-0" aria-hidden="true" />
                               <span>{item.lokasi}</span>
                             </span>
                           )}
                         </div>
-                        <h4 className="font-heading font-bold text-[#26251e] text-sm sm:text-base leading-snug group-hover:text-[#f54e00] transition-colors">
+                        <h4 className="font-heading font-bold text-[#0d0d0d] text-sm sm:text-base leading-snug group-hover:text-[#646f79] transition-colors">
                           {item.kegiatan}
                         </h4>
-                        <div className="text-xs text-[#807d72]">
-                          Petugas: <span className="text-[#5a5852] font-medium">{item.petugas.join(', ') || '-'}</span>
+                        <div className="text-xs text-[#646f79]">
+                          Petugas: <span className="text-[#0d0d0d] font-medium">{item.petugas.join(', ') || '-'}</span>
                         </div>
                       </div>
 
@@ -1466,10 +1466,10 @@ export default function App() {
                             e.stopPropagation();
                             copyReport(item);
                           }}
-                          className={`p-2 rounded-full border transition-all cursor-pointer shadow-none ${
+                          className={`p-2 rounded-full border transition-all cursor-pointer shadow-xs ${
                             copyStatus[item.id]
-                              ? 'bg-[#1f8a65] text-white border-[#1f8a65]'
-                              : 'bg-white hover:bg-[#fafaf7] hover:border-[#f54e00] text-[#5a5852] hover:text-[#f54e00] border-[#cfcdc4]'
+                              ? 'bg-[#45a985] text-white border-[#45a985]'
+                              : 'bg-white hover:bg-[#f3f3f3] hover:border-[#646f79] text-[#0d0d0d] hover:text-[#646f79] border-[#d1d5db]'
                           }`}
                           title="Salin Format WA"
                         >
@@ -1496,13 +1496,13 @@ export default function App() {
                 <button
                   type="button"
                   onClick={goBack}
-                  className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-bold text-[#5a5852] bg-white hover:bg-[#f7f7f4] border border-[#cfcdc4] hover:border-[#f54e00] hover:text-[#f54e00] transition-all select-none cursor-pointer shadow-none"
+                  className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-bold text-[#0d0d0d] bg-white hover:bg-[#ffffff] border border-[#d1d5db] hover:border-[#646f79] hover:text-[#646f79] transition-all select-none cursor-pointer shadow-xs"
                   title="Kembali ke Pencarian"
                 >
                   <ArrowLeft className="w-3.5 h-3.5" />
                   <span>Kembali ke Pencarian</span>
                 </button>
-                <span className="text-xs font-bold text-[#807d72] hidden sm:inline uppercase tracking-wider">
+                <span className="text-xs font-bold text-[#646f79] hidden sm:inline uppercase tracking-wider">
                   Dashboard Analisis & Ringkasan Peliputan 2026
                 </span>
               </div>
@@ -1517,67 +1517,67 @@ export default function App() {
                 {/* 1. Total Kegiatan */}
                 <div className="invo-card invo-card-hover p-4 flex-1 flex flex-col justify-between">
                   <div className="flex items-center justify-between gap-1">
-                    <span className="text-xs font-bold uppercase tracking-wider text-[#807d72] truncate">
+                    <span className="text-xs font-bold uppercase tracking-wider text-[#646f79] truncate">
                       Total Kegiatan
                     </span>
-                    <PieChart className="w-4 h-4 text-[#f54e00] shrink-0" aria-hidden="true" />
+                    <PieChart className="w-4 h-4 text-[#646f79] shrink-0" aria-hidden="true" />
                   </div>
 
                   <div className="my-1">
-                    <div className="text-3xl font-heading font-black text-[#26251e] tracking-tight">
+                    <div className="text-3xl font-heading font-black text-[#0d0d0d] tracking-tight">
                       {activities.length}
                     </div>
                   </div>
 
-                  <div className="flex items-center justify-between text-xs pt-2 border-t border-[#e6e5e0] text-[#807d72]">
+                  <div className="flex items-center justify-between text-xs pt-2 border-t border-[#e5e5e5] text-[#646f79]">
                     <span className="truncate">Tahun 2026</span>
-                    <span className="font-bold text-[#f54e00] shrink-0">100%</span>
+                    <span className="font-bold text-[#646f79] shrink-0">100%</span>
                   </div>
                 </div>
 
                 {/* 2. Publikasi Rilis Berita */}
                 <div className="invo-card invo-card-hover p-4 flex-1 flex flex-col justify-between">
                   <div className="flex items-center justify-between gap-1">
-                    <span className="text-xs font-bold uppercase tracking-wider text-[#807d72] truncate">
+                    <span className="text-xs font-bold uppercase tracking-wider text-[#646f79] truncate">
                       Rilis Berita
                     </span>
-                    <Newspaper className="w-4 h-4 text-[#553c7b] shrink-0" aria-hidden="true" />
+                    <Newspaper className="w-4 h-4 text-[#0d0d0d] shrink-0" aria-hidden="true" />
                   </div>
 
                   <div className="my-1">
-                    <div className="text-3xl font-heading font-black text-[#553c7b] tracking-tight">
+                    <div className="text-3xl font-heading font-black text-[#0d0d0d] tracking-tight">
                       {totalBerita}
                     </div>
                   </div>
 
-                  <div className="flex items-center justify-between text-xs pt-2 border-t border-[#e6e5e0]">
-                    <span className="text-[#553c7b] font-bold">
+                  <div className="flex items-center justify-between text-xs pt-2 border-t border-[#e5e5e5]">
+                    <span className="text-[#0d0d0d] font-bold">
                       {percentBerita}% Liputan
                     </span>
-                    <span className="text-[#807d72] shrink-0 text-[11px]">pkp.go.id</span>
+                    <span className="text-[#646f79] shrink-0 text-[11px]">pkp.go.id</span>
                   </div>
                 </div>
 
                 {/* 3. Publikasi Video */}
                 <div className="invo-card invo-card-hover p-4 flex-1 flex flex-col justify-between">
                   <div className="flex items-center justify-between gap-1">
-                    <span className="text-xs font-bold uppercase tracking-wider text-[#807d72] truncate">
+                    <span className="text-xs font-bold uppercase tracking-wider text-[#646f79] truncate">
                       Publikasi Video
                     </span>
-                    <Video className="w-4 h-4 text-[#dfa88f] shrink-0" aria-hidden="true" />
+                    <Video className="w-4 h-4 text-[#ab3434] shrink-0" aria-hidden="true" />
                   </div>
 
                   <div className="my-1">
-                    <div className="text-3xl font-heading font-black text-[#c08532] tracking-tight">
+                    <div className="text-3xl font-heading font-black text-[#323ca8] tracking-tight">
                       {totalVideo}
                     </div>
                   </div>
 
-                  <div className="flex items-center justify-between text-xs pt-2 border-t border-[#e6e5e0]">
-                    <span className="text-[#c08532] font-bold">
+                  <div className="flex items-center justify-between text-xs pt-2 border-t border-[#e5e5e5]">
+                    <span className="text-[#323ca8] font-bold">
                       {percentVideo}% Video
                     </span>
-                    <span className="text-[#807d72] shrink-0 text-[11px]">Dokumentasi</span>
+                    <span className="text-[#646f79] shrink-0 text-[11px]">Dokumentasi</span>
                   </div>
                 </div>
 
@@ -1587,21 +1587,21 @@ export default function App() {
               <div className="lg:col-span-10 invo-card p-5 sm:p-6 flex flex-col justify-between h-full lg:h-[540px]">
                 
                 {/* Header Kalender & Month Switcher */}
-                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-4 pb-3 border-b border-[#e6e5e0]">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-4 pb-3 border-b border-[#e5e5e5]">
                   <div className="flex items-center gap-3">
-                    <div className="w-9 h-9 rounded-xl bg-[#fafaf7] text-[#f54e00] flex items-center justify-center shrink-0">
-                      <CalendarDays className="w-4 h-4 text-[#f54e00]" />
+                    <div className="w-9 h-9 rounded-2xl bg-[#f3f3f3] text-[#646f79] flex items-center justify-center shrink-0">
+                      <CalendarDays className="w-4 h-4 text-[#646f79]" />
                     </div>
                     <div>
                       <div className="flex items-center gap-2">
-                        <h3 className="font-heading font-extrabold text-[#26251e] text-base sm:text-lg">
+                        <h3 className="font-heading font-extrabold text-[#0d0d0d] text-base sm:text-lg">
                           Kalender Aktivitas Liputan
                         </h3>
-                        <span className="px-2.5 py-0.5 text-xs font-bold text-[#f54e00] border border-[#e6e5e0] bg-[#fafaf7] rounded-full">
+                        <span className="px-2.5 py-0.5 text-xs font-bold text-[#646f79] border border-[#e5e5e5] bg-[#f3f3f3] rounded-full">
                           {totalActivitiesInCurrentCalendarMonth} Agenda di {MONTH_ORDER[calendarMonth]}
                         </span>
                       </div>
-                      <p className="text-xs text-[#807d72] mt-0.5">
+                      <p className="text-xs text-[#646f79] mt-0.5">
                         Pilih tanggal pada grid kalender di sebelah kiri untuk melihat rincian agenda di sebelah kanan
                       </p>
                     </div>
@@ -1622,8 +1622,8 @@ export default function App() {
                       }}
                       className={`px-3.5 py-1 text-xs font-bold rounded-full border transition-all cursor-pointer ${
                         selectedCalendarDate === todayDateStr
-                          ? 'bg-[#f54e00] text-white border-[#f54e00] shadow-none'
-                          : 'bg-white hover:bg-[#fafaf7] hover:border-[#f54e00] text-[#5a5852] hover:text-[#f54e00] border-[#cfcdc4]'
+                          ? 'bg-[#0d0e10] text-white border-[#646f79] shadow-xs'
+                          : 'bg-white hover:bg-[#f3f3f3] hover:border-[#646f79] text-[#0d0d0d] hover:text-[#646f79] border-[#d1d5db]'
                       }`}
                       title="Kembali ke tanggal hari ini"
                     >
@@ -1631,11 +1631,11 @@ export default function App() {
                     </button>
 
                     {/* Fixed-width month switcher container */}
-                    <div className="relative flex items-center bg-[#f7f7f4] border border-[#cfcdc4] rounded-full p-0.5 shrink-0 w-[215px] sm:w-[230px] justify-between" ref={calendarMonthPickerRef}>
+                    <div className="relative flex items-center bg-[#ffffff] border border-[#d1d5db] rounded-full p-0.5 shrink-0 w-[215px] sm:w-[230px] justify-between" ref={calendarMonthPickerRef}>
                       <button
                         type="button"
                         onClick={() => setCalendarMonth(prev => (prev === 0 ? 11 : prev - 1))}
-                        className="p-1.5 hover:bg-white rounded-full text-[#5a5852] hover:text-[#f54e00] transition-colors cursor-pointer shrink-0"
+                        className="p-1.5 hover:bg-white rounded-full text-[#0d0d0d] hover:text-[#646f79] transition-colors cursor-pointer shrink-0"
                         title="Bulan sebelumnya"
                       >
                         <ChevronLeft className="w-3.5 h-3.5" />
@@ -1647,8 +1647,8 @@ export default function App() {
                         onClick={() => setIsCalendarMonthPickerOpen(prev => !prev)}
                         className={`w-38 sm:w-42 flex-1 inline-flex items-center justify-center gap-1.5 px-2 py-1 text-xs font-bold rounded-full transition-all cursor-pointer select-none shrink-0 ${
                           isCalendarMonthPickerOpen
-                            ? 'bg-[#f54e00] text-white'
-                            : 'bg-white hover:bg-[#fafaf7] text-[#26251e] border border-[#e6e5e0]'
+                            ? 'bg-[#0d0e10] text-white'
+                            : 'bg-white hover:bg-[#f3f3f3] text-[#0d0d0d] border border-[#e5e5e5]'
                         }`}
                         title="Klik untuk memilih bulan"
                       >
@@ -1660,7 +1660,7 @@ export default function App() {
                       <button
                         type="button"
                         onClick={() => setCalendarMonth(prev => (prev === 11 ? 0 : prev + 1))}
-                        className="p-1.5 hover:bg-white rounded-full text-[#5a5852] hover:text-[#f54e00] transition-colors cursor-pointer shrink-0"
+                        className="p-1.5 hover:bg-white rounded-full text-[#0d0d0d] hover:text-[#646f79] transition-colors cursor-pointer shrink-0"
                         title="Bulan berikutnya"
                       >
                         <ChevronRight className="w-3.5 h-3.5" />
@@ -1668,11 +1668,11 @@ export default function App() {
 
                       {/* Month Picker Popover Overlay */}
                       {isCalendarMonthPickerOpen && (
-                        <div className="absolute right-0 top-full mt-1.5 w-64 sm:w-72 bg-white border border-[#e6e5e0] rounded-xl p-3 z-40 shadow-none popover-motion origin-top-right">
-                          <div className="flex items-center justify-between pb-2 mb-2 border-b border-[#e6e5e0]">
+                        <div className="absolute right-0 top-full mt-1.5 w-64 sm:w-72 bg-white border border-[#e5e5e5] rounded-2xl p-3 z-40 shadow-xs popover-motion origin-top-right">
+                          <div className="flex items-center justify-between pb-2 mb-2 border-b border-[#e5e5e5]">
                             <div>
-                              <span className="font-heading font-bold text-[#26251e] text-xs block uppercase">Pilih Bulan</span>
-                              <span className="text-[10px] text-[#807d72]">Tahun {calendarYear}</span>
+                              <span className="font-heading font-bold text-[#0d0d0d] text-xs block uppercase">Pilih Bulan</span>
+                              <span className="text-[10px] text-[#646f79]">Tahun {calendarYear}</span>
                             </div>
                             <button
                               type="button"
@@ -1686,7 +1686,7 @@ export default function App() {
                                 setSelectedCalendarDate(`${y}-${m}-${d}`);
                                 setIsCalendarMonthPickerOpen(false);
                               }}
-                              className="text-[11px] font-bold text-[#f54e00] hover:underline cursor-pointer"
+                              className="text-[11px] font-bold text-[#646f79] hover:underline cursor-pointer"
                             >
                               Bulan Ini
                             </button>
@@ -1707,12 +1707,12 @@ export default function App() {
                                     setSelectedCalendarDate(`${calendarYear}-${mStr}-01`);
                                     setIsCalendarMonthPickerOpen(false);
                                   }}
-                                  className={`p-2 rounded-xl text-left transition-all cursor-pointer flex flex-col justify-between border ${
+                                  className={`p-2 rounded-2xl text-left transition-all cursor-pointer flex flex-col justify-between border ${
                                     isSelected
-                                      ? 'bg-[#f54e00] text-white border-[#f54e00] shadow-none'
+                                      ? 'bg-[#0d0e10] text-white border-[#646f79] shadow-xs'
                                       : count > 0
-                                      ? 'bg-[#fafaf7]/40 hover:bg-[#fafaf7] text-[#26251e] border-[#e6e5e0]'
-                                      : 'bg-white hover:bg-[#f7f7f4] text-[#807d72] border-[#e6e5e0]'
+                                      ? 'bg-[#f3f3f3]/40 hover:bg-[#f3f3f3] text-[#0d0d0d] border-[#e5e5e5]'
+                                      : 'bg-white hover:bg-[#ffffff] text-[#646f79] border-[#e5e5e5]'
                                   }`}
                                 >
                                   <div className="flex items-center justify-between w-full">
@@ -1725,8 +1725,8 @@ export default function App() {
                                     isSelected
                                       ? 'text-white/80'
                                       : count > 0
-                                      ? 'text-[#f54e00] font-bold'
-                                      : 'text-[#807d72]'
+                                      ? 'text-[#646f79] font-bold'
+                                      : 'text-[#646f79]'
                                   }`}>
                                     {count > 0 ? `${count} agenda` : '0'}
                                   </div>
@@ -1747,14 +1747,14 @@ export default function App() {
                   <div className="md:col-span-7 xl:col-span-8 flex flex-col justify-between h-full">
                     
                     {/* Header Hari (Sen - Min) */}
-                    <div className="grid grid-cols-7 gap-1 sm:gap-1.5 text-center text-xs font-bold uppercase tracking-wider text-[#807d72] mb-2 shrink-0">
-                      <span className="py-1 rounded-lg bg-[#f7f7f4] border border-[#e6e5e0]">Sen</span>
-                      <span className="py-1 rounded-lg bg-[#f7f7f4] border border-[#e6e5e0]">Sel</span>
-                      <span className="py-1 rounded-lg bg-[#f7f7f4] border border-[#e6e5e0]">Rab</span>
-                      <span className="py-1 rounded-lg bg-[#f7f7f4] border border-[#e6e5e0]">Kam</span>
-                      <span className="py-1 rounded-lg bg-[#f7f7f4] border border-[#e6e5e0]">Jum</span>
-                      <span className="py-1 rounded-lg bg-[#f7f7f4] border border-[#e6e5e0]">Sab</span>
-                      <span className="py-1 rounded-lg bg-[#f7f7f4] border border-[#e6e5e0]">Min</span>
+                    <div className="grid grid-cols-7 gap-1 sm:gap-1.5 text-center text-xs font-bold uppercase tracking-wider text-[#646f79] mb-2 shrink-0">
+                      <span className="py-1 rounded-lg bg-[#ffffff] border border-[#e5e5e5]">Sen</span>
+                      <span className="py-1 rounded-lg bg-[#ffffff] border border-[#e5e5e5]">Sel</span>
+                      <span className="py-1 rounded-lg bg-[#ffffff] border border-[#e5e5e5]">Rab</span>
+                      <span className="py-1 rounded-lg bg-[#ffffff] border border-[#e5e5e5]">Kam</span>
+                      <span className="py-1 rounded-lg bg-[#ffffff] border border-[#e5e5e5]">Jum</span>
+                      <span className="py-1 rounded-lg bg-[#ffffff] border border-[#e5e5e5]">Sab</span>
+                      <span className="py-1 rounded-lg bg-[#ffffff] border border-[#e5e5e5]">Min</span>
                     </div>
 
                     {/* Matriks Tanggal (Locked 6 Rows Grid) */}
@@ -1774,14 +1774,14 @@ export default function App() {
                             key={item.dateKey}
                             type="button"
                             onClick={() => setSelectedCalendarDate(item.dateKey)}
-                            className={`h-full rounded-xl flex flex-col items-center justify-between p-1 text-xs transition-all relative cursor-pointer border ${
+                            className={`h-full rounded-2xl flex flex-col items-center justify-between p-1 text-xs transition-all relative cursor-pointer border ${
                               isSelected
-                                ? 'bg-[#f54e00] text-white border-[#f54e00] shadow-none ring-2 ring-[#f54e00]/30'
+                                ? 'bg-[#0d0e10] text-white border-[#646f79] shadow-xs ring-2 ring-[#646f79]/30'
                                 : isToday
-                                ? 'bg-white text-[#f54e00] border-2 border-[#f54e00] font-bold shadow-none'
+                                ? 'bg-white text-[#646f79] border-2 border-[#646f79] font-bold shadow-xs'
                                 : hasActivities
-                                ? 'bg-[#fafaf7]/50 hover:bg-[#fafaf7] hover:border-[#cfcdc4] text-[#26251e] border-[#e6e5e0]'
-                                : 'bg-white hover:bg-[#f7f7f4] text-[#807d72] border-[#e6e5e0]'
+                                ? 'bg-[#f3f3f3]/50 hover:bg-[#f3f3f3] hover:border-[#d1d5db] text-[#0d0d0d] border-[#e5e5e5]'
+                                : 'bg-white hover:bg-[#ffffff] text-[#646f79] border-[#e5e5e5]'
                             }`}
                           >
                             <span className="leading-none mt-0.5 text-xs font-bold">{item.dayNumber}</span>
@@ -1789,7 +1789,7 @@ export default function App() {
                               <div className={`flex items-center gap-1 text-[9px] font-bold px-1.5 py-0.2 rounded-full ${
                                 isSelected
                                   ? 'bg-white/20 text-white'
-                                  : 'bg-[#efeee8] text-[#d04200]'
+                                  : 'bg-[#f3f3f3] text-[#0d0e10]'
                               }`}>
                                 <span>{count}</span>
                               </div>
@@ -1800,33 +1800,33 @@ export default function App() {
                       })}
                     </div>
 
-                    <div className="pt-2 text-[11px] text-[#807d72] flex items-center justify-between shrink-0">
+                    <div className="pt-2 text-[11px] text-[#646f79] flex items-center justify-between shrink-0">
                       <span className="flex items-center gap-2">
-                        <span className="w-2 h-2 rounded-full bg-[#f54e00] inline-block" aria-hidden="true"></span>
+                        <span className="w-2 h-2 rounded-full bg-[#0d0e10] inline-block" aria-hidden="true"></span>
                         Angka menandakan jumlah agenda liputan pada tanggal tersebut
                       </span>
-                      <span className="text-[#f54e00] font-bold">Pilih tanggal</span>
+                      <span className="text-[#646f79] font-bold">Pilih tanggal</span>
                     </div>
 
                   </div>
 
                   {/* SISI KANAN (4-5 Kolom): Rincian Agenda pada Tanggal Terpilih */}
-                  <div className="md:col-span-5 xl:col-span-4 border-t md:border-t-0 md:border-l border-[#e6e5e0] md:pl-5 pt-4 md:pt-0 flex flex-col justify-between h-full min-h-0">
+                  <div className="md:col-span-5 xl:col-span-4 border-t md:border-t-0 md:border-l border-[#e5e5e5] md:pl-5 pt-4 md:pt-0 flex flex-col justify-between h-full min-h-0">
                     <div className="flex flex-col h-full min-h-0">
                       {/* Header Agenda */}
-                      <div className="flex items-center justify-between mb-3 pb-2 border-b border-[#e6e5e0] shrink-0">
+                      <div className="flex items-center justify-between mb-3 pb-2 border-b border-[#e5e5e5] shrink-0">
                         <div className="flex items-center gap-2">
-                          <span className="w-2 h-2 rounded-full bg-[#f54e00]" aria-hidden="true"></span>
-                          <span className="text-xs sm:text-sm font-bold text-[#26251e]">
+                          <span className="w-2 h-2 rounded-full bg-[#0d0e10]" aria-hidden="true"></span>
+                          <span className="text-xs sm:text-sm font-bold text-[#0d0d0d]">
                             {selectedCalendarDate}
                           </span>
                           {selectedCalendarDate === todayDateStr && (
-                            <span className="text-[10px] font-bold bg-[#f54e00] text-white px-2 py-0.2 rounded-full">
+                            <span className="text-[10px] font-bold bg-[#0d0e10] text-white px-2 py-0.2 rounded-full">
                               HARI INI
                             </span>
                           )}
                         </div>
-                        <span className="text-xs font-bold text-[#f54e00] bg-[#fafaf7] border border-[#e6e5e0] rounded-full px-2.5 py-0.5">
+                        <span className="text-xs font-bold text-[#646f79] bg-[#f3f3f3] border border-[#e5e5e5] rounded-full px-2.5 py-0.5">
                           {selectedDateActivities.length} AGENDA
                         </span>
                       </div>
@@ -1847,28 +1847,28 @@ export default function App() {
                                 }
                               }}
                               aria-label={`Detail agenda: ${item.kegiatan}`}
-                              className="p-3 bg-white hover:bg-[#f7f7f4] border border-[#e6e5e0] hover:border-[#e6e5e0] rounded-xl shadow-none hover:shadow-none transition-all text-xs flex flex-col justify-between cursor-pointer group focus-visible:outline-2 focus-visible:outline-[#f54e00]"
+                              className="p-3 bg-white hover:bg-[#ffffff] border border-[#e5e5e5] hover:border-[#e5e5e5] rounded-2xl shadow-xs hover:shadow-xs transition-all text-xs flex flex-col justify-between cursor-pointer group focus-visible:outline-2 focus-visible:outline-[#646f79]"
                             >
                               <div>
                                 <div className="flex items-center justify-between gap-1.5 mb-1.5">
-                                  <span className="font-bold text-[10px] bg-[#fafaf7] text-[#f54e00] border border-[#e6e5e0] rounded-md px-1.5 py-0.2">
+                                  <span className="font-bold text-[10px] bg-[#f3f3f3] text-[#646f79] border border-[#e5e5e5] rounded-md px-1.5 py-0.2">
                                     #{cleanNomor(item.nomor)}
                                   </span>
                                   {item.lokasi && (
-                                    <span className="text-[10px] text-[#807d72] truncate max-w-[140px] inline-flex items-center gap-1 font-medium">
-                                      <MapPin className="w-3 h-3 text-[#dfa88f] shrink-0" aria-hidden="true" />
+                                    <span className="text-[10px] text-[#646f79] truncate max-w-[140px] inline-flex items-center gap-1 font-medium">
+                                      <MapPin className="w-3 h-3 text-[#ab3434] shrink-0" aria-hidden="true" />
                                       <span>{item.lokasi}</span>
                                     </span>
                                   )}
                                 </div>
-                                <p className="font-bold text-[#26251e] line-clamp-2 leading-snug group-hover:text-[#f54e00] transition-colors">
+                                <p className="font-bold text-[#0d0d0d] line-clamp-2 leading-snug group-hover:text-[#646f79] transition-colors">
                                   {item.kegiatan}
                                 </p>
                               </div>
 
-                              <div className="mt-2.5 pt-2 border-t border-[#e6e5e0] flex items-center justify-between">
-                                <span className="text-[10px] text-[#807d72] truncate max-w-[130px] inline-flex items-center gap-1 font-medium">
-                                  <Users className="w-3 h-3 text-[#553c7b] shrink-0" aria-hidden="true" />
+                              <div className="mt-2.5 pt-2 border-t border-[#e5e5e5] flex items-center justify-between">
+                                <span className="text-[10px] text-[#646f79] truncate max-w-[130px] inline-flex items-center gap-1 font-medium">
+                                  <Users className="w-3 h-3 text-[#0d0d0d] shrink-0" aria-hidden="true" />
                                   <span>{item.petugas.join(', ') || 'Belum tercatat'}</span>
                                 </span>
 
@@ -1879,7 +1879,7 @@ export default function App() {
                                       target="_blank"
                                       rel="noopener noreferrer"
                                       onClick={(e) => e.stopPropagation()}
-                                      className="text-[10px] font-bold rounded-full bg-[#fafaf7] text-[#f54e00] hover:bg-[#efeee8] px-2 py-0.5 transition-colors"
+                                      className="text-[10px] font-bold rounded-full bg-[#f3f3f3] text-[#646f79] hover:bg-[#f3f3f3] px-2 py-0.5 transition-colors"
                                     >
                                       Berita
                                     </a>
@@ -1891,22 +1891,22 @@ export default function App() {
                                       e.stopPropagation();
                                       copyReport(item);
                                     }}
-                                    className="p-1 rounded-full border border-[#cfcdc4] hover:border-[#f54e00] hover:bg-[#fafaf7] text-[#5a5852] hover:text-[#f54e00] transition-colors cursor-pointer shadow-none"
+                                    className="p-1 rounded-full border border-[#d1d5db] hover:border-[#646f79] hover:bg-[#f3f3f3] text-[#0d0d0d] hover:text-[#646f79] transition-colors cursor-pointer shadow-xs"
                                     title="Salin WA"
                                   >
-                                    {copyStatus[item.id] ? <Check className="w-3.5 h-3.5 text-[#1f8a65]" aria-hidden="true" /> : <Copy className="w-3.5 h-3.5" aria-hidden="true" />}
+                                    {copyStatus[item.id] ? <Check className="w-3.5 h-3.5 text-[#216950]" aria-hidden="true" /> : <Copy className="w-3.5 h-3.5" aria-hidden="true" />}
                                   </button>
                                 </div>
                               </div>
                             </div>
                           ))
                         ) : (
-                          <div className="h-full flex flex-col items-center justify-center p-6 text-center bg-[#f7f7f4] border border-dashed border-[#e6e5e0] rounded-xl">
-                            <Calendar className="w-7 h-7 text-[#807d72] mx-auto mb-2" aria-hidden="true" />
-                            <p className="text-xs text-[#26251e] font-bold">
+                          <div className="h-full flex flex-col items-center justify-center p-6 text-center bg-[#ffffff] border border-dashed border-[#e5e5e5] rounded-2xl">
+                            <Calendar className="w-7 h-7 text-[#646f79] mx-auto mb-2" aria-hidden="true" />
+                            <p className="text-xs text-[#0d0d0d] font-bold">
                               Tidak ada agenda pada tanggal ini
                             </p>
-                            <p className="text-[11px] text-[#807d72] mt-0.5">
+                            <p className="text-[11px] text-[#646f79] mt-0.5">
                               Pilih tanggal bertitik di sebelah kiri untuk melihat rincian agenda liputan.
                             </p>
                           </div>
@@ -1915,15 +1915,15 @@ export default function App() {
                     </div>
 
                     {selectedDateActivities.length > 0 && (
-                      <div className="pt-2.5 text-xs text-[#807d72] flex items-center justify-between border-t border-[#e6e5e0] mt-2">
-                        <span>Total: <strong className="text-[#26251e]">{selectedDateActivities.length}</strong> agenda</span>
+                      <div className="pt-2.5 text-xs text-[#646f79] flex items-center justify-between border-t border-[#e5e5e5] mt-2">
+                        <span>Total: <strong className="text-[#0d0d0d]">{selectedDateActivities.length}</strong> agenda</span>
                         <button
                           type="button"
                           onClick={() => {
                             setSelectedMonths([MONTH_ORDER[calendarMonth]]);
                             setCurrentMenu('rekapitulasi');
                           }}
-                          className="text-[#f54e00] font-bold hover:underline cursor-pointer"
+                          className="text-[#646f79] font-bold hover:underline cursor-pointer"
                         >
                           Buka Rekapitulasi →
                         </button>
@@ -1950,32 +1950,32 @@ export default function App() {
                 {/* Header with Monthly Total & Subtitle */}
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-4">
                   <div>
-                    <h3 className="font-normal text-base sm:text-lg text-[#26251e] tracking-[-0.01em] text-[#26251e]">
+                    <h3 className="font-normal text-base sm:text-lg text-[#0d0d0d] tracking-[-0.01em] text-[#0d0d0d]">
                       Aktivitas Peliputan Bulanan
                     </h3>
-                    <p className="text-xs text-[#807d72] mt-0.5">
+                    <p className="text-xs text-[#646f79] mt-0.5">
                       Data s.d. 25 November 2026
                     </p>
                     <div className="flex items-baseline gap-2 mt-1">
-                      <span className="text-2xl sm:text-3xl font-heading font-black text-[#f54e00]">
+                      <span className="text-2xl sm:text-3xl font-heading font-black text-[#646f79]">
                         {hoveredMonth ? (monthCounts[hoveredMonth] || 0) : peakMonth.count}
                       </span>
-                      <span className="text-xs text-[#807d72]">
+                      <span className="text-xs text-[#646f79]">
                         {hoveredMonth ? `kegiatan di bulan ${hoveredMonth}` : `kegiatan di bulan puncak (${peakMonth.name})`}
                       </span>
                     </div>
                   </div>
 
                   {/* Filter hint */}
-                  <div className="flex items-center gap-2 text-xs font-bold text-[#f54e00] bg-[#fafaf7] px-3 py-1 rounded-full border border-[#e6e5e0]">
-                    <span className="w-2 h-2 rounded-full bg-[#f54e00]"></span>
+                  <div className="flex items-center gap-2 text-xs font-bold text-[#646f79] bg-[#f3f3f3] px-3 py-1 rounded-full border border-[#e5e5e5]">
+                    <span className="w-2 h-2 rounded-full bg-[#0d0e10]"></span>
                     <span>Puncak: {peakMonth.name} ({peakMonth.count})</span>
                   </div>
                 </div>
 
                 {/* Harmonious Bar Chart */}
                 <div className="pt-6 pb-1">
-                  <div className="flex items-end justify-between gap-1.5 sm:gap-3 h-48 border-b border-[#e6e5e0] px-1 pb-2">
+                  <div className="flex items-end justify-between gap-1.5 sm:gap-3 h-48 border-b border-[#e5e5e5] px-1 pb-2">
                     {activeMonths.map(month => {
                       const count = monthCounts[month] || 0;
                       const heightPct = Math.round((count / maxMonthCount) * 100);
@@ -1995,14 +1995,14 @@ export default function App() {
                         >
                           {/* Centered Number Above Bar */}
                           <span className={`text-[10px] font-bold mb-1 transition-colors ${
-                            isHovered ? 'text-[#f54e00]' : isPeak ? 'text-[#f54e00]' : 'text-[#807d72]'
+                            isHovered ? 'text-[#646f79]' : isPeak ? 'text-[#646f79]' : 'text-[#646f79]'
                           }`}>
                             {count}
                           </span>
 
                           {/* Tooltip Floating Pill */}
                           {isHovered && (
-                            <div className="absolute -top-9 left-1/2 -translate-x-1/2 z-30 pointer-events-none whitespace-nowrap bg-[#26251e] text-white text-[10px] font-bold px-2.5 py-1 rounded-lg shadow-none flex flex-col items-center">
+                            <div className="absolute -top-9 left-1/2 -translate-x-1/2 z-30 pointer-events-none whitespace-nowrap bg-[#0d0e10] text-white text-[10px] font-bold px-2.5 py-1 rounded-lg shadow-xs flex flex-col items-center">
                               <span>{count} Kegiatan ({month})</span>
                             </div>
                           )}
@@ -2011,17 +2011,17 @@ export default function App() {
                           <div
                             className={`w-full max-w-[36px] chart-bar-animated rounded-t-lg transition-all ${
                               isHovered
-                                ? 'bg-[#d04200] shadow-none'
+                                ? 'bg-[#26282c] shadow-xs'
                                 : isPeak
-                                ? 'bg-[#f54e00] shadow-none'
-                                : 'bg-[#e6e5e0] hover:bg-[#cfcdc4]'
+                                ? 'bg-[#0d0e10] shadow-xs'
+                                : 'bg-[#f3f3f3] hover:bg-[#e5e5e5]'
                             }`}
                             style={{ height: `${Math.max(heightPct, 8)}%` }}
                           />
 
                           {/* Month Label */}
                           <span className={`text-[10px] font-bold mt-2 transition-colors ${
-                            isHovered ? 'text-[#f54e00]' : isPeak ? 'text-[#f54e00]' : 'text-[#807d72]'
+                            isHovered ? 'text-[#646f79]' : isPeak ? 'text-[#646f79]' : 'text-[#646f79]'
                           }`}>
                             {month.slice(0, 3)}
                           </span>
@@ -2032,12 +2032,12 @@ export default function App() {
                 </div>
 
                 {/* Footer notes */}
-                <div className="flex items-center justify-between pt-3 text-xs text-[#807d72]">
-                  <span>Warna oranye menandakan bulan dengan volume kegiatan tertinggi</span>
+                <div className="flex items-center justify-between pt-3 text-xs text-[#646f79]">
+                  <span>Warna gelap menandakan bulan dengan volume kegiatan tertinggi</span>
                   <button 
                     type="button"
                     onClick={() => setCurrentMenu('rekapitulasi')}
-                    className="text-[#f54e00] font-bold hover:underline inline-flex items-center gap-1 cursor-pointer"
+                    className="text-[#646f79] font-bold hover:underline inline-flex items-center gap-1 cursor-pointer"
                   >
                     <span>Lihat Rekap Lengkap</span>
                     <ArrowUpRight className="w-3.5 h-3.5" />
@@ -2047,34 +2047,34 @@ export default function App() {
               </div>
 
               {/* Right (4 cols): iFraldas Deep Slate Card (#2B2D42) */}
-              <div className="lg:col-span-4 bg-[#26251e] text-white rounded-xl p-5 sm:p-6 flex flex-col justify-between shadow-none border border-[#36342c]">
+              <div className="lg:col-span-4 bg-[#0d0e10] text-white rounded-2xl p-5 sm:p-6 flex flex-col justify-between shadow-xs border border-[#1e2024]">
                 <div>
-                  <span className="inline-block text-[10px] font-bold tracking-wider bg-[#f54e00] text-white px-2.5 py-0.5 rounded-full uppercase mb-3 shadow-none">
+                  <span className="inline-block text-[10px] font-bold tracking-wider bg-[#0d0e10] text-white px-2.5 py-0.5 rounded-full uppercase mb-3 shadow-xs">
                     RESMI 2026
                   </span>
 
-                  <h3 className="font-normal text-lg sm:text-xl text-[#f7f7f4] tracking-[-0.01em] leading-tight text-white mb-2">
+                  <h3 className="font-normal text-lg sm:text-xl text-white tracking-[-0.01em] leading-tight mb-2">
                     Basis Data Peliputan Pimpinan PKP
                   </h3>
 
-                  <p className="text-xs text-[#a09c92] leading-relaxed">
+                  <p className="text-xs text-[#8a949e] leading-relaxed">
                     Seluruh agenda kementerian, liputan pers, rilis berita resmi, serta penugasan personil terdata secara terstruktur.
                   </p>
                 </div>
 
                 {/* 3 Summary Numbers filling the center cleanly */}
-                <div className="grid grid-cols-3 gap-2 my-5 p-3 bg-white/10 rounded-xl border border-white/10 text-center">
+                <div className="grid grid-cols-3 gap-2 my-5 p-3 bg-white/10 rounded-2xl border border-white/10 text-center">
                   <div>
                     <div className="text-2xl font-heading font-black text-white">{activities.length}</div>
-                    <div className="text-[10px] text-[#a09c92] font-semibold uppercase tracking-wider">Kegiatan</div>
+                    <div className="text-[10px] text-[#8a949e] font-semibold uppercase tracking-wider">Kegiatan</div>
                   </div>
                   <div className="border-x border-white/10">
                     <div className="text-2xl font-heading font-black text-[#9fbbe0]">{totalBerita}</div>
-                    <div className="text-[10px] text-[#a09c92] font-semibold uppercase tracking-wider">Berita</div>
+                    <div className="text-[10px] text-[#8a949e] font-semibold uppercase tracking-wider">Berita</div>
                   </div>
                   <div>
-                    <div className="text-2xl font-heading font-black text-[#dfa88f]">{totalVideo}</div>
-                    <div className="text-[10px] text-[#a09c92] font-semibold uppercase tracking-wider">Video</div>
+                    <div className="text-2xl font-heading font-black text-[#ab3434]">{totalVideo}</div>
+                    <div className="text-[10px] text-[#8a949e] font-semibold uppercase tracking-wider">Video</div>
                   </div>
                 </div>
 
@@ -2083,7 +2083,7 @@ export default function App() {
                     href="https://docs.google.com/spreadsheets/d/16Q_Mrbs2oHPMv-xcCaB9zJ5_JMjAfr9F/edit?usp=sharing&ouid=110437050343134361164&rtpof=true&sd=true"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="w-full h-10 bg-[#f54e00] hover:bg-[#d04200] text-white rounded-full text-xs inline-flex items-center justify-center gap-1.5 transition-all font-bold shadow-none"
+                    className="w-full h-10 bg-[#0d0e10] hover:bg-[#26282c] text-white rounded-full text-xs inline-flex items-center justify-center gap-1.5 transition-all font-bold shadow-xs"
                   >
                     <span>BUKA GOOGLE SHEET</span>
                     <ArrowUpRight className="w-3.5 h-3.5" />
@@ -2108,20 +2108,20 @@ export default function App() {
               
               {/* Left: Kegiatan Peliputan Terbaru */}
               <div className="invo-card p-5">
-                <div className="flex items-center justify-between mb-3 pb-2 border-b border-[#e6e5e0]">
-                  <h4 className="font-heading font-extrabold text-[#26251e] text-sm sm:text-base">
+                <div className="flex items-center justify-between mb-3 pb-2 border-b border-[#e5e5e5]">
+                  <h4 className="font-heading font-extrabold text-[#0d0d0d] text-sm sm:text-base">
                     Kegiatan Peliputan Terbaru
                   </h4>
                   <button
                     type="button"
                     onClick={() => setCurrentMenu('search')}
-                    className="text-xs font-bold text-[#f54e00] hover:underline cursor-pointer"
+                    className="text-xs font-bold text-[#646f79] hover:underline cursor-pointer"
                   >
                     Cari Kegiatan →
                   </button>
                 </div>
 
-                <div className="divide-y divide-[#efeee8]">
+                <div className="divide-y divide-[#f3f3f3]">
                   {recentActivities.map(item => (
                     <div
                       key={item.id}
@@ -2134,19 +2134,19 @@ export default function App() {
                           setSelectedDetailItem(item);
                         }
                       }}
-                      className="py-2.5 px-2 flex items-start justify-between gap-3 group cursor-pointer hover:bg-[#f7f7f4] rounded-xl transition-colors"
+                      className="py-2.5 px-2 flex items-start justify-between gap-3 group cursor-pointer hover:bg-[#ffffff] rounded-2xl transition-colors"
                     >
                       <div className="flex items-start gap-2.5">
-                        <div className="text-[10px] font-bold bg-[#fafaf7] text-[#f54e00] border border-[#e6e5e0] rounded-md px-1.5 py-0.5 mt-0.5 shrink-0">
+                        <div className="text-[10px] font-bold bg-[#f3f3f3] text-[#646f79] border border-[#e5e5e5] rounded-md px-1.5 py-0.5 mt-0.5 shrink-0">
                           #{cleanNomor(item.nomor)}
                         </div>
                         <div>
-                          <p className="font-bold text-[#26251e] text-xs sm:text-sm line-clamp-1 group-hover:text-[#f54e00] transition-colors">
+                          <p className="font-bold text-[#0d0d0d] text-xs sm:text-sm line-clamp-1 group-hover:text-[#646f79] transition-colors">
                             {item.kegiatan}
                           </p>
-                          <div className="flex items-center gap-2 text-[10px] text-[#807d72] mt-0.5 font-medium">
+                          <div className="flex items-center gap-2 text-[10px] text-[#646f79] mt-0.5 font-medium">
                             <span className="flex items-center gap-1">
-                              <Calendar className="w-3 h-3 text-[#807d72]" />
+                              <Calendar className="w-3 h-3 text-[#646f79]" />
                               {item.tanggal_formatted || item.tanggal}
                             </span>
                             <span>•</span>
@@ -2163,10 +2163,10 @@ export default function App() {
                             e.stopPropagation();
                             copyReport(item);
                           }}
-                          className="p-1.5 rounded-full border border-[#cfcdc4] hover:border-[#f54e00] hover:bg-[#fafaf7] text-[#5a5852] hover:text-[#f54e00] transition-colors cursor-pointer shadow-none"
+                          className="p-1.5 rounded-full border border-[#d1d5db] hover:border-[#646f79] hover:bg-[#f3f3f3] text-[#0d0d0d] hover:text-[#646f79] transition-colors cursor-pointer shadow-xs"
                           title="Salin WA"
                         >
-                          {copyStatus[item.id] ? <Check className="w-3.5 h-3.5 text-[#1f8a65]" /> : <Copy className="w-3.5 h-3.5" />}
+                          {copyStatus[item.id] ? <Check className="w-3.5 h-3.5 text-[#216950]" /> : <Copy className="w-3.5 h-3.5" />}
                         </button>
                       </div>
                     </div>
@@ -2176,20 +2176,20 @@ export default function App() {
 
               {/* Right: Petugas Teraktif */}
               <div className="invo-card p-5">
-                <div className="flex items-center justify-between mb-3 pb-2 border-b border-[#e6e5e0]">
-                  <h4 className="font-heading font-extrabold text-[#26251e] text-sm sm:text-base">
+                <div className="flex items-center justify-between mb-3 pb-2 border-b border-[#e5e5e5]">
+                  <h4 className="font-heading font-extrabold text-[#0d0d0d] text-sm sm:text-base">
                     Personil Teraktif
                   </h4>
                   <button
                     type="button"
                     onClick={() => setCurrentMenu('tim')}
-                    className="text-xs font-bold text-[#f54e00] hover:underline cursor-pointer"
+                    className="text-xs font-bold text-[#646f79] hover:underline cursor-pointer"
                   >
                     Lihat Semua ({officerStats.length}) →
                   </button>
                 </div>
 
-                <div className="divide-y divide-[#efeee8]">
+                <div className="divide-y divide-[#f3f3f3]">
                   {officerStats.slice(0, 5).map((officer, index) => (
                     <div
                       key={officer.name}
@@ -2206,17 +2206,17 @@ export default function App() {
                           setCurrentMenu('rekapitulasi');
                         }
                       }}
-                      className="py-2.5 px-2 hover:bg-[#f7f7f4] rounded-xl transition-colors cursor-pointer group flex items-center justify-between"
+                      className="py-2.5 px-2 hover:bg-[#ffffff] rounded-2xl transition-colors cursor-pointer group flex items-center justify-between"
                     >
                       <div className="flex items-center gap-2.5">
-                        <span className="w-6 h-6 rounded-full bg-[#fafaf7] text-[#f54e00] border border-[#e6e5e0] font-bold flex items-center justify-center text-xs">
+                        <span className="w-6 h-6 rounded-full bg-[#f3f3f3] text-[#646f79] border border-[#e5e5e5] font-bold flex items-center justify-center text-xs">
                           {index + 1}
                         </span>
-                        <span className="font-bold text-[#26251e] text-xs sm:text-sm group-hover:text-[#f54e00] transition-colors">
+                        <span className="font-bold text-[#0d0d0d] text-xs sm:text-sm group-hover:text-[#646f79] transition-colors">
                           {officer.name}
                         </span>
                       </div>
-                      <span className="text-xs font-semibold text-[#f54e00] bg-[#fafaf7] rounded-full px-2.5 py-0.5">
+                      <span className="text-xs font-semibold text-[#646f79] bg-[#f3f3f3] rounded-full px-2.5 py-0.5">
                         {officer.count} kegiatan
                       </span>
                     </div>
@@ -2236,24 +2236,24 @@ export default function App() {
           <div className="space-y-4 page-transition">
             
             {/* Filter Card */}
-            <div className="invo-card p-4 sm:p-5 rounded-xl border border-[#e6e5e0] bg-white shadow-none">
+            <div className="invo-card p-4 sm:p-5 rounded-2xl border border-[#e5e5e5] bg-white shadow-xs">
               
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-4">
                 <div className="flex items-center gap-3">
                   <button
                     type="button"
                     onClick={goBack}
-                    className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-sans font-semibold text-[#f54e00] bg-[#fafaf7] hover:bg-[#efeee8] rounded-full border border-[#cfcdc4] transition-colors cursor-pointer select-none"
+                    className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-sans font-semibold text-[#646f79] bg-[#f3f3f3] hover:bg-[#f3f3f3] rounded-full border border-[#d1d5db] transition-colors cursor-pointer select-none"
                     title="Kembali"
                   >
                     <ArrowLeft className="w-3.5 h-3.5" />
                     <span>Kembali</span>
                   </button>
                   <div>
-                    <h3 className="text-base sm:text-lg font-heading font-black text-[#26251e] leading-tight">
+                    <h3 className="text-base sm:text-lg font-heading font-black text-[#0d0d0d] leading-tight">
                       Rekapitulasi Kegiatan
                     </h3>
-                    <p className="text-[11px] font-sans text-[#807d72]">
+                    <p className="text-[11px] font-sans text-[#646f79]">
                       Tabel data interaktif seluruh penugasan liputan pimpinan Kementerian PKP.
                     </p>
                   </div>
@@ -2264,7 +2264,7 @@ export default function App() {
                     <button
                       type="button"
                       onClick={resetRekapFilters}
-                      className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-sans font-semibold rounded-full border border-[#dfa88f]/50 bg-[#fdf3ef] text-[#cf2d56] hover:bg-[#FFE0E4] transition-colors cursor-pointer"
+                      className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-sans font-semibold rounded-full border border-[#f9cccc] bg-[#fdf2f2] text-[#ab3434] hover:bg-[#FFE0E4] transition-colors cursor-pointer"
                     >
                       <RotateCcw className="w-3.5 h-3.5" />
                       <span>Atur Ulang ({activeFiltersCount})</span>
@@ -2273,7 +2273,7 @@ export default function App() {
 
                   <button
                     onClick={exportCSV}
-                    className="inline-flex items-center gap-1.5 px-3.5 py-1.5 text-xs font-sans font-bold rounded-full bg-[#f54e00] text-white hover:bg-[#d04200] shadow-none hover:shadow transition-all cursor-pointer"
+                    className="inline-flex items-center gap-1.5 px-3.5 py-1.5 text-xs font-sans font-bold rounded-full bg-[#0d0e10] text-white hover:bg-[#26282c] shadow-xs hover:shadow transition-all cursor-pointer"
                   >
                     <Download className="w-3.5 h-3.5" />
                     <span>Ekspor CSV</span>
@@ -2283,18 +2283,18 @@ export default function App() {
 
               {/* Table search input */}
               <div className="relative mb-3">
-                <Search className="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-[#807d72] pointer-events-none" />
+                <Search className="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-[#646f79] pointer-events-none" />
                 <input
                   type="text"
                   placeholder="Filter tabel berdasarkan nama kegiatan, lokasi daerah, judul berita, atau nama petugas..."
                   value={rekapSearch}
                   onChange={(e) => setRekapSearch(e.target.value)}
-                  className="w-full pl-10 pr-9 py-2 bg-[#f7f7f4] focus:bg-white border border-[#e6e5e0] focus:border-[#f54e00] rounded-full text-[#5a5852] text-xs font-sans placeholder:text-[#807d72] focus:outline-none transition-all"
+                  className="w-full pl-10 pr-9 py-2 bg-[#ffffff] focus:bg-white border border-[#e5e5e5] focus:border-[#646f79] rounded-full text-[#0d0d0d] text-xs font-sans placeholder:text-[#646f79] focus:outline-none transition-all"
                 />
                 {rekapSearch && (
                   <button
                     onClick={() => setRekapSearch('')}
-                    className="absolute right-3 top-1/2 -translate-y-1/2 p-1 text-[#807d72] hover:text-[#26251e]"
+                    className="absolute right-3 top-1/2 -translate-y-1/2 p-1 text-[#646f79] hover:text-[#0d0d0d]"
                   >
                     <X className="w-3.5 h-3.5" />
                   </button>
@@ -2315,8 +2315,8 @@ export default function App() {
                       setIsProvincePickerOpen(false);
                       setIsOfficerPickerOpen(false);
                     }}
-                    className={`w-full bg-white hover:bg-[#f7f7f4] border rounded-full px-3 py-1.5 text-xs font-sans font-medium flex items-center justify-between text-left transition-colors cursor-pointer ${
-                      selectedMonths.length > 0 ? 'border-[#f54e00] bg-[#fafaf7] text-[#f54e00] font-bold' : 'border-[#e6e5e0] text-[#5a5852]'
+                    className={`w-full bg-white hover:bg-[#ffffff] border rounded-full px-3 py-1.5 text-xs font-sans font-medium flex items-center justify-between text-left transition-colors cursor-pointer ${
+                      selectedMonths.length > 0 ? 'border-[#646f79] bg-[#f3f3f3] text-[#646f79] font-bold' : 'border-[#e5e5e5] text-[#0d0d0d]'
                     }`}
                   >
                     <span className="truncate">
@@ -2326,17 +2326,17 @@ export default function App() {
                         ? `Bulan: ${selectedMonths[0]}`
                         : `Bulan: ${selectedMonths.length} Terpilih`}
                     </span>
-                    <ChevronDown className={`w-3.5 h-3.5 text-[#807d72] shrink-0 ml-1 transition-transform duration-200 ${isMonthPickerOpen ? 'rotate-180' : ''}`} />
+                    <ChevronDown className={`w-3.5 h-3.5 text-[#646f79] shrink-0 ml-1 transition-transform duration-200 ${isMonthPickerOpen ? 'rotate-180' : ''}`} />
                   </button>
 
                   {isMonthPickerOpen && (
-                    <div className="absolute left-0 mt-1.5 w-72 bg-white rounded-xl border border-[#e6e5e0] p-3 z-30 shadow-none popover-motion origin-top-left">
-                      <div className="flex items-center justify-between pb-2 mb-2 border-b border-[#e6e5e0] text-xs font-sans">
-                        <span className="font-heading font-bold text-[#26251e] uppercase tracking-wider text-[11px]">Pilih Bulan</span>
+                    <div className="absolute left-0 mt-1.5 w-72 bg-white rounded-2xl border border-[#e5e5e5] p-3 z-30 shadow-xs popover-motion origin-top-left">
+                      <div className="flex items-center justify-between pb-2 mb-2 border-b border-[#e5e5e5] text-xs font-sans">
+                        <span className="font-heading font-bold text-[#0d0d0d] uppercase tracking-wider text-[11px]">Pilih Bulan</span>
                         <button
                           type="button"
                           onClick={() => setSelectedMonths([])}
-                          className="text-[#f54e00] hover:underline font-bold text-[11px]"
+                          className="text-[#646f79] hover:underline font-bold text-[11px]"
                         >
                           Pilih Semua
                         </button>
@@ -2349,7 +2349,7 @@ export default function App() {
                             key={label}
                             type="button"
                             onClick={() => selectQuarter(qMonths)}
-                            className="px-2 py-1 text-[10px] font-sans font-bold rounded-full bg-[#f7f7f4] hover:bg-[#fafaf7] text-[#5a5852] hover:text-[#f54e00] border border-[#e6e5e0] transition-colors"
+                            className="px-2 py-1 text-[10px] font-sans font-bold rounded-full bg-[#ffffff] hover:bg-[#f3f3f3] text-[#0d0d0d] hover:text-[#646f79] border border-[#e5e5e5] transition-colors"
                           >
                             {label}
                           </button>
@@ -2361,20 +2361,20 @@ export default function App() {
                         {activeMonths.map(month => (
                           <label
                             key={month}
-                            className="flex items-center justify-between px-2.5 py-1.5 rounded-xl hover:bg-[#f7f7f4] cursor-pointer text-xs font-sans select-none"
+                            className="flex items-center justify-between px-2.5 py-1.5 rounded-2xl hover:bg-[#ffffff] cursor-pointer text-xs font-sans select-none"
                           >
                             <div className="flex items-center gap-2">
                               <input
                                 type="checkbox"
                                 checked={selectedMonths.includes(month)}
                                 onChange={() => toggleMonth(month)}
-                                className="h-3.5 w-3.5 rounded text-[#f54e00] border-[#e6e5e0] accent-[#f54e00]"
+                                className="h-3.5 w-3.5 rounded text-[#646f79] border-[#e5e5e5] accent-[#0d0e10]"
                               />
-                              <span className={selectedMonths.includes(month) ? 'font-bold text-[#f54e00]' : 'text-[#5a5852]'}>
+                              <span className={selectedMonths.includes(month) ? 'font-bold text-[#646f79]' : 'text-[#0d0d0d]'}>
                                 {month}
                               </span>
                             </div>
-                            <span className="text-[10px] text-[#807d72] font-sans bg-[#f7f7f4] px-2 py-0.5 rounded-full">
+                            <span className="text-[10px] text-[#646f79] font-sans bg-[#ffffff] px-2 py-0.5 rounded-full">
                               {monthCounts[month] || 0}
                             </span>
                           </label>
@@ -2395,8 +2395,8 @@ export default function App() {
                       setIsProvincePickerOpen(false);
                       setIsOfficerPickerOpen(false);
                     }}
-                    className={`w-full bg-white hover:bg-[#f7f7f4] border rounded-full px-3 py-1.5 text-xs font-sans font-medium flex items-center justify-between text-left transition-colors cursor-pointer ${
-                      selectedNewsStatus !== 'all' ? 'border-[#f54e00] bg-[#fafaf7] text-[#f54e00] font-bold' : 'border-[#e6e5e0] text-[#5a5852]'
+                    className={`w-full bg-white hover:bg-[#ffffff] border rounded-full px-3 py-1.5 text-xs font-sans font-medium flex items-center justify-between text-left transition-colors cursor-pointer ${
+                      selectedNewsStatus !== 'all' ? 'border-[#646f79] bg-[#f3f3f3] text-[#646f79] font-bold' : 'border-[#e5e5e5] text-[#0d0d0d]'
                     }`}
                   >
                     <span className="truncate">
@@ -2406,12 +2406,12 @@ export default function App() {
                         ? `Berita: Ada (${totalBerita})`
                         : 'Berita: Belum Ada'}
                     </span>
-                    <ChevronDown className={`w-3.5 h-3.5 text-[#807d72] shrink-0 ml-1 transition-transform duration-200 ${isNewsStatusPickerOpen ? 'rotate-180' : ''}`} />
+                    <ChevronDown className={`w-3.5 h-3.5 text-[#646f79] shrink-0 ml-1 transition-transform duration-200 ${isNewsStatusPickerOpen ? 'rotate-180' : ''}`} />
                   </button>
 
                   {isNewsStatusPickerOpen && (
-                    <div className="absolute left-0 mt-1.5 w-60 bg-white rounded-xl border border-[#e6e5e0] p-2 z-30 shadow-none popover-motion origin-top-left">
-                      <div className="px-2.5 py-1.5 font-heading font-bold text-[10px] text-[#807d72] uppercase tracking-wider border-b border-[#e6e5e0] mb-1">
+                    <div className="absolute left-0 mt-1.5 w-60 bg-white rounded-2xl border border-[#e5e5e5] p-2 z-30 shadow-xs popover-motion origin-top-left">
+                      <div className="px-2.5 py-1.5 font-heading font-bold text-[10px] text-[#646f79] uppercase tracking-wider border-b border-[#e5e5e5] mb-1">
                         Status Rilis Berita
                       </div>
                       <div className="space-y-0.5">
@@ -2429,10 +2429,10 @@ export default function App() {
                                 setSelectedNewsStatus(opt.id);
                                 setIsNewsStatusPickerOpen(false);
                               }}
-                              className={`w-full flex items-center justify-between px-2.5 py-2 rounded-xl text-xs transition-colors text-left cursor-pointer border ${
+                              className={`w-full flex items-center justify-between px-2.5 py-2 rounded-2xl text-xs transition-colors text-left cursor-pointer border ${
                                 isSelected
-                                  ? 'bg-[#fafaf7] text-[#f54e00] border-[#f54e00] font-bold'
-                                  : 'hover:bg-[#f7f7f4] text-[#5a5852] border-transparent font-medium'
+                                  ? 'bg-[#f3f3f3] text-[#646f79] border-[#646f79] font-bold'
+                                  : 'hover:bg-[#ffffff] text-[#0d0d0d] border-transparent font-medium'
                               }`}
                             >
                               <div>
@@ -2440,15 +2440,15 @@ export default function App() {
                                   <span>{opt.label}</span>
                                   {opt.count !== null && (
                                     <span className={`text-[10px] px-1.5 py-0.2 rounded-full font-bold ${
-                                      isSelected ? 'bg-[#f54e00] text-white' : 'bg-[#efeee8] text-[#5a5852]'
+                                      isSelected ? 'bg-[#0d0e10] text-white' : 'bg-[#f3f3f3] text-[#0d0d0d]'
                                     }`}>
                                       {opt.count}
                                     </span>
                                   )}
                                 </div>
-                                <div className={`text-[10px] font-sans ${isSelected ? 'text-[#f54e00]/80' : 'text-[#807d72]'}`}>{opt.desc}</div>
+                                <div className={`text-[10px] font-sans ${isSelected ? 'text-[#646f79]/80' : 'text-[#646f79]'}`}>{opt.desc}</div>
                               </div>
-                              {isSelected && <Check className="w-3.5 h-3.5 text-[#f54e00] shrink-0 ml-2" />}
+                              {isSelected && <Check className="w-3.5 h-3.5 text-[#646f79] shrink-0 ml-2" />}
                             </button>
                           );
                         })}
@@ -2468,8 +2468,8 @@ export default function App() {
                       setIsProvincePickerOpen(false);
                       setIsOfficerPickerOpen(false);
                     }}
-                    className={`w-full bg-white hover:bg-[#f7f7f4] border rounded-full px-3 py-1.5 text-xs font-sans font-medium flex items-center justify-between text-left transition-colors cursor-pointer ${
-                      selectedVideoStatus !== 'all' ? 'border-[#f54e00] bg-[#fafaf7] text-[#f54e00] font-bold' : 'border-[#e6e5e0] text-[#5a5852]'
+                    className={`w-full bg-white hover:bg-[#ffffff] border rounded-full px-3 py-1.5 text-xs font-sans font-medium flex items-center justify-between text-left transition-colors cursor-pointer ${
+                      selectedVideoStatus !== 'all' ? 'border-[#646f79] bg-[#f3f3f3] text-[#646f79] font-bold' : 'border-[#e5e5e5] text-[#0d0d0d]'
                     }`}
                   >
                     <span className="truncate">
@@ -2479,12 +2479,12 @@ export default function App() {
                         ? `Video: Ada (${totalVideo})`
                         : 'Video: Belum Ada'}
                     </span>
-                    <ChevronDown className={`w-3.5 h-3.5 text-[#807d72] shrink-0 ml-1 transition-transform duration-200 ${isVideoStatusPickerOpen ? 'rotate-180' : ''}`} />
+                    <ChevronDown className={`w-3.5 h-3.5 text-[#646f79] shrink-0 ml-1 transition-transform duration-200 ${isVideoStatusPickerOpen ? 'rotate-180' : ''}`} />
                   </button>
 
                   {isVideoStatusPickerOpen && (
-                    <div className="absolute left-0 mt-1.5 w-60 bg-white rounded-xl border border-[#e6e5e0] p-2 z-30 shadow-none popover-motion origin-top-left">
-                      <div className="px-2.5 py-1.5 font-heading font-bold text-[10px] text-[#807d72] uppercase tracking-wider border-b border-[#e6e5e0] mb-1">
+                    <div className="absolute left-0 mt-1.5 w-60 bg-white rounded-2xl border border-[#e5e5e5] p-2 z-30 shadow-xs popover-motion origin-top-left">
+                      <div className="px-2.5 py-1.5 font-heading font-bold text-[10px] text-[#646f79] uppercase tracking-wider border-b border-[#e5e5e5] mb-1">
                         Status Tautan Video
                       </div>
                       <div className="space-y-0.5">
@@ -2502,10 +2502,10 @@ export default function App() {
                                 setSelectedVideoStatus(opt.id);
                                 setIsVideoStatusPickerOpen(false);
                               }}
-                              className={`w-full flex items-center justify-between px-2.5 py-2 rounded-xl text-xs transition-colors text-left cursor-pointer border ${
+                              className={`w-full flex items-center justify-between px-2.5 py-2 rounded-2xl text-xs transition-colors text-left cursor-pointer border ${
                                 isSelected
-                                  ? 'bg-[#fafaf7] text-[#f54e00] border-[#f54e00] font-bold'
-                                  : 'hover:bg-[#f7f7f4] text-[#5a5852] border-transparent font-medium'
+                                  ? 'bg-[#f3f3f3] text-[#646f79] border-[#646f79] font-bold'
+                                  : 'hover:bg-[#ffffff] text-[#0d0d0d] border-transparent font-medium'
                               }`}
                             >
                               <div>
@@ -2513,15 +2513,15 @@ export default function App() {
                                   <span>{opt.label}</span>
                                   {opt.count !== null && (
                                     <span className={`text-[10px] px-1.5 py-0.2 rounded-full font-bold ${
-                                      isSelected ? 'bg-[#f54e00] text-white' : 'bg-[#efeee8] text-[#5a5852]'
+                                      isSelected ? 'bg-[#0d0e10] text-white' : 'bg-[#f3f3f3] text-[#0d0d0d]'
                                     }`}>
                                       {opt.count}
                                     </span>
                                   )}
                                 </div>
-                                <div className={`text-[10px] font-sans ${isSelected ? 'text-[#f54e00]/80' : 'text-[#807d72]'}`}>{opt.desc}</div>
+                                <div className={`text-[10px] font-sans ${isSelected ? 'text-[#646f79]/80' : 'text-[#646f79]'}`}>{opt.desc}</div>
                               </div>
-                              {isSelected && <Check className="w-3.5 h-3.5 text-[#f54e00] shrink-0 ml-2" />}
+                              {isSelected && <Check className="w-3.5 h-3.5 text-[#646f79] shrink-0 ml-2" />}
                             </button>
                           );
                         })}
@@ -2541,22 +2541,22 @@ export default function App() {
                       setIsVideoStatusPickerOpen(false);
                       setIsOfficerPickerOpen(false);
                     }}
-                    className={`w-full bg-white hover:bg-[#f7f7f4] border rounded-full px-3 py-1.5 text-xs font-sans font-medium flex items-center justify-between text-left transition-colors cursor-pointer ${
-                      selectedProvince !== 'all' ? 'border-[#f54e00] bg-[#fafaf7] text-[#f54e00] font-bold' : 'border-[#e6e5e0] text-[#5a5852]'
+                    className={`w-full bg-white hover:bg-[#ffffff] border rounded-full px-3 py-1.5 text-xs font-sans font-medium flex items-center justify-between text-left transition-colors cursor-pointer ${
+                      selectedProvince !== 'all' ? 'border-[#646f79] bg-[#f3f3f3] text-[#646f79] font-bold' : 'border-[#e5e5e5] text-[#0d0d0d]'
                     }`}
                   >
                     <span className="truncate">
                       {selectedProvince === 'all' ? 'Wilayah: Semua' : `Wilayah: ${selectedProvince}`}
                     </span>
-                    <ChevronDown className={`w-3.5 h-3.5 text-[#807d72] shrink-0 ml-1 transition-transform duration-200 ${isProvincePickerOpen ? 'rotate-180' : ''}`} />
+                    <ChevronDown className={`w-3.5 h-3.5 text-[#646f79] shrink-0 ml-1 transition-transform duration-200 ${isProvincePickerOpen ? 'rotate-180' : ''}`} />
                   </button>
 
                   {isProvincePickerOpen && (
-                    <div className="absolute left-0 sm:left-auto sm:right-0 mt-1.5 w-72 bg-white rounded-xl border border-[#e6e5e0] p-3 z-30 shadow-none popover-motion origin-top-left sm:origin-top-right">
-                      <div className="flex items-center justify-between pb-2 mb-2 border-b border-[#e6e5e0] text-xs font-sans">
+                    <div className="absolute left-0 sm:left-auto sm:right-0 mt-1.5 w-72 bg-white rounded-2xl border border-[#e5e5e5] p-3 z-30 shadow-xs popover-motion origin-top-left sm:origin-top-right">
+                      <div className="flex items-center justify-between pb-2 mb-2 border-b border-[#e5e5e5] text-xs font-sans">
                         <div>
-                          <span className="font-heading font-bold text-[#26251e] uppercase tracking-wider block text-[11px]">Filter Wilayah</span>
-                          <span className="text-[10px] text-[#807d72]">{provinces.length} provinsi tercatat</span>
+                          <span className="font-heading font-bold text-[#0d0d0d] uppercase tracking-wider block text-[11px]">Filter Wilayah</span>
+                          <span className="text-[10px] text-[#646f79]">{provinces.length} provinsi tercatat</span>
                         </div>
                         {selectedProvince !== 'all' && (
                           <button
@@ -2565,7 +2565,7 @@ export default function App() {
                               setSelectedProvince('all');
                               setIsProvincePickerOpen(false);
                             }}
-                            className="text-[#f54e00] hover:underline font-bold text-[11px]"
+                            className="text-[#646f79] hover:underline font-bold text-[11px]"
                           >
                             Reset
                           </button>
@@ -2574,19 +2574,19 @@ export default function App() {
 
                       {/* Mini search for province */}
                       <div className="relative mb-2">
-                        <Search className="w-3.5 h-3.5 text-[#807d72] absolute left-2.5 top-1/2 -translate-y-1/2" />
+                        <Search className="w-3.5 h-3.5 text-[#646f79] absolute left-2.5 top-1/2 -translate-y-1/2" />
                         <input
                           type="text"
                           value={provinceSearch}
                           onChange={(e) => setProvinceSearch(e.target.value)}
                           placeholder="Cari provinsi..."
-                          className="w-full pl-8 pr-7 py-1 text-xs bg-[#f7f7f4] focus:bg-white border border-[#e6e5e0] focus:border-[#f54e00] rounded-full focus:outline-none font-sans"
+                          className="w-full pl-8 pr-7 py-1 text-xs bg-[#ffffff] focus:bg-white border border-[#e5e5e5] focus:border-[#646f79] rounded-full focus:outline-none font-sans"
                         />
                         {provinceSearch && (
                           <button
                             type="button"
                             onClick={() => setProvinceSearch('')}
-                            className="absolute right-2 top-1/2 -translate-y-1/2 text-[#807d72] hover:text-[#26251e]"
+                            className="absolute right-2 top-1/2 -translate-y-1/2 text-[#646f79] hover:text-[#0d0d0d]"
                           >
                             <X className="w-3 h-3" />
                           </button>
@@ -2601,14 +2601,14 @@ export default function App() {
                             setSelectedProvince('all');
                             setIsProvincePickerOpen(false);
                           }}
-                          className={`w-full flex items-center justify-between px-2.5 py-1.5 rounded-xl text-xs font-sans transition-colors text-left cursor-pointer border ${
+                          className={`w-full flex items-center justify-between px-2.5 py-1.5 rounded-2xl text-xs font-sans transition-colors text-left cursor-pointer border ${
                             selectedProvince === 'all'
-                              ? 'bg-[#fafaf7] text-[#f54e00] border-[#f54e00] font-bold'
-                              : 'hover:bg-[#f7f7f4] text-[#5a5852] border-transparent font-medium'
+                              ? 'bg-[#f3f3f3] text-[#646f79] border-[#646f79] font-bold'
+                              : 'hover:bg-[#ffffff] text-[#0d0d0d] border-transparent font-medium'
                           }`}
                         >
                           <span>Semua Wilayah</span>
-                          {selectedProvince === 'all' && <Check className="w-3.5 h-3.5 text-[#f54e00] shrink-0 ml-2" />}
+                          {selectedProvince === 'all' && <Check className="w-3.5 h-3.5 text-[#646f79] shrink-0 ml-2" />}
                         </button>
 
                         {filteredProvinces.map(p => {
@@ -2622,29 +2622,29 @@ export default function App() {
                                 setSelectedProvince(p);
                                 setIsProvincePickerOpen(false);
                               }}
-                              className={`w-full flex items-center justify-between px-2.5 py-1.5 rounded-xl text-xs font-sans transition-colors text-left cursor-pointer border ${
+                              className={`w-full flex items-center justify-between px-2.5 py-1.5 rounded-2xl text-xs font-sans transition-colors text-left cursor-pointer border ${
                                 isSelected
-                                  ? 'bg-[#fafaf7] text-[#f54e00] border-[#f54e00] font-bold'
-                                  : 'hover:bg-[#f7f7f4] text-[#5a5852] border-transparent font-medium'
+                                  ? 'bg-[#f3f3f3] text-[#646f79] border-[#646f79] font-bold'
+                                  : 'hover:bg-[#ffffff] text-[#0d0d0d] border-transparent font-medium'
                               }`}
                             >
                               <div className="flex items-center gap-1.5 truncate">
-                                <MapPin className={`w-3 h-3 shrink-0 ${isSelected ? 'text-[#f54e00]' : 'text-[#807d72]'}`} />
+                                <MapPin className={`w-3 h-3 shrink-0 ${isSelected ? 'text-[#646f79]' : 'text-[#646f79]'}`} />
                                 <span className="truncate">{p}</span>
                               </div>
                               <div className="flex items-center gap-1.5 shrink-0 ml-2">
                                 <span className={`text-[10px] px-2 py-0.5 rounded-full font-bold ${
-                                  isSelected ? 'bg-[#f54e00] text-white' : 'bg-[#efeee8] text-[#5a5852]'
+                                  isSelected ? 'bg-[#0d0e10] text-white' : 'bg-[#f3f3f3] text-[#0d0d0d]'
                                 }`}>
                                   {count}
                                 </span>
-                                {isSelected && <Check className="w-3.5 h-3.5 text-[#f54e00] shrink-0" />}
+                                {isSelected && <Check className="w-3.5 h-3.5 text-[#646f79] shrink-0" />}
                               </div>
                             </button>
                           );
                         })}
                         {filteredProvinces.length === 0 && (
-                          <div className="text-center py-4 text-xs font-sans text-[#807d72]">
+                          <div className="text-center py-4 text-xs font-sans text-[#646f79]">
                             Provinsi tidak ditemukan
                           </div>
                         )}
@@ -2664,8 +2664,8 @@ export default function App() {
                       setIsVideoStatusPickerOpen(false);
                       setIsProvincePickerOpen(false);
                     }}
-                    className={`w-full bg-white hover:bg-[#f7f7f4] border rounded-full px-3 py-1.5 text-xs font-sans font-medium flex items-center justify-between text-left transition-colors cursor-pointer ${
-                      selectedOfficers.length > 0 ? 'border-[#c0a8dd] bg-[#f4effa] text-[#553c7b] font-bold' : 'border-[#e6e5e0] text-[#5a5852]'
+                    className={`w-full bg-white hover:bg-[#ffffff] border rounded-full px-3 py-1.5 text-xs font-sans font-medium flex items-center justify-between text-left transition-colors cursor-pointer ${
+                      selectedOfficers.length > 0 ? 'border-[#e5e5e5] bg-[#f3f3f3] text-[#0d0d0d] font-bold' : 'border-[#e5e5e5] text-[#0d0d0d]'
                     }`}
                   >
                     <span className="truncate">
@@ -2676,22 +2676,22 @@ export default function App() {
                         : `Petugas: ${selectedOfficers.length} Terpilih`}
                     </span>
                     <ChevronDown className={`w-3.5 h-3.5 shrink-0 ml-1 transition-transform duration-200 ${
-                      selectedOfficers.length > 0 ? 'text-[#553c7b]' : 'text-[#807d72]'
+                      selectedOfficers.length > 0 ? 'text-[#0d0d0d]' : 'text-[#646f79]'
                     } ${isOfficerPickerOpen ? 'rotate-180' : ''}`} />
                   </button>
 
                   {isOfficerPickerOpen && (
-                    <div className="absolute right-0 mt-1.5 w-72 bg-white rounded-xl border border-[#e6e5e0] p-3 z-30 shadow-none popover-motion origin-top-right">
-                      <div className="flex items-center justify-between pb-2 mb-2 border-b border-[#e6e5e0] text-xs font-sans">
+                    <div className="absolute right-0 mt-1.5 w-72 bg-white rounded-2xl border border-[#e5e5e5] p-3 z-30 shadow-xs popover-motion origin-top-right">
+                      <div className="flex items-center justify-between pb-2 mb-2 border-b border-[#e5e5e5] text-xs font-sans">
                         <div>
-                          <span className="font-heading font-bold text-[#26251e] uppercase tracking-wider block text-[11px]">Filter Personil Tim</span>
-                          <span className="text-[10px] text-[#807d72]">Harus bertugas bersama</span>
+                          <span className="font-heading font-bold text-[#0d0d0d] uppercase tracking-wider block text-[11px]">Filter Personil Tim</span>
+                          <span className="text-[10px] text-[#646f79]">Harus bertugas bersama</span>
                         </div>
                         {selectedOfficers.length > 0 && (
                           <button
                             type="button"
                             onClick={() => setSelectedOfficers([])}
-                            className="text-[#553c7b] hover:underline font-bold text-[11px]"
+                            className="text-[#0d0d0d] hover:underline font-bold text-[11px]"
                           >
                             Reset
                           </button>
@@ -2703,7 +2703,7 @@ export default function App() {
                         placeholder="Cari nama personil..."
                         value={officerSearch}
                         onChange={(e) => setOfficerSearch(e.target.value)}
-                        className="w-full pl-3 pr-2 py-1.5 mb-2 bg-[#f7f7f4] focus:bg-white border border-[#e6e5e0] rounded-full text-[#5a5852] text-xs font-sans focus:border-[#c0a8dd] focus:outline-none transition-all"
+                        className="w-full pl-3 pr-2 py-1.5 mb-2 bg-[#ffffff] focus:bg-white border border-[#e5e5e5] rounded-full text-[#0d0d0d] text-xs font-sans focus:border-[#e5e5e5] focus:outline-none transition-all"
                       />
 
                       <div className="space-y-0.5 max-h-48 overflow-y-auto pr-1">
@@ -2712,20 +2712,20 @@ export default function App() {
                           .map(officer => (
                             <label
                               key={officer.name}
-                              className="flex items-center justify-between px-2.5 py-1.5 rounded-xl hover:bg-[#f7f7f4] cursor-pointer text-xs font-sans select-none"
+                              className="flex items-center justify-between px-2.5 py-1.5 rounded-2xl hover:bg-[#ffffff] cursor-pointer text-xs font-sans select-none"
                             >
                               <div className="flex items-center gap-2">
                                 <input
                                   type="checkbox"
                                   checked={selectedOfficers.includes(officer.name)}
                                   onChange={() => toggleOfficer(officer.name)}
-                                  className="h-3.5 w-3.5 rounded text-[#553c7b] border-[#e6e5e0] accent-[#c0a8dd]"
+                                  className="h-3.5 w-3.5 rounded text-[#0d0d0d] border-[#e5e5e5] accent-[#0d0e10]"
                                 />
-                                <span className={selectedOfficers.includes(officer.name) ? 'font-bold text-[#553c7b]' : 'text-[#5a5852]'}>
+                                <span className={selectedOfficers.includes(officer.name) ? 'font-bold text-[#0d0d0d]' : 'text-[#0d0d0d]'}>
                                   {officer.name}
                                 </span>
                               </div>
-                              <span className="text-[10px] text-[#807d72] font-sans bg-[#f7f7f4] px-2 py-0.5 rounded-full">
+                              <span className="text-[10px] text-[#646f79] font-sans bg-[#ffffff] px-2 py-0.5 rounded-full">
                                 {officer.count}
                               </span>
                             </label>
@@ -2739,61 +2739,61 @@ export default function App() {
 
               {/* Active Filter Chips */}
               {(selectedMonths.length > 0 || selectedOfficers.length > 0 || selectedProvince !== 'all' || selectedNewsStatus !== 'all' || selectedVideoStatus !== 'all') && (
-                <div className="flex items-center gap-1.5 flex-wrap pt-3 mt-3 border-t border-[#e6e5e0] text-xs font-sans">
-                  <span className="text-[#807d72] uppercase tracking-wider text-[11px] font-bold">Filter aktif:</span>
+                <div className="flex items-center gap-1.5 flex-wrap pt-3 mt-3 border-t border-[#e5e5e5] text-xs font-sans">
+                  <span className="text-[#646f79] uppercase tracking-wider text-[11px] font-bold">Filter aktif:</span>
 
                   {selectedMonths.map(m => (
-                    <span key={m} className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-[#fafaf7] text-[#f54e00] border border-[#cfcdc4] font-semibold text-xs">
+                    <span key={m} className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-[#f3f3f3] text-[#646f79] border border-[#d1d5db] font-semibold text-xs">
                       Bulan: {m}
-                      <button type="button" onClick={() => toggleMonth(m)} className="hover:text-[#d04200] cursor-pointer">
+                      <button type="button" onClick={() => toggleMonth(m)} className="hover:text-[#0d0e10] cursor-pointer">
                         <X className="w-3 h-3" />
                       </button>
                     </span>
                   ))}
 
                   {selectedProvince !== 'all' && (
-                    <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-[#fafaf7] text-[#f54e00] border border-[#cfcdc4] font-semibold text-xs">
+                    <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-[#f3f3f3] text-[#646f79] border border-[#d1d5db] font-semibold text-xs">
                       Wilayah: {selectedProvince}
-                      <button type="button" onClick={() => setSelectedProvince('all')} className="hover:text-[#d04200] cursor-pointer">
+                      <button type="button" onClick={() => setSelectedProvince('all')} className="hover:text-[#0d0e10] cursor-pointer">
                         <X className="w-3 h-3" />
                       </button>
                     </span>
                   )}
 
                   {selectedNewsStatus !== 'all' && (
-                    <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-[#fafaf7] text-[#f54e00] border border-[#cfcdc4] font-semibold text-xs">
+                    <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-[#f3f3f3] text-[#646f79] border border-[#d1d5db] font-semibold text-xs">
                       Berita: {selectedNewsStatus === 'with_news' ? 'Tercantum' : 'Belum Ada'}
-                      <button type="button" onClick={() => setSelectedNewsStatus('all')} className="hover:text-[#d04200] cursor-pointer">
+                      <button type="button" onClick={() => setSelectedNewsStatus('all')} className="hover:text-[#0d0e10] cursor-pointer">
                         <X className="w-3 h-3" />
                       </button>
                     </span>
                   )}
 
                   {selectedVideoStatus !== 'all' && (
-                    <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-[#fafaf7] text-[#f54e00] border border-[#cfcdc4] font-semibold text-xs">
+                    <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-[#f3f3f3] text-[#646f79] border border-[#d1d5db] font-semibold text-xs">
                       Video: {selectedVideoStatus === 'with_video' ? 'Tercantum' : 'Belum Ada'}
-                      <button type="button" onClick={() => setSelectedVideoStatus('all')} className="hover:text-[#d04200] cursor-pointer">
+                      <button type="button" onClick={() => setSelectedVideoStatus('all')} className="hover:text-[#0d0e10] cursor-pointer">
                         <X className="w-3 h-3" />
                       </button>
                     </span>
                   )}
 
                   {selectedOfficers.map(name => (
-                    <span key={name} className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-[#f4effa] text-[#553c7b] border border-[#c0a8dd]/50 font-semibold text-xs">
+                    <span key={name} className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-[#f3f3f3] text-[#0d0d0d] border border-[#e5e5e5] font-semibold text-xs">
                       {name}
-                      <button type="button" onClick={() => toggleOfficer(name)} className="hover:text-[#f54e00] cursor-pointer">
+                      <button type="button" onClick={() => toggleOfficer(name)} className="hover:text-[#646f79] cursor-pointer">
                         <X className="w-3 h-3" />
                       </button>
                     </span>
                   ))}
 
                   {(rekapSort.field !== 'nomor' || rekapSort.direction !== 'asc') && (
-                    <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-[#f7f7f4] text-[#5a5852] border border-[#e6e5e0] font-semibold text-xs">
+                    <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-[#ffffff] text-[#0d0d0d] border border-[#e5e5e5] font-semibold text-xs">
                       Urutan: {currentSortLabel}
                       <button
                         type="button"
                         onClick={() => setRekapSort({ field: 'nomor', direction: 'asc' })}
-                        className="hover:text-[#26251e] cursor-pointer"
+                        className="hover:text-[#0d0d0d] cursor-pointer"
                         title="Kembalikan urutan default"
                       >
                         <X className="w-3 h-3" />
@@ -2804,7 +2804,7 @@ export default function App() {
                   <button
                     type="button"
                     onClick={resetRekapFilters}
-                    className="text-xs font-sans font-bold text-[#f54e00] hover:underline ml-1 cursor-pointer"
+                    className="text-xs font-sans font-bold text-[#646f79] hover:underline ml-1 cursor-pointer"
                   >
                     Atur Ulang Semua
                   </button>
@@ -2814,9 +2814,9 @@ export default function App() {
             </div>
 
             {/* Results Counter & Sort Selector Above Table */}
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 px-1 text-xs font-sans text-[#807d72]">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 px-1 text-xs font-sans text-[#646f79]">
               <p>
-                Menampilkan <span className="text-[#26251e] font-heading font-black">{sortedRekapResults.length}</span> dari {activities.length} kegiatan
+                Menampilkan <span className="text-[#0d0d0d] font-heading font-black">{sortedRekapResults.length}</span> dari {activities.length} kegiatan
               </p>
 
               <div className="flex items-center gap-2">
@@ -2834,8 +2834,8 @@ export default function App() {
                     }}
                     className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-sans font-semibold border transition-colors cursor-pointer select-none ${
                       rekapSort.field !== 'nomor' || rekapSort.direction !== 'asc'
-                        ? 'bg-[#f54e00] border-[#f54e00] text-white shadow-none'
-                        : 'bg-white hover:bg-[#f7f7f4] border-[#e6e5e0] text-[#5a5852]'
+                        ? 'bg-[#0d0e10] border-[#646f79] text-white shadow-xs'
+                        : 'bg-white hover:bg-[#ffffff] border-[#e5e5e5] text-[#0d0d0d]'
                     }`}
                   >
                     <ArrowUpDown className="w-3.5 h-3.5 shrink-0" />
@@ -2844,8 +2844,8 @@ export default function App() {
                   </button>
 
                   {isSortPickerOpen && (
-                    <div className="absolute right-0 mt-1.5 w-64 bg-white rounded-xl border border-[#e6e5e0] p-2 z-30 shadow-none popover-motion origin-top-right">
-                      <div className="px-2.5 py-1.5 font-heading font-bold text-[10px] text-[#807d72] uppercase tracking-wider border-b border-[#e6e5e0] mb-1">
+                    <div className="absolute right-0 mt-1.5 w-64 bg-white rounded-2xl border border-[#e5e5e5] p-2 z-30 shadow-xs popover-motion origin-top-right">
+                      <div className="px-2.5 py-1.5 font-heading font-bold text-[10px] text-[#646f79] uppercase tracking-wider border-b border-[#e5e5e5] mb-1">
                         Pilihan Urutan Data
                       </div>
                       <div className="space-y-0.5 max-h-64 overflow-y-auto">
@@ -2859,14 +2859,14 @@ export default function App() {
                                 setRekapSort({ field: opt.field, direction: opt.direction });
                                 setIsSortPickerOpen(false);
                               }}
-                              className={`w-full flex items-center justify-between px-2.5 py-2 rounded-xl text-xs font-sans transition-colors text-left cursor-pointer border ${
+                              className={`w-full flex items-center justify-between px-2.5 py-2 rounded-2xl text-xs font-sans transition-colors text-left cursor-pointer border ${
                                 isSelected
-                                  ? 'bg-[#fafaf7] text-[#f54e00] border-[#f54e00] font-bold'
-                                  : 'hover:bg-[#f7f7f4] text-[#5a5852] border-transparent font-medium'
+                                  ? 'bg-[#f3f3f3] text-[#646f79] border-[#646f79] font-bold'
+                                  : 'hover:bg-[#ffffff] text-[#0d0d0d] border-transparent font-medium'
                               }`}
                             >
                               <span>{opt.label}</span>
-                              {isSelected && <Check className="w-3.5 h-3.5 text-[#f54e00] shrink-0 ml-2" />}
+                              {isSelected && <Check className="w-3.5 h-3.5 text-[#646f79] shrink-0 ml-2" />}
                             </button>
                           );
                         })}
@@ -2878,10 +2878,10 @@ export default function App() {
             </div>
 
             {/* Table Card (iFraldas Soft Elevation & Rounded Architecture) */}
-            <div className="invo-card overflow-hidden rounded-xl border border-[#e6e5e0] bg-white shadow-none">
+            <div className="invo-card overflow-hidden rounded-2xl border border-[#e5e5e5] bg-white shadow-xs">
               <div className="overflow-x-auto max-h-[640px]">
                 <table className="w-full text-left text-xs border-collapse">
-                  <thead className="sticky top-0 z-10 bg-[#f7f7f4] border-b border-[#e6e5e0] text-[#26251e] font-heading font-bold text-xs select-none">
+                  <thead className="sticky top-0 z-10 bg-[#ffffff] border-b border-[#e5e5e5] text-[#0d0d0d] font-heading font-bold text-xs select-none">
                     <tr>
                       {/* No */}
                       <th
@@ -2895,15 +2895,15 @@ export default function App() {
                             handleToggleSort('nomor');
                           }
                         }}
-                        className="py-3 px-3 w-14 text-center cursor-pointer hover:bg-[#fafaf7]/50 transition-colors group/th focus-visible:outline-2 focus-visible:outline-[#f54e00]"
+                        className="py-3 px-3 w-14 text-center cursor-pointer hover:bg-[#f3f3f3]/50 transition-colors group/th focus-visible:outline-2 focus-visible:outline-[#646f79]"
                         title="Klik untuk mengurutkan nomor (1-N / N-1)"
                       >
                         <div className="inline-flex items-center gap-1 justify-center">
-                          <span className={rekapSort.field === 'nomor' ? 'text-[#f54e00] font-black' : ''}>No</span>
+                          <span className={rekapSort.field === 'nomor' ? 'text-[#646f79] font-black' : ''}>No</span>
                           {rekapSort.field === 'nomor' ? (
-                            rekapSort.direction === 'asc' ? <ArrowUp className="w-3 h-3 text-[#f54e00]" /> : <ArrowDown className="w-3 h-3 text-[#f54e00]" />
+                            rekapSort.direction === 'asc' ? <ArrowUp className="w-3 h-3 text-[#646f79]" /> : <ArrowDown className="w-3 h-3 text-[#646f79]" />
                           ) : (
-                            <ArrowUpDown className="w-2.5 h-2.5 text-[#807d72] opacity-40 group-hover/th:opacity-100 transition-opacity" />
+                            <ArrowUpDown className="w-2.5 h-2.5 text-[#646f79] opacity-40 group-hover/th:opacity-100 transition-opacity" />
                           )}
                         </div>
                       </th>
@@ -2920,15 +2920,15 @@ export default function App() {
                             handleToggleSort('tanggal');
                           }
                         }}
-                        className="py-3 px-3 w-32 whitespace-nowrap cursor-pointer hover:bg-[#fafaf7]/50 transition-colors group/th focus-visible:outline-2 focus-visible:outline-[#f54e00]"
+                        className="py-3 px-3 w-32 whitespace-nowrap cursor-pointer hover:bg-[#f3f3f3]/50 transition-colors group/th focus-visible:outline-2 focus-visible:outline-[#646f79]"
                         title="Klik untuk mengurutkan tanggal (Terbaru / Terlama)"
                       >
                         <div className="flex items-center gap-1">
-                          <span className={rekapSort.field === 'tanggal' ? 'text-[#f54e00] font-black' : ''}>Tanggal</span>
+                          <span className={rekapSort.field === 'tanggal' ? 'text-[#646f79] font-black' : ''}>Tanggal</span>
                           {rekapSort.field === 'tanggal' ? (
-                            rekapSort.direction === 'asc' ? <ArrowUp className="w-3 h-3 text-[#f54e00]" /> : <ArrowDown className="w-3 h-3 text-[#f54e00]" />
+                            rekapSort.direction === 'asc' ? <ArrowUp className="w-3 h-3 text-[#646f79]" /> : <ArrowDown className="w-3 h-3 text-[#646f79]" />
                           ) : (
-                            <ArrowUpDown className="w-2.5 h-2.5 text-[#807d72] opacity-40 group-hover/th:opacity-100 transition-opacity" />
+                            <ArrowUpDown className="w-2.5 h-2.5 text-[#646f79] opacity-40 group-hover/th:opacity-100 transition-opacity" />
                           )}
                         </div>
                       </th>
@@ -2945,15 +2945,15 @@ export default function App() {
                             handleToggleSort('kegiatan');
                           }
                         }}
-                        className="py-3 px-3 min-w-[240px] cursor-pointer hover:bg-[#fafaf7]/50 transition-colors group/th focus-visible:outline-2 focus-visible:outline-[#f54e00]"
+                        className="py-3 px-3 min-w-[240px] cursor-pointer hover:bg-[#f3f3f3]/50 transition-colors group/th focus-visible:outline-2 focus-visible:outline-[#646f79]"
                         title="Klik untuk mengurutkan nama kegiatan (A-Z / Z-A)"
                       >
                         <div className="flex items-center gap-1">
-                          <span className={rekapSort.field === 'kegiatan' ? 'text-[#f54e00] font-black' : ''}>Nama Kegiatan</span>
+                          <span className={rekapSort.field === 'kegiatan' ? 'text-[#646f79] font-black' : ''}>Nama Kegiatan</span>
                           {rekapSort.field === 'kegiatan' ? (
-                            rekapSort.direction === 'asc' ? <ArrowUp className="w-3 h-3 text-[#f54e00]" /> : <ArrowDown className="w-3 h-3 text-[#f54e00]" />
+                            rekapSort.direction === 'asc' ? <ArrowUp className="w-3 h-3 text-[#646f79]" /> : <ArrowDown className="w-3 h-3 text-[#646f79]" />
                           ) : (
-                            <ArrowUpDown className="w-2.5 h-2.5 text-[#807d72] opacity-40 group-hover/th:opacity-100 transition-opacity" />
+                            <ArrowUpDown className="w-2.5 h-2.5 text-[#646f79] opacity-40 group-hover/th:opacity-100 transition-opacity" />
                           )}
                         </div>
                       </th>
@@ -2970,15 +2970,15 @@ export default function App() {
                             handleToggleSort('lokasi');
                           }
                         }}
-                        className="py-3 px-3 min-w-[150px] cursor-pointer hover:bg-[#fafaf7]/50 transition-colors group/th focus-visible:outline-2 focus-visible:outline-[#f54e00]"
+                        className="py-3 px-3 min-w-[150px] cursor-pointer hover:bg-[#f3f3f3]/50 transition-colors group/th focus-visible:outline-2 focus-visible:outline-[#646f79]"
                         title="Klik untuk mengurutkan lokasi wilayah (A-Z / Z-A)"
                       >
                         <div className="flex items-center gap-1">
-                          <span className={rekapSort.field === 'lokasi' ? 'text-[#f54e00] font-black' : ''}>Lokasi</span>
+                          <span className={rekapSort.field === 'lokasi' ? 'text-[#646f79] font-black' : ''}>Lokasi</span>
                           {rekapSort.field === 'lokasi' ? (
-                            rekapSort.direction === 'asc' ? <ArrowUp className="w-3 h-3 text-[#f54e00]" /> : <ArrowDown className="w-3 h-3 text-[#f54e00]" />
+                            rekapSort.direction === 'asc' ? <ArrowUp className="w-3 h-3 text-[#646f79]" /> : <ArrowDown className="w-3 h-3 text-[#646f79]" />
                           ) : (
-                            <ArrowUpDown className="w-2.5 h-2.5 text-[#807d72] opacity-40 group-hover/th:opacity-100 transition-opacity" />
+                            <ArrowUpDown className="w-2.5 h-2.5 text-[#646f79] opacity-40 group-hover/th:opacity-100 transition-opacity" />
                           )}
                         </div>
                       </th>
@@ -2995,15 +2995,15 @@ export default function App() {
                             handleToggleSort('petugas');
                           }
                         }}
-                        className="py-3 px-3 min-w-[160px] cursor-pointer hover:bg-[#fafaf7]/50 transition-colors group/th focus-visible:outline-2 focus-visible:outline-[#f54e00]"
+                        className="py-3 px-3 min-w-[160px] cursor-pointer hover:bg-[#f3f3f3]/50 transition-colors group/th focus-visible:outline-2 focus-visible:outline-[#646f79]"
                         title="Klik untuk mengurutkan nama petugas (A-Z / Z-A)"
                       >
                         <div className="flex items-center gap-1">
-                          <span className={rekapSort.field === 'petugas' ? 'text-[#f54e00] font-black' : ''}>Petugas</span>
+                          <span className={rekapSort.field === 'petugas' ? 'text-[#646f79] font-black' : ''}>Petugas</span>
                           {rekapSort.field === 'petugas' ? (
-                            rekapSort.direction === 'asc' ? <ArrowUp className="w-3 h-3 text-[#f54e00]" /> : <ArrowDown className="w-3 h-3 text-[#f54e00]" />
+                            rekapSort.direction === 'asc' ? <ArrowUp className="w-3 h-3 text-[#646f79]" /> : <ArrowDown className="w-3 h-3 text-[#646f79]" />
                           ) : (
-                            <ArrowUpDown className="w-2.5 h-2.5 text-[#807d72] opacity-40 group-hover/th:opacity-100 transition-opacity" />
+                            <ArrowUpDown className="w-2.5 h-2.5 text-[#646f79] opacity-40 group-hover/th:opacity-100 transition-opacity" />
                           )}
                         </div>
                       </th>
@@ -3020,15 +3020,15 @@ export default function App() {
                             handleToggleSort('berita');
                           }
                         }}
-                        className="py-3 px-3 w-28 text-center cursor-pointer hover:bg-[#fafaf7]/50 transition-colors group/th focus-visible:outline-2 focus-visible:outline-[#f54e00]"
+                        className="py-3 px-3 w-28 text-center cursor-pointer hover:bg-[#f3f3f3]/50 transition-colors group/th focus-visible:outline-2 focus-visible:outline-[#646f79]"
                         title="Klik untuk mengurutkan status berita (Ada / Tidak Ada)"
                       >
                         <div className="inline-flex items-center gap-1 justify-center">
-                          <span className={rekapSort.field === 'berita' ? 'text-[#f54e00] font-black' : ''}>Berita</span>
+                          <span className={rekapSort.field === 'berita' ? 'text-[#646f79] font-black' : ''}>Berita</span>
                           {rekapSort.field === 'berita' ? (
-                            rekapSort.direction === 'asc' ? <ArrowUp className="w-3 h-3 text-[#f54e00]" /> : <ArrowDown className="w-3 h-3 text-[#f54e00]" />
+                            rekapSort.direction === 'asc' ? <ArrowUp className="w-3 h-3 text-[#646f79]" /> : <ArrowDown className="w-3 h-3 text-[#646f79]" />
                           ) : (
-                            <ArrowUpDown className="w-2.5 h-2.5 text-[#807d72] opacity-40 group-hover/th:opacity-100 transition-opacity" />
+                            <ArrowUpDown className="w-2.5 h-2.5 text-[#646f79] opacity-40 group-hover/th:opacity-100 transition-opacity" />
                           )}
                         </div>
                       </th>
@@ -3045,21 +3045,21 @@ export default function App() {
                             handleToggleSort('video');
                           }
                         }}
-                        className="py-3 px-3 w-28 text-center cursor-pointer hover:bg-[#fafaf7]/50 transition-colors group/th focus-visible:outline-2 focus-visible:outline-[#f54e00]"
+                        className="py-3 px-3 w-28 text-center cursor-pointer hover:bg-[#f3f3f3]/50 transition-colors group/th focus-visible:outline-2 focus-visible:outline-[#646f79]"
                         title="Klik untuk mengurutkan status video (Ada / Tidak Ada)"
                       >
                         <div className="inline-flex items-center gap-1 justify-center">
-                          <span className={rekapSort.field === 'video' ? 'text-[#f54e00] font-black' : ''}>Video</span>
+                          <span className={rekapSort.field === 'video' ? 'text-[#646f79] font-black' : ''}>Video</span>
                           {rekapSort.field === 'video' ? (
-                            rekapSort.direction === 'asc' ? <ArrowUp className="w-3 h-3 text-[#f54e00]" /> : <ArrowDown className="w-3 h-3 text-[#f54e00]" />
+                            rekapSort.direction === 'asc' ? <ArrowUp className="w-3 h-3 text-[#646f79]" /> : <ArrowDown className="w-3 h-3 text-[#646f79]" />
                           ) : (
-                            <ArrowUpDown className="w-2.5 h-2.5 text-[#807d72] opacity-40 group-hover/th:opacity-100 transition-opacity" />
+                            <ArrowUpDown className="w-2.5 h-2.5 text-[#646f79] opacity-40 group-hover/th:opacity-100 transition-opacity" />
                           )}
                         </div>
                       </th>
                     </tr>
                   </thead>
-                  <tbody className="divide-y divide-[#efeee8] bg-white">
+                  <tbody className="divide-y divide-[#f3f3f3] bg-white">
                     {sortedRekapResults.map(item => {
                       const hasNews = item.ada_berita && item.link_berita;
                       const hasVideo = item.ada_video && (item.link_video || (item.link_videos && item.link_videos.length > 0));
@@ -3078,20 +3078,20 @@ export default function App() {
                               setSelectedDetailItem(item);
                             }
                           }}
-                          className="hover:bg-[#fafaf7]/20 cursor-pointer transition-colors group focus-visible:outline-2 focus-visible:outline-[#f54e00]"
+                          className="hover:bg-[#f3f3f3]/20 cursor-pointer transition-colors group focus-visible:outline-2 focus-visible:outline-[#646f79]"
                         >
                           <td className="py-2.5 px-3 text-center">
-                            <span className="px-2 py-0.5 rounded-full bg-[#fafaf7] text-[#f54e00] font-heading font-black text-xs inline-block">
+                            <span className="px-2 py-0.5 rounded-full bg-[#f3f3f3] text-[#646f79] font-heading font-black text-xs inline-block">
                               #{cleanNomor(item.nomor)}
                             </span>
                           </td>
-                          <td className="py-2.5 px-3 whitespace-nowrap font-sans text-xs text-[#807d72]">
+                          <td className="py-2.5 px-3 whitespace-nowrap font-sans text-xs text-[#646f79]">
                             {item.tanggal_formatted || item.tanggal}
                           </td>
-                          <td className="py-2.5 px-3 font-sans font-semibold text-xs text-[#26251e] leading-snug group-hover:text-[#f54e00] transition-colors">
+                          <td className="py-2.5 px-3 font-sans font-semibold text-xs text-[#0d0d0d] leading-snug group-hover:text-[#646f79] transition-colors">
                             {item.kegiatan}
                           </td>
-                          <td className="py-2.5 px-3 font-sans text-xs text-[#807d72]">
+                          <td className="py-2.5 px-3 font-sans text-xs text-[#646f79]">
                             {item.lokasi || '-'}
                           </td>
                           
@@ -3108,8 +3108,8 @@ export default function App() {
                                   }}
                                   className={`px-2 py-0.5 rounded-full text-[10px] font-sans cursor-pointer transition-colors border ${
                                     selectedOfficers.includes(o)
-                                      ? 'bg-[#f4effa] text-[#553c7b] border-[#c0a8dd]/50 font-bold'
-                                      : 'bg-[#f7f7f4] hover:bg-[#fafaf7] text-[#5a5852] hover:text-[#f54e00] border-[#e6e5e0]'
+                                      ? 'bg-[#f3f3f3] text-[#0d0d0d] border-[#e5e5e5] font-bold'
+                                      : 'bg-[#ffffff] hover:bg-[#f3f3f3] text-[#0d0d0d] hover:text-[#646f79] border-[#e5e5e5]'
                                   }`}
                                   title="Klik untuk memfilter personil ini"
                                   aria-label={`Filter kegiatan petugas ${o}`}
@@ -3123,14 +3123,14 @@ export default function App() {
                                     e.stopPropagation();
                                     setSelectedDetailItem(item);
                                   }}
-                                  className="px-2 py-0.5 rounded-full text-[10px] font-sans font-bold bg-[#fafaf7] text-[#f54e00] border border-[#cfcdc4] hover:bg-[#efeee8] transition-colors cursor-pointer"
+                                  className="px-2 py-0.5 rounded-full text-[10px] font-sans font-bold bg-[#f3f3f3] text-[#646f79] border border-[#d1d5db] hover:bg-[#f3f3f3] transition-colors cursor-pointer"
                                   title={item.petugas.slice(2).join(', ')}
                                 >
                                   +{item.petugas.length - 2}
                                 </button>
                               )}
                               {item.petugas.length === 0 && (
-                                <span className="text-[#807d72] italic font-sans text-[10px]">-</span>
+                                <span className="text-[#646f79] italic font-sans text-[10px]">-</span>
                               )}
                             </div>
                           </td>
@@ -3144,19 +3144,19 @@ export default function App() {
                                 rel="noopener noreferrer"
                                 onClick={(e) => e.stopPropagation()}
                                 title={item.judul_berita || 'Buka rilis resmi pkp.go.id'}
-                                className="inline-flex items-center gap-1 font-sans text-[10px] font-bold text-[#1f8a65] bg-[#F0FDF4] hover:bg-[#DCFCE7] border border-[#BBF7D0] px-2.5 py-0.5 rounded-full transition-colors"
+                                className="inline-flex items-center gap-1 font-sans text-[10px] font-bold text-[#216950] bg-[#eef8f4] hover:bg-[#DCFCE7] border border-[#c6ebd9] px-2.5 py-0.5 rounded-full transition-colors"
                               >
                                 <CheckCircle2 className="w-3 h-3 shrink-0" />
                                 <span>Tercantum</span>
                               </a>
                             ) : item.ada_berita ? (
-                              <span className="inline-flex items-center gap-1 font-sans text-[10px] font-semibold text-[#D97706] bg-[#FFFBEB] border border-[#FDE68A] px-2 py-0.5 rounded-full">
-                                <AlertCircle className="w-3 h-3 text-[#D97706] shrink-0" />
+                              <span className="inline-flex items-center gap-1 font-sans text-[10px] font-semibold text-[#a65a12] bg-[#fef7ef] border border-[#fcdbb8] px-2 py-0.5 rounded-full">
+                                <AlertCircle className="w-3 h-3 text-[#a65a12] shrink-0" />
                                 <span>Perlu Cek</span>
                               </span>
                             ) : (
-                              <span className="inline-flex items-center gap-1 font-sans text-[10px] text-[#807d72] px-2 py-0.5">
-                                <Minus className="w-3 h-3 text-[#807d72] shrink-0" />
+                              <span className="inline-flex items-center gap-1 font-sans text-[10px] text-[#646f79] px-2 py-0.5">
+                                <Minus className="w-3 h-3 text-[#646f79] shrink-0" />
                                 <span>Tidak Ada</span>
                               </span>
                             )}
@@ -3173,7 +3173,7 @@ export default function App() {
                                       href={vUrl}
                                       target="_blank"
                                       rel="noopener noreferrer"
-                                      className="inline-flex items-center gap-0.5 font-sans font-bold text-[10px] text-[#f54e00] bg-[#fafaf7] border border-[#cfcdc4] hover:bg-[#efeee8] px-2 py-0.5 rounded-full transition-colors"
+                                      className="inline-flex items-center gap-0.5 font-sans font-bold text-[10px] text-[#646f79] bg-[#f3f3f3] border border-[#d1d5db] hover:bg-[#f3f3f3] px-2 py-0.5 rounded-full transition-colors"
                                       title={`Video ${idx + 1}: ${vUrl}`}
                                     >
                                       <Video className="w-2.5 h-2.5" />
@@ -3188,7 +3188,7 @@ export default function App() {
                                   target="_blank"
                                   rel="noopener noreferrer"
                                   onClick={(e) => e.stopPropagation()}
-                                  className="inline-flex items-center gap-1 font-sans font-bold text-[10px] text-[#f54e00] bg-[#fafaf7] border border-[#cfcdc4] hover:bg-[#efeee8] px-2.5 py-0.5 rounded-full transition-colors"
+                                  className="inline-flex items-center gap-1 font-sans font-bold text-[10px] text-[#646f79] bg-[#f3f3f3] border border-[#d1d5db] hover:bg-[#f3f3f3] px-2.5 py-0.5 rounded-full transition-colors"
                                   title="Buka tautan video liputan"
                                 >
                                   <Video className="w-3 h-3" />
@@ -3197,13 +3197,13 @@ export default function App() {
                                 </a>
                               )
                             ) : videoNeedsCheck ? (
-                              <span className="inline-flex items-center gap-1 font-sans text-[10px] font-semibold text-[#D97706] bg-[#FFFBEB] border border-[#FDE68A] px-2 py-0.5 rounded-full">
-                                <AlertCircle className="w-3 h-3 text-[#D97706]" />
+                              <span className="inline-flex items-center gap-1 font-sans text-[10px] font-semibold text-[#a65a12] bg-[#fef7ef] border border-[#fcdbb8] px-2 py-0.5 rounded-full">
+                                <AlertCircle className="w-3 h-3 text-[#a65a12]" />
                                 <span>Perlu Cek</span>
                               </span>
                             ) : (
-                              <span className="inline-flex items-center gap-1 font-sans text-[10px] text-[#807d72] px-2 py-0.5">
-                                <Minus className="w-3 h-3 text-[#807d72]" />
+                              <span className="inline-flex items-center gap-1 font-sans text-[10px] text-[#646f79] px-2 py-0.5">
+                                <Minus className="w-3 h-3 text-[#646f79]" />
                                 <span>Tidak Ada</span>
                               </span>
                             )}
@@ -3225,28 +3225,28 @@ export default function App() {
         {/* ======================================================== */}
         {currentMenu === 'tim' && (
           <div className="space-y-4 page-transition">
-            <div className="invo-card p-4 sm:p-6 rounded-xl border border-[#e6e5e0] bg-white shadow-none">
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-5 pb-4 border-b border-[#e6e5e0]">
+            <div className="invo-card p-4 sm:p-6 rounded-2xl border border-[#e5e5e5] bg-white shadow-xs">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-5 pb-4 border-b border-[#e5e5e5]">
                 <div className="flex items-center gap-3">
                   <button
                     type="button"
                     onClick={goBack}
-                    className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-sans font-semibold text-[#f54e00] bg-[#fafaf7] hover:bg-[#efeee8] rounded-full border border-[#cfcdc4] transition-colors cursor-pointer select-none"
+                    className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-sans font-semibold text-[#646f79] bg-[#f3f3f3] hover:bg-[#f3f3f3] rounded-full border border-[#d1d5db] transition-colors cursor-pointer select-none"
                     title="Kembali"
                   >
                     <ArrowLeft className="w-3.5 h-3.5" />
                     <span>Kembali</span>
                   </button>
                   <div>
-                    <h3 className="text-base sm:text-lg font-heading font-black text-[#26251e] leading-tight">
+                    <h3 className="text-base sm:text-lg font-heading font-black text-[#0d0d0d] leading-tight">
                       Tim Peliputan
                     </h3>
-                    <p className="text-[11px] font-sans text-[#807d72]">
+                    <p className="text-[11px] font-sans text-[#646f79]">
                       Arsip personil liputan Biro Komunikasi Publik PKP
                     </p>
                   </div>
                 </div>
-                <div className="font-sans text-xs font-bold bg-[#f4effa] text-[#553c7b] border border-[#c0a8dd]/50 px-3.5 py-1.5 rounded-full self-start sm:self-auto shadow-none">
+                <div className="font-sans text-xs font-bold bg-[#f3f3f3] text-[#0d0d0d] border border-[#e5e5e5] px-3.5 py-1.5 rounded-full self-start sm:self-auto shadow-xs">
                   Total {officerStats.length} Personil
                 </div>
               </div>
@@ -3263,42 +3263,42 @@ export default function App() {
                         setSelectedOfficers([officer.name]);
                         setCurrentMenu('rekapitulasi');
                       }}
-                      className="invo-card invo-card-hover p-4 cursor-pointer group flex flex-col justify-between motion-card-enter rounded-xl border border-[#e6e5e0] hover:border-[#cfcdc4] bg-white shadow-none transition-all"
+                      className="invo-card invo-card-hover p-4 cursor-pointer group flex flex-col justify-between motion-card-enter rounded-2xl border border-[#e5e5e5] hover:border-[#d1d5db] bg-white shadow-xs transition-all"
                     >
                       <div>
                         {/* Top Row: Initials avatar + Rank */}
                         <div className="flex items-center justify-between mb-3">
                           <div className="flex items-center gap-2.5">
-                            <div className="w-10 h-10 rounded-full bg-[#fafaf7] text-[#26251e] border border-[#e6e5e0] font-heading font-black text-xs flex items-center justify-center shadow-none">
+                            <div className="w-10 h-10 rounded-full bg-[#f3f3f3] text-[#0d0d0d] border border-[#e5e5e5] font-heading font-black text-xs flex items-center justify-center shadow-xs">
                               {getInitials(officer.name)}
                             </div>
                             <div>
-                              <h4 className="text-sm font-heading font-bold text-[#26251e] group-hover:text-[#f54e00] transition-colors">
+                              <h4 className="text-sm font-heading font-bold text-[#0d0d0d] group-hover:text-[#646f79] transition-colors">
                                 {officer.name}
                               </h4>
-                              <p className="font-sans text-[11px] text-[#807d72]">
-                                Teraktif: <span className="text-[#f54e00] font-semibold">{peakM}</span>
+                              <p className="font-sans text-[11px] text-[#646f79]">
+                                Teraktif: <span className="text-[#646f79] font-semibold">{peakM}</span>
                               </p>
                             </div>
                           </div>
 
-                          <span className="font-sans text-xs font-bold px-2.5 py-0.5 rounded-full bg-[#f7f7f4] text-[#5a5852] border border-[#e6e5e0]">
+                          <span className="font-sans text-xs font-bold px-2.5 py-0.5 rounded-full bg-[#ffffff] text-[#0d0d0d] border border-[#e5e5e5]">
                             #{index + 1}
                           </span>
                         </div>
 
                         {/* Total Penugasan */}
                         <div className="flex items-center justify-between my-2 font-sans text-xs">
-                          <span className="text-[#807d72] font-medium text-[11px]">Penugasan</span>
-                          <span className="text-[#f54e00] font-bold bg-[#fafaf7] border border-[#cfcdc4] px-2.5 py-0.5 rounded-full">
+                          <span className="text-[#646f79] font-medium text-[11px]">Penugasan</span>
+                          <span className="text-[#646f79] font-bold bg-[#f3f3f3] border border-[#d1d5db] px-2.5 py-0.5 rounded-full">
                             {officer.count} kegiatan
                           </span>
                         </div>
                       </div>
 
-                      <div className="mt-3 pt-2.5 border-t border-[#e6e5e0] flex items-center justify-between font-sans text-[11px] text-[#807d72]">
+                      <div className="mt-3 pt-2.5 border-t border-[#e5e5e5] flex items-center justify-between font-sans text-[11px] text-[#646f79]">
                         <span>Peringkat #{index + 1}</span>
-                        <span className="text-[#f54e00] font-semibold group-hover:underline inline-flex items-center gap-0.5">
+                        <span className="text-[#646f79] font-semibold group-hover:underline inline-flex items-center gap-0.5">
                           Lihat Kegiatan <ChevronRight className="w-3 h-3" />
                         </span>
                       </div>
@@ -3315,24 +3315,24 @@ export default function App() {
         {/* ======================================================== */}
         {currentMenu === 'laporan' && (
           <div className="max-w-2xl mx-auto py-8 page-transition">
-            <div className="invo-card p-6 sm:p-10 text-center rounded-xl border border-[#e6e5e0] bg-white shadow-none">
-              <div className="w-14 h-14 bg-[#FFFBF0] text-[#EFB100] border border-[#FDE68A] rounded-xl flex items-center justify-center mx-auto mb-4 shadow-none">
+            <div className="invo-card p-6 sm:p-10 text-center rounded-2xl border border-[#e5e5e5] bg-white shadow-xs">
+              <div className="w-14 h-14 bg-[#FFFBF0] text-[#EFB100] border border-[#fcdbb8] rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-xs">
                 <Wrench className="w-7 h-7" />
               </div>
-              <span className="inline-block font-sans text-xs font-bold px-3 py-1 border border-[#FDE68A] bg-[#FFFBF0] text-[#B88600] rounded-full mb-3">
+              <span className="inline-block font-sans text-xs font-bold px-3 py-1 border border-[#fcdbb8] bg-[#FFFBF0] text-[#B88600] rounded-full mb-3">
                 Sedang Disiapkan
               </span>
-              <h3 className="text-xl font-heading font-black text-[#26251e]">
+              <h3 className="text-xl font-heading font-black text-[#0d0d0d]">
                 Modul Laporan Berkala Pimpinan
               </h3>
-              <p className="text-xs text-[#807d72] mt-2 max-w-sm mx-auto leading-relaxed font-sans">
+              <p className="text-xs text-[#646f79] mt-2 max-w-sm mx-auto leading-relaxed font-sans">
                 Fitur format laporan berkala resmi periodik untuk pimpinan sedang diintegrasikan.
               </p>
 
               <button
                 type="button"
                 onClick={goBack}
-                className="mt-6 px-5 py-2.5 rounded-full bg-[#f54e00] hover:bg-[#d04200] text-white font-sans text-xs font-bold shadow-none hover:shadow transition-all inline-flex items-center gap-1.5 cursor-pointer"
+                className="mt-6 px-5 py-2.5 rounded-full bg-[#0d0e10] hover:bg-[#26282c] text-white font-sans text-xs font-bold shadow-xs hover:shadow transition-all inline-flex items-center gap-1.5 cursor-pointer"
               >
                 <ArrowLeft className="w-3.5 h-3.5" />
                 <span>Kembali</span>
@@ -3348,14 +3348,14 @@ export default function App() {
           <div className="space-y-4 page-transition">
             
             {/* Top Card: Filter Bar, Year Selector, Search & Statistics */}
-            <div className="invo-card p-4 sm:p-6 rounded-xl border border-[#e6e5e0] bg-white shadow-none">
+            <div className="invo-card p-4 sm:p-6 rounded-2xl border border-[#e5e5e5] bg-white shadow-xs">
               
-              <div className="flex flex-col md:flex-row md:items-center justify-between gap-3 pb-4 border-b border-[#e6e5e0]">
+              <div className="flex flex-col md:flex-row md:items-center justify-between gap-3 pb-4 border-b border-[#e5e5e5]">
                 <div className="flex items-center gap-3">
                   <button
                     type="button"
                     onClick={goBack}
-                    className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-sans font-semibold text-[#f54e00] bg-[#fafaf7] hover:bg-[#efeee8] rounded-full border border-[#cfcdc4] transition-colors cursor-pointer select-none"
+                    className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-sans font-semibold text-[#646f79] bg-[#f3f3f3] hover:bg-[#f3f3f3] rounded-full border border-[#d1d5db] transition-colors cursor-pointer select-none"
                     title="Kembali"
                   >
                     <ArrowLeft className="w-3.5 h-3.5" />
@@ -3363,22 +3363,22 @@ export default function App() {
                   </button>
                   <div>
                     <div className="flex items-center gap-2">
-                      <span className="w-2.5 h-2.5 rounded-full bg-[#f54e00]" aria-hidden="true"></span>
-                      <h2 className="text-base sm:text-lg font-heading font-black text-[#26251e] tracking-tight">
+                      <span className="w-2.5 h-2.5 rounded-full bg-[#0d0e10]" aria-hidden="true"></span>
+                      <h2 className="text-base sm:text-lg font-heading font-black text-[#0d0d0d] tracking-tight">
                         Kliping & Rilis Berita Pers
                       </h2>
-                      <span className="px-2.5 py-0.5 rounded-full text-xs font-sans font-bold bg-[#fafaf7] text-[#f54e00] border border-[#cfcdc4]">
+                      <span className="px-2.5 py-0.5 rounded-full text-xs font-sans font-bold bg-[#f3f3f3] text-[#646f79] border border-[#d1d5db]">
                         {filteredNews.length} Rilis
                       </span>
                     </div>
-                    <p className="text-[11px] font-sans text-[#807d72]">
+                    <p className="text-[11px] font-sans text-[#646f79]">
                       Arsip rilis pers resmi Biro Komunikasi Publik PKP (pkp.go.id)
                     </p>
                   </div>
                 </div>
 
                 {/* Year Switcher Pills */}
-                <div className="flex items-center gap-1 bg-[#f7f7f4] p-1 rounded-full self-start md:self-auto border border-[#e6e5e0]">
+                <div className="flex items-center gap-1 bg-[#ffffff] p-1 rounded-full self-start md:self-auto border border-[#e5e5e5]">
                   {['2026', '2025', '2024', 'all'].map(year => {
                     const isSelected = selectedNewsYear === year;
                     const label = year === 'all' ? 'Semua Tahun' : year;
@@ -3393,8 +3393,8 @@ export default function App() {
                         }}
                         className={`px-3.5 py-1.5 rounded-full text-xs font-sans transition-all duration-150 cursor-pointer ${
                           isSelected
-                            ? 'bg-[#f54e00] text-white shadow-none font-bold'
-                            : 'text-[#807d72] hover:text-[#26251e] hover:bg-white/60 font-medium'
+                            ? 'bg-[#0d0e10] text-white shadow-xs font-bold'
+                            : 'text-[#646f79] hover:text-[#0d0d0d] hover:bg-white/60 font-medium'
                         }`}
                       >
                         {label}
@@ -3405,51 +3405,51 @@ export default function App() {
               </div>
 
               {/* Statistics Metric Bar */}
-              <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 py-4 border-b border-[#e6e5e0]">
-                <div className="p-4 rounded-xl bg-[#f7f7f4] border border-[#e6e5e0]">
-                  <div className="text-[11px] font-sans font-bold text-[#807d72] uppercase tracking-wider">
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 py-4 border-b border-[#e5e5e5]">
+                <div className="p-4 rounded-2xl bg-[#ffffff] border border-[#e5e5e5]">
+                  <div className="text-[11px] font-sans font-bold text-[#646f79] uppercase tracking-wider">
                     Total Berita Terdata
                   </div>
-                  <div className="text-2xl font-heading font-black text-[#26251e] mt-1">
+                  <div className="text-2xl font-heading font-black text-[#0d0d0d] mt-1">
                     {newsStats.totalCount.toLocaleString('id-ID')}
                   </div>
-                  <div className="text-[11px] font-sans text-[#807d72] mt-0.5">
+                  <div className="text-[11px] font-sans text-[#646f79] mt-0.5">
                     Tahun {selectedNewsYear === 'all' ? '2024 - 2026' : selectedNewsYear}
                   </div>
                 </div>
 
-                <div className="p-4 rounded-xl bg-[#f7f7f4] border border-[#e6e5e0]">
-                  <div className="text-[11px] font-sans font-bold text-[#807d72] uppercase tracking-wider">
+                <div className="p-4 rounded-2xl bg-[#ffffff] border border-[#e5e5e5]">
+                  <div className="text-[11px] font-sans font-bold text-[#646f79] uppercase tracking-wider">
                     Akumulasi Pembaca
                   </div>
-                  <div className="text-2xl font-heading font-black text-[#26251e] mt-1">
+                  <div className="text-2xl font-heading font-black text-[#0d0d0d] mt-1">
                     {newsStats.totalReaders.toLocaleString('id-ID')}
                   </div>
-                  <div className="text-[11px] font-sans text-[#807d72] mt-0.5">
+                  <div className="text-[11px] font-sans text-[#646f79] mt-0.5">
                     Total views di pkp.go.id
                   </div>
                 </div>
 
-                <div className="p-4 rounded-xl bg-[#f7f7f4] border border-[#e6e5e0]">
-                  <div className="text-[11px] font-sans font-bold text-[#807d72] uppercase tracking-wider">
+                <div className="p-4 rounded-2xl bg-[#ffffff] border border-[#e5e5e5]">
+                  <div className="text-[11px] font-sans font-bold text-[#646f79] uppercase tracking-wider">
                     Rata-Rata Pembaca
                   </div>
-                  <div className="text-2xl font-heading font-black text-[#26251e] mt-1">
+                  <div className="text-2xl font-heading font-black text-[#0d0d0d] mt-1">
                     {newsStats.avgReaders.toLocaleString('id-ID')}
                   </div>
-                  <div className="text-[11px] font-sans text-[#807d72] mt-0.5">
+                  <div className="text-[11px] font-sans text-[#646f79] mt-0.5">
                     Per rilis berita
                   </div>
                 </div>
 
-                <div className="p-4 rounded-xl bg-[#f7f7f4] border border-[#e6e5e0]">
-                  <div className="text-[11px] font-sans font-bold text-[#807d72] uppercase tracking-wider">
+                <div className="p-4 rounded-2xl bg-[#ffffff] border border-[#e5e5e5]">
+                  <div className="text-[11px] font-sans font-bold text-[#646f79] uppercase tracking-wider">
                     Paling Banyak Dibaca
                   </div>
-                  <div className="text-2xl font-heading font-black text-[#26251e] mt-1 truncate">
+                  <div className="text-2xl font-heading font-black text-[#0d0d0d] mt-1 truncate">
                     {newsStats.topArticle ? (newsStats.topArticle.pembaca || 0).toLocaleString('id-ID') : 0}
                   </div>
-                  <div className="text-[11px] font-sans text-[#807d72] truncate mt-0.5" title={newsStats.topArticle?.judul}>
+                  <div className="text-[11px] font-sans text-[#646f79] truncate mt-0.5" title={newsStats.topArticle?.judul}>
                     {newsStats.topArticle ? newsStats.topArticle.judul : '-'}
                   </div>
                 </div>
@@ -3458,7 +3458,7 @@ export default function App() {
               {/* Search & Sort Controls */}
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pt-3">
                 <div className="relative flex-1">
-                  <Search className="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-[#807d72] pointer-events-none" />
+                  <Search className="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-[#646f79] pointer-events-none" />
                   <input
                     type="text"
                     placeholder="Cari rilis berita berdasarkan topik, kata kunci, nama menteri, daerah..."
@@ -3467,12 +3467,12 @@ export default function App() {
                       setNewsSearch(e.target.value);
                       setNewsLimit(30);
                     }}
-                    className="w-full pl-10 pr-9 py-2 bg-[#f7f7f4] focus:bg-white border border-[#e6e5e0] focus:border-[#f54e00] rounded-full text-[#5a5852] text-xs font-sans focus:outline-none transition-all placeholder:text-[#807d72]"
+                    className="w-full pl-10 pr-9 py-2 bg-[#ffffff] focus:bg-white border border-[#e5e5e5] focus:border-[#646f79] rounded-full text-[#0d0d0d] text-xs font-sans focus:outline-none transition-all placeholder:text-[#646f79]"
                   />
                   {newsSearch && (
                     <button
                       onClick={() => setNewsSearch('')}
-                      className="absolute right-3 top-1/2 -translate-y-1/2 p-1 text-[#807d72] hover:text-[#26251e]"
+                      className="absolute right-3 top-1/2 -translate-y-1/2 p-1 text-[#646f79] hover:text-[#0d0d0d]"
                     >
                       <X className="w-3.5 h-3.5" />
                     </button>
@@ -3482,27 +3482,27 @@ export default function App() {
                 {/* Custom Sort Popover */}
                 <div className="relative shrink-0" ref={newsSortPickerRef}>
                   <div className="flex items-center gap-1.5">
-                    <span className="font-sans text-xs text-[#807d72] hidden sm:inline">Urutkan:</span>
+                    <span className="font-sans text-xs text-[#646f79] hidden sm:inline">Urutkan:</span>
                     <button
                       type="button"
                       onClick={() => setIsNewsSortPickerOpen(!isNewsSortPickerOpen)}
-                      className="bg-white hover:bg-[#f7f7f4] border border-[#e6e5e0] rounded-full px-3.5 py-2 text-xs font-sans font-semibold text-[#5a5852] flex items-center justify-between gap-2 shadow-none transition-colors cursor-pointer"
+                      className="bg-white hover:bg-[#ffffff] border border-[#e5e5e5] rounded-full px-3.5 py-2 text-xs font-sans font-semibold text-[#0d0d0d] flex items-center justify-between gap-2 shadow-xs transition-colors cursor-pointer"
                     >
                       <div className="flex items-center gap-1.5">
-                        {newsSort === 'newest' && <Clock className="w-3.5 h-3.5 text-[#f54e00]" />}
-                        {newsSort === 'popular' && <Flame className="w-3.5 h-3.5 text-[#cf2d56]" />}
-                        {newsSort === 'oldest' && <RotateCcw className="w-3.5 h-3.5 text-[#553c7b]" />}
+                        {newsSort === 'newest' && <Clock className="w-3.5 h-3.5 text-[#646f79]" />}
+                        {newsSort === 'popular' && <Flame className="w-3.5 h-3.5 text-[#ab3434]" />}
+                        {newsSort === 'oldest' && <RotateCcw className="w-3.5 h-3.5 text-[#0d0d0d]" />}
                         <span>
                           {newsSort === 'newest' ? 'Terbaru' : newsSort === 'popular' ? 'Terpopuler' : 'Terlama'}
                         </span>
                       </div>
-                      <ChevronDown className={`w-3.5 h-3.5 text-[#807d72] shrink-0 transition-transform duration-200 ${isNewsSortPickerOpen ? 'rotate-180' : ''}`} />
+                      <ChevronDown className={`w-3.5 h-3.5 text-[#646f79] shrink-0 transition-transform duration-200 ${isNewsSortPickerOpen ? 'rotate-180' : ''}`} />
                     </button>
                   </div>
 
                   {isNewsSortPickerOpen && (
-                    <div className="absolute right-0 mt-1.5 w-64 bg-white rounded-xl border border-[#e6e5e0] p-2 z-30 shadow-none popover-motion origin-top-right">
-                      <div className="px-2.5 py-1.5 font-heading font-bold text-[10px] text-[#807d72] uppercase tracking-wider border-b border-[#e6e5e0] mb-1">
+                    <div className="absolute right-0 mt-1.5 w-64 bg-white rounded-2xl border border-[#e5e5e5] p-2 z-30 shadow-xs popover-motion origin-top-right">
+                      <div className="px-2.5 py-1.5 font-heading font-bold text-[10px] text-[#646f79] uppercase tracking-wider border-b border-[#e5e5e5] mb-1">
                         Urutan Tampilan Berita
                       </div>
                       <div className="space-y-0.5">
@@ -3521,20 +3521,20 @@ export default function App() {
                                 setNewsSort(opt.id);
                                 setIsNewsSortPickerOpen(false);
                               }}
-                              className={`w-full flex items-center justify-between px-2.5 py-2 rounded-xl text-xs transition-colors text-left cursor-pointer border ${
+                              className={`w-full flex items-center justify-between px-2.5 py-2 rounded-2xl text-xs transition-colors text-left cursor-pointer border ${
                                 isSelected
-                                  ? 'bg-[#fafaf7] text-[#f54e00] border-[#f54e00] font-bold'
-                                  : 'hover:bg-[#f7f7f4] text-[#5a5852] border-transparent font-medium'
+                                  ? 'bg-[#f3f3f3] text-[#646f79] border-[#646f79] font-bold'
+                                  : 'hover:bg-[#ffffff] text-[#0d0d0d] border-transparent font-medium'
                               }`}
                             >
                               <div className="flex items-start gap-2">
                                 <IconComp className="w-4 h-4 mt-0.5 shrink-0" />
                                 <div>
                                   <div className="font-heading font-bold text-xs">{opt.label}</div>
-                                  <div className={`text-[10px] font-sans ${isSelected ? 'text-[#f54e00]/80' : 'text-[#807d72]'}`}>{opt.desc}</div>
+                                  <div className={`text-[10px] font-sans ${isSelected ? 'text-[#646f79]/80' : 'text-[#646f79]'}`}>{opt.desc}</div>
                                 </div>
                               </div>
-                              {isSelected && <Check className="w-3.5 h-3.5 text-[#f54e00] shrink-0 ml-2" />}
+                              {isSelected && <Check className="w-3.5 h-3.5 text-[#646f79] shrink-0 ml-2" />}
                             </button>
                           );
                         })}
@@ -3546,7 +3546,7 @@ export default function App() {
 
               {/* Popular Topic Chips */}
               <div className="flex items-center gap-1.5 flex-wrap mt-3 text-xs">
-                <span className="font-sans text-[#807d72] font-medium text-[11px]">Topik populer:</span>
+                <span className="font-sans text-[#646f79] font-medium text-[11px]">Topik populer:</span>
                 {['Rusun', 'BSPS', 'Maruarar', 'Fahri Hamzah', 'KPP', 'Wisma Atlet', 'BPS', 'Bencana', 'Jakarta'].map(chip => (
                   <button
                     key={chip}
@@ -3556,8 +3556,8 @@ export default function App() {
                     }}
                     className={`px-3 py-1 rounded-full font-sans text-xs transition-colors cursor-pointer border ${
                       newsSearch === chip
-                        ? 'bg-[#f54e00] text-white border-[#f54e00] font-bold shadow-none'
-                        : 'bg-[#f7f7f4] hover:bg-[#fafaf7] text-[#5a5852] hover:text-[#f54e00] border-[#e6e5e0] hover:border-[#cfcdc4]'
+                        ? 'bg-[#0d0e10] text-white border-[#646f79] font-bold shadow-xs'
+                        : 'bg-[#ffffff] hover:bg-[#f3f3f3] text-[#0d0d0d] hover:text-[#646f79] border-[#e5e5e5] hover:border-[#d1d5db]'
                     }`}
                   >
                     {chip}
@@ -3566,7 +3566,7 @@ export default function App() {
                 {newsSearch && (
                   <button
                     onClick={() => setNewsSearch('')}
-                    className="font-sans text-xs text-[#f54e00] hover:underline font-bold ml-1 cursor-pointer"
+                    className="font-sans text-xs text-[#646f79] hover:underline font-bold ml-1 cursor-pointer"
                   >
                     Hapus Filter
                   </button>
@@ -3577,10 +3577,10 @@ export default function App() {
 
             {/* News Cards Feed */}
             {displayedNews.length === 0 ? (
-              <div className="invo-card p-10 text-center space-y-2 border border-dashed border-[#e6e5e0] rounded-xl bg-white">
-                <BookOpen className="w-8 h-8 text-[#807d72] mx-auto" aria-hidden="true" />
-                <h4 className="font-heading font-bold text-sm text-[#26251e]">Tidak ada rilis berita yang cocok</h4>
-                <p className="text-xs text-[#807d72] max-w-sm mx-auto font-sans">Coba gunakan kata kunci lain atau pilih tab tahun yang berbeda.</p>
+              <div className="invo-card p-10 text-center space-y-2 border border-dashed border-[#e5e5e5] rounded-2xl bg-white">
+                <BookOpen className="w-8 h-8 text-[#646f79] mx-auto" aria-hidden="true" />
+                <h4 className="font-heading font-bold text-sm text-[#0d0d0d]">Tidak ada rilis berita yang cocok</h4>
+                <p className="text-xs text-[#646f79] max-w-sm mx-auto font-sans">Coba gunakan kata kunci lain atau pilih tab tahun yang berbeda.</p>
                 <div className="pt-2">
                   <button
                     type="button"
@@ -3588,7 +3588,7 @@ export default function App() {
                       setNewsSearch('');
                       setSelectedNewsYear('2026');
                     }}
-                    className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full border border-[#cfcdc4] bg-[#fafaf7] hover:bg-[#efeee8] text-[#f54e00] font-sans text-xs font-bold transition-colors cursor-pointer"
+                    className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full border border-[#d1d5db] bg-[#f3f3f3] hover:bg-[#f3f3f3] text-[#646f79] font-sans text-xs font-bold transition-colors cursor-pointer"
                   >
                     Reset Filter Berita
                   </button>
@@ -3609,22 +3609,22 @@ export default function App() {
                       }
                     }}
                     aria-label={`Detail rilis berita: ${item.judul}`}
-                    className="invo-card invo-card-hover p-4 sm:p-5 flex flex-col justify-between group motion-card-enter cursor-pointer rounded-xl border border-[#e6e5e0] hover:border-[#cfcdc4] bg-white shadow-none hover:shadow-none transition-all focus-visible:outline-2 focus-visible:outline-[#f54e00]"
+                    className="invo-card invo-card-hover p-4 sm:p-5 flex flex-col justify-between group motion-card-enter cursor-pointer rounded-2xl border border-[#e5e5e5] hover:border-[#d1d5db] bg-white shadow-xs hover:shadow-xs transition-all focus-visible:outline-2 focus-visible:outline-[#646f79]"
                   >
                     <div>
                       {/* Top Meta Row */}
                       <div className="flex flex-wrap items-center justify-between gap-2 mb-2.5">
                         <div className="flex items-center gap-2 text-xs">
-                          <span className="px-2.5 py-0.5 rounded-full bg-[#fafaf7] text-[#f54e00] font-heading font-black text-xs">
+                          <span className="px-2.5 py-0.5 rounded-full bg-[#f3f3f3] text-[#646f79] font-heading font-black text-xs">
                             {item.tahun}
                           </span>
-                          <span className="font-sans text-[#807d72] flex items-center gap-1.5 text-xs">
-                            <Calendar className="w-3.5 h-3.5 text-[#807d72]" />
+                          <span className="font-sans text-[#646f79] flex items-center gap-1.5 text-xs">
+                            <Calendar className="w-3.5 h-3.5 text-[#646f79]" />
                             {item.tanggal_formatted}
                           </span>
                           {item.lokasi && (
-                            <span className="font-sans text-[#807d72] flex items-center gap-1 text-xs">
-                              <MapPin className="w-3 h-3 text-[#807d72]" />
+                            <span className="font-sans text-[#646f79] flex items-center gap-1 text-xs">
+                              <MapPin className="w-3 h-3 text-[#646f79]" />
                               {item.lokasi}
                             </span>
                           )}
@@ -3632,28 +3632,28 @@ export default function App() {
 
                         {/* Engagement Metric */}
                         {item.pembaca > 0 && (
-                          <div className="flex items-center gap-1 font-sans text-xs font-semibold text-[#553c7b] bg-[#f4effa] border border-[#c0a8dd]/50 px-2.5 py-0.5 rounded-full">
-                            <Eye className="w-3.5 h-3.5 text-[#553c7b]" />
+                          <div className="flex items-center gap-1 font-sans text-xs font-semibold text-[#0d0d0d] bg-[#f3f3f3] border border-[#e5e5e5] px-2.5 py-0.5 rounded-full">
+                            <Eye className="w-3.5 h-3.5 text-[#0d0d0d]" />
                             <span>{item.pembaca.toLocaleString('id-ID')} Pembaca</span>
                           </div>
                         )}
                       </div>
 
                       {/* Title */}
-                      <h3 className="text-sm sm:text-base font-heading font-bold text-[#26251e] group-hover:text-[#f54e00] transition-colors leading-snug">
+                      <h3 className="text-sm sm:text-base font-heading font-bold text-[#0d0d0d] group-hover:text-[#646f79] transition-colors leading-snug">
                         {item.judul}
                       </h3>
 
                       {/* Lead Paragraph / Summary */}
                       {item.ringkasan && (
-                        <p className="text-xs text-[#5a5852] font-sans line-clamp-2 leading-relaxed mt-2">
+                        <p className="text-xs text-[#0d0d0d] font-sans line-clamp-2 leading-relaxed mt-2">
                           {item.ringkasan}
                         </p>
                       )}
                     </div>
 
                     {/* Bottom Actions Row */}
-                    <div className="mt-3.5 pt-3 border-t border-[#e6e5e0] flex items-center justify-between text-xs gap-2">
+                    <div className="mt-3.5 pt-3 border-t border-[#e5e5e5] flex items-center justify-between text-xs gap-2">
                       <div className="flex items-center gap-2">
                         {item.link && (
                           <a
@@ -3661,7 +3661,7 @@ export default function App() {
                             target="_blank"
                             rel="noopener noreferrer"
                             onClick={(e) => e.stopPropagation()}
-                            className="inline-flex items-center gap-1 px-3 py-1 rounded-full border border-[#e6e5e0] bg-[#f7f7f4] hover:bg-[#fafaf7] text-[#5a5852] hover:text-[#f54e00] font-sans font-semibold text-xs transition-colors"
+                            className="inline-flex items-center gap-1 px-3 py-1 rounded-full border border-[#e5e5e5] bg-[#ffffff] hover:bg-[#f3f3f3] text-[#0d0d0d] hover:text-[#646f79] font-sans font-semibold text-xs transition-colors"
                           >
                             <span>pkp.go.id</span>
                             <ArrowUpRight className="w-3 h-3" />
@@ -3675,13 +3675,13 @@ export default function App() {
                           e.stopPropagation();
                           copyNewsWA(item);
                         }}
-                        className="px-3 py-1 rounded-full border border-[#e6e5e0] bg-white hover:bg-[#f7f7f4] text-[#807d72] hover:text-[#5a5852] transition-colors flex items-center gap-1 font-sans text-xs font-medium cursor-pointer"
+                        className="px-3 py-1 rounded-full border border-[#e5e5e5] bg-white hover:bg-[#ffffff] text-[#646f79] hover:text-[#0d0d0d] transition-colors flex items-center gap-1 font-sans text-xs font-medium cursor-pointer"
                         title="Salin ringkasan rilis untuk WhatsApp"
                       >
                         {newsCopyStatus[item.id] ? (
                           <>
-                            <Check className="w-3.5 h-3.5 text-[#f54e00]" />
-                            <span className="text-[#f54e00] font-bold">Tersalin</span>
+                            <Check className="w-3.5 h-3.5 text-[#646f79]" />
+                            <span className="text-[#646f79] font-bold">Tersalin</span>
                           </>
                         ) : (
                           <>
@@ -3700,7 +3700,7 @@ export default function App() {
                     <button
                       type="button"
                       onClick={() => setNewsLimit(prev => prev + 30)}
-                      className="px-6 py-2.5 rounded-full bg-white hover:bg-[#fafaf7] border border-[#cfcdc4] text-[#f54e00] font-sans font-bold text-xs shadow-none hover:shadow transition-all cursor-pointer"
+                      className="px-6 py-2.5 rounded-full bg-white hover:bg-[#f3f3f3] border border-[#d1d5db] text-[#646f79] font-sans font-bold text-xs shadow-xs hover:shadow transition-all cursor-pointer"
                     >
                       Muat Lebih Banyak ({filteredNews.length - displayedNews.length} berita lagi)
                     </button>
@@ -3722,7 +3722,7 @@ export default function App() {
           {/* Backdrop */}
           <div 
             onClick={() => setSelectedDetailItem(null)}
-            className="fixed inset-0 bg-[#26251e]/40 backdrop-blur-xs drawer-backdrop"
+            className="fixed inset-0 bg-[#0d0e10]/40 backdrop-blur-xs drawer-backdrop"
           />
 
           {/* Drawer Container */}
@@ -3730,25 +3730,25 @@ export default function App() {
             role="dialog"
             aria-modal="true"
             aria-label={`Detail Kegiatan Nomor ${cleanNomor(selectedDetailItem.nomor)}: ${selectedDetailItem.kegiatan}`}
-            className="relative w-full max-w-[480px] bg-white h-full shadow-none border-l border-[#e6e5e0] flex flex-col z-10 drawer-slide-in overflow-hidden rounded-l-2xl"
+            className="relative w-full max-w-[480px] bg-white h-full shadow-xs border-l border-[#e5e5e5] flex flex-col z-10 drawer-slide-in overflow-hidden rounded-l-2xl"
           >
             
             {/* Header with Back button */}
-            <div className="p-4 border-b border-[#e6e5e0] flex items-center justify-between bg-[#f7f7f4]">
+            <div className="p-4 border-b border-[#e5e5e5] flex items-center justify-between bg-[#ffffff]">
               <div className="flex items-center gap-2">
                 <button
                   type="button"
                   onClick={() => setSelectedDetailItem(null)}
-                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-sans font-semibold text-[#f54e00] bg-white hover:bg-[#fafaf7] border border-[#cfcdc4] transition-colors cursor-pointer select-none"
+                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-sans font-semibold text-[#646f79] bg-white hover:bg-[#f3f3f3] border border-[#d1d5db] transition-colors cursor-pointer select-none"
                   title="Kembali"
                 >
                   <ArrowLeft className="w-3.5 h-3.5" />
                   <span>Kembali</span>
                 </button>
-                <span className="px-2.5 py-0.5 rounded-full bg-[#fafaf7] text-[#f54e00] text-xs font-heading font-black">
+                <span className="px-2.5 py-0.5 rounded-full bg-[#f3f3f3] text-[#646f79] text-xs font-heading font-black">
                   #{cleanNomor(selectedDetailItem.nomor)}
                 </span>
-                <h3 className="text-sm font-heading font-bold text-[#26251e] truncate">
+                <h3 className="text-sm font-heading font-bold text-[#0d0d0d] truncate">
                   Detail Kegiatan
                 </h3>
               </div>
@@ -3756,7 +3756,7 @@ export default function App() {
                 type="button"
                 aria-label="Tutup panel detail kegiatan"
                 onClick={() => setSelectedDetailItem(null)}
-                className="p-1.5 text-[#807d72] hover:text-[#26251e] hover:bg-white rounded-full transition-colors cursor-pointer"
+                className="p-1.5 text-[#646f79] hover:text-[#0d0d0d] hover:bg-white rounded-full transition-colors cursor-pointer"
                 title="Tutup (Esc)"
               >
                 <X className="w-5 h-5" aria-hidden="true" />
@@ -3767,20 +3767,20 @@ export default function App() {
             <div className="flex-1 overflow-y-auto p-5 space-y-4 text-xs">
               
               {/* Tanggal & Lokasi */}
-              <div className="grid grid-cols-2 gap-3 p-4 bg-[#f7f7f4] rounded-xl border border-[#e6e5e0]">
+              <div className="grid grid-cols-2 gap-3 p-4 bg-[#ffffff] rounded-2xl border border-[#e5e5e5]">
                 <div>
-                  <span className="text-[11px] font-sans font-bold text-[#807d72] uppercase tracking-wider block mb-0.5">
+                  <span className="text-[11px] font-sans font-bold text-[#646f79] uppercase tracking-wider block mb-0.5">
                     Tanggal Kegiatan
                   </span>
-                  <span className="font-sans font-bold text-xs text-[#26251e]">
+                  <span className="font-sans font-bold text-xs text-[#0d0d0d]">
                     {selectedDetailItem.tanggal_formatted || selectedDetailItem.tanggal}
                   </span>
                 </div>
                 <div>
-                  <span className="text-[11px] font-sans font-bold text-[#807d72] uppercase tracking-wider block mb-0.5">
+                  <span className="text-[11px] font-sans font-bold text-[#646f79] uppercase tracking-wider block mb-0.5">
                     Wilayah / Provinsi
                   </span>
-                  <span className="font-sans font-bold text-xs text-[#26251e]">
+                  <span className="font-sans font-bold text-xs text-[#0d0d0d]">
                     {selectedDetailItem.provinsi || '-'}
                   </span>
                 </div>
@@ -3788,47 +3788,47 @@ export default function App() {
 
               {/* Nama Kegiatan */}
               <div>
-                <span className="text-[11px] font-sans font-bold text-[#807d72] uppercase tracking-wider block mb-1">
+                <span className="text-[11px] font-sans font-bold text-[#646f79] uppercase tracking-wider block mb-1">
                   Nama Agenda / Kegiatan
                 </span>
-                <h4 className="text-sm sm:text-base font-heading font-bold text-[#26251e] leading-snug">
+                <h4 className="text-sm sm:text-base font-heading font-bold text-[#0d0d0d] leading-snug">
                   {selectedDetailItem.kegiatan}
                 </h4>
                 {selectedDetailItem.lokasi && (
-                  <p className="font-sans text-xs text-[#807d72] mt-1.5 flex items-center gap-1.5">
-                    <MapPin className="w-3.5 h-3.5 text-[#807d72] shrink-0" />
+                  <p className="font-sans text-xs text-[#646f79] mt-1.5 flex items-center gap-1.5">
+                    <MapPin className="w-3.5 h-3.5 text-[#646f79] shrink-0" />
                     <span>{selectedDetailItem.lokasi}</span>
                   </p>
                 )}
               </div>
 
               {/* Status Rilis Berita */}
-              <div className="p-4 rounded-xl border border-[#e6e5e0] bg-white space-y-2 shadow-none">
+              <div className="p-4 rounded-2xl border border-[#e5e5e5] bg-white space-y-2 shadow-xs">
                 <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-1.5 font-heading font-bold text-xs text-[#26251e]">
-                    <Newspaper className="w-4 h-4 text-[#f54e00]" />
+                  <div className="flex items-center gap-1.5 font-heading font-bold text-xs text-[#0d0d0d]">
+                    <Newspaper className="w-4 h-4 text-[#646f79]" />
                     <span>Publikasi Berita</span>
                   </div>
                   {selectedDetailItem.ada_berita && selectedDetailItem.link_berita ? (
-                    <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-sans font-bold bg-[#F0FDF4] text-[#1f8a65] border border-[#BBF7D0]">
-                      <CheckCircle2 className="w-3 h-3 text-[#1f8a65]" />
+                    <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-sans font-bold bg-[#eef8f4] text-[#216950] border border-[#c6ebd9]">
+                      <CheckCircle2 className="w-3 h-3 text-[#216950]" />
                       <span>Tercantum</span>
                     </span>
                   ) : selectedDetailItem.ada_berita ? (
-                    <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-sans font-semibold bg-[#FFFBEB] text-[#D97706] border border-[#FDE68A]">
-                      <AlertCircle className="w-3 h-3 text-[#D97706]" />
+                    <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-sans font-semibold bg-[#fef7ef] text-[#a65a12] border border-[#fcdbb8]">
+                      <AlertCircle className="w-3 h-3 text-[#a65a12]" />
                       <span>Perlu Cek</span>
                     </span>
                   ) : (
-                    <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-sans text-[#807d72] bg-transparent">
-                      <Minus className="w-3 h-3 text-[#807d72]" />
+                    <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-sans text-[#646f79] bg-transparent">
+                      <Minus className="w-3 h-3 text-[#646f79]" />
                       <span>Belum Ada</span>
                     </span>
                   )}
                 </div>
 
                 {selectedDetailItem.judul_berita && (
-                  <p className="font-sans font-semibold text-xs text-[#26251e] leading-relaxed bg-[#f7f7f4] p-3 rounded-xl border border-[#e6e5e0]">
+                  <p className="font-sans font-semibold text-xs text-[#0d0d0d] leading-relaxed bg-[#ffffff] p-3 rounded-2xl border border-[#e5e5e5]">
                     {selectedDetailItem.judul_berita}
                   </p>
                 )}
@@ -3838,7 +3838,7 @@ export default function App() {
                     href={selectedDetailItem.link_berita}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1.5 font-sans text-xs font-bold text-[#f54e00] hover:underline"
+                    className="inline-flex items-center gap-1.5 font-sans text-xs font-bold text-[#646f79] hover:underline"
                   >
                     <span>Buka Rilis Resmi di pkp.go.id</span>
                     <ExternalLink className="w-3.5 h-3.5" />
@@ -3847,15 +3847,15 @@ export default function App() {
               </div>
 
               {/* Status Publikasi Video */}
-              <div className="p-4 rounded-xl border border-[#e6e5e0] bg-white space-y-2 shadow-none">
+              <div className="p-4 rounded-2xl border border-[#e5e5e5] bg-white space-y-2 shadow-xs">
                 <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-1.5 font-heading font-bold text-xs text-[#26251e]">
-                    <Video className="w-4 h-4 text-[#f54e00]" />
+                  <div className="flex items-center gap-1.5 font-heading font-bold text-xs text-[#0d0d0d]">
+                    <Video className="w-4 h-4 text-[#646f79]" />
                     <span>Publikasi Video Liputan</span>
                   </div>
                   {selectedDetailItem.ada_video && (selectedDetailItem.link_video || (selectedDetailItem.link_videos && selectedDetailItem.link_videos.length > 0)) ? (
-                    <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-sans font-bold bg-[#fafaf7] text-[#f54e00] border border-[#cfcdc4]">
-                      <CheckCircle2 className="w-3 h-3 text-[#f54e00]" />
+                    <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-sans font-bold bg-[#f3f3f3] text-[#646f79] border border-[#d1d5db]">
+                      <CheckCircle2 className="w-3 h-3 text-[#646f79]" />
                       <span>
                         {selectedDetailItem.link_videos && selectedDetailItem.link_videos.length > 1
                           ? `${selectedDetailItem.link_videos.length} Video`
@@ -3863,13 +3863,13 @@ export default function App() {
                       </span>
                     </span>
                   ) : selectedDetailItem.ada_video ? (
-                    <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-sans font-semibold bg-[#FFFBEB] text-[#D97706] border border-[#FDE68A]">
-                      <AlertCircle className="w-3 h-3 text-[#D97706]" />
+                    <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-sans font-semibold bg-[#fef7ef] text-[#a65a12] border border-[#fcdbb8]">
+                      <AlertCircle className="w-3 h-3 text-[#a65a12]" />
                       <span>Perlu Cek</span>
                     </span>
                   ) : (
-                    <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-sans text-[#807d72] bg-transparent">
-                      <Minus className="w-3 h-3 text-[#807d72]" />
+                    <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-sans text-[#646f79] bg-transparent">
+                      <Minus className="w-3 h-3 text-[#646f79]" />
                       <span>Belum Ada</span>
                     </span>
                   )}
@@ -3883,10 +3883,10 @@ export default function App() {
                         href={vUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="flex items-center justify-between p-2.5 rounded-xl bg-[#f7f7f4] hover:bg-[#fafaf7] border border-[#e6e5e0] hover:border-[#cfcdc4] text-[#f54e00] font-sans font-semibold text-xs transition-colors"
+                        className="flex items-center justify-between p-2.5 rounded-2xl bg-[#ffffff] hover:bg-[#f3f3f3] border border-[#e5e5e5] hover:border-[#d1d5db] text-[#646f79] font-sans font-semibold text-xs transition-colors"
                       >
                         <span className="flex items-center gap-2 truncate">
-                          <Video className="w-3.5 h-3.5 text-[#f54e00] shrink-0" />
+                          <Video className="w-3.5 h-3.5 text-[#646f79] shrink-0" />
                           <span>Tautan Video {idx + 1}</span>
                         </span>
                         <ExternalLink className="w-3.5 h-3.5 shrink-0 opacity-70" />
@@ -3898,7 +3898,7 @@ export default function App() {
                     href={selectedDetailItem.link_video || selectedDetailItem.link_videos[0]}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1.5 font-sans text-xs font-bold text-[#f54e00] hover:underline"
+                    className="inline-flex items-center gap-1.5 font-sans text-xs font-bold text-[#646f79] hover:underline"
                   >
                     <span>Buka Tautan Video</span>
                     <ExternalLink className="w-3.5 h-3.5" />
@@ -3908,7 +3908,7 @@ export default function App() {
 
               {/* Daftar Petugas */}
               <div>
-                <span className="text-[11px] font-sans font-bold text-[#807d72] uppercase tracking-wider block mb-2">
+                <span className="text-[11px] font-sans font-bold text-[#646f79] uppercase tracking-wider block mb-2">
                   Petugas Liputan yang Bertugas
                 </span>
                 <div className="flex flex-wrap gap-1.5">
@@ -3916,13 +3916,13 @@ export default function App() {
                     selectedDetailItem.petugas.map((officer, idx) => (
                       <span
                         key={idx}
-                        className="px-3 py-1 rounded-full bg-[#f7f7f4] border border-[#e6e5e0] text-[#5a5852] font-sans text-xs font-medium"
+                        className="px-3 py-1 rounded-full bg-[#ffffff] border border-[#e5e5e5] text-[#0d0d0d] font-sans text-xs font-medium"
                       >
                         {officer}
                       </span>
                     ))
                   ) : (
-                    <span className="font-sans text-[#807d72] italic text-xs">Petugas belum tercatat</span>
+                    <span className="font-sans text-[#646f79] italic text-xs">Petugas belum tercatat</span>
                   )}
                 </div>
               </div>
@@ -3930,11 +3930,11 @@ export default function App() {
             </div>
 
             {/* Footer with Salin Format WA & Back Button */}
-            <div className="p-4 border-t border-[#e6e5e0] bg-[#f7f7f4] flex items-center gap-2">
+            <div className="p-4 border-t border-[#e5e5e5] bg-[#ffffff] flex items-center gap-2">
               <button
                 type="button"
                 onClick={() => setSelectedDetailItem(null)}
-                className="px-4 py-2.5 rounded-full text-xs font-sans font-semibold text-[#5a5852] bg-white hover:bg-[#efeee8] border border-[#e6e5e0] transition-colors inline-flex items-center gap-1.5 shrink-0 cursor-pointer select-none"
+                className="px-4 py-2.5 rounded-full text-xs font-sans font-semibold text-[#0d0d0d] bg-white hover:bg-[#f3f3f3] border border-[#e5e5e5] transition-colors inline-flex items-center gap-1.5 shrink-0 cursor-pointer select-none"
               >
                 <ArrowLeft className="w-3.5 h-3.5" />
                 <span>Kembali</span>
@@ -3942,10 +3942,10 @@ export default function App() {
               <button
                 type="button"
                 onClick={() => copyReport(selectedDetailItem)}
-                className={`flex-1 h-10 rounded-full font-sans text-xs font-bold flex items-center justify-center gap-2 transition-all cursor-pointer shadow-none ${
+                className={`flex-1 h-10 rounded-full font-sans text-xs font-bold flex items-center justify-center gap-2 transition-all cursor-pointer shadow-xs ${
                   copyStatus[selectedDetailItem.id]
-                    ? 'bg-[#1f8a65] text-white shadow'
-                    : 'bg-[#f54e00] hover:bg-[#d04200] text-white hover:shadow'
+                    ? 'bg-[#45a985] text-white shadow'
+                    : 'bg-[#0d0e10] hover:bg-[#26282c] text-white hover:shadow'
                 }`}
               >
                 {copyStatus[selectedDetailItem.id] ? (
@@ -3974,7 +3974,7 @@ export default function App() {
           {/* Backdrop */}
           <div 
             onClick={() => setSelectedNewsDetail(null)}
-            className="fixed inset-0 bg-[#26251e]/40 backdrop-blur-xs drawer-backdrop"
+            className="fixed inset-0 bg-[#0d0e10]/40 backdrop-blur-xs drawer-backdrop"
           />
 
           {/* Drawer Container */}
@@ -3982,25 +3982,25 @@ export default function App() {
             role="dialog"
             aria-modal="true"
             aria-label={`Detail Rilis Berita: ${selectedNewsDetail.judul}`}
-            className="relative w-full max-w-[560px] bg-white h-full shadow-none border-l border-[#e6e5e0] flex flex-col z-10 drawer-slide-in overflow-hidden rounded-l-2xl"
+            className="relative w-full max-w-[560px] bg-white h-full shadow-xs border-l border-[#e5e5e5] flex flex-col z-10 drawer-slide-in overflow-hidden rounded-l-2xl"
           >
             
             {/* Header with Back button */}
-            <div className="p-4 border-b border-[#e6e5e0] flex items-center justify-between bg-[#f7f7f4]">
+            <div className="p-4 border-b border-[#e5e5e5] flex items-center justify-between bg-[#ffffff]">
               <div className="flex items-center gap-2">
                 <button
                   type="button"
                   onClick={() => setSelectedNewsDetail(null)}
-                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-sans font-semibold text-[#f54e00] bg-white hover:bg-[#fafaf7] border border-[#cfcdc4] transition-colors cursor-pointer select-none"
+                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-sans font-semibold text-[#646f79] bg-white hover:bg-[#f3f3f3] border border-[#d1d5db] transition-colors cursor-pointer select-none"
                   title="Kembali"
                 >
                   <ArrowLeft className="w-3.5 h-3.5" />
                   <span>Kembali</span>
                 </button>
-                <span className="px-2.5 py-0.5 rounded-full bg-[#fafaf7] text-[#f54e00] text-xs font-heading font-black">
+                <span className="px-2.5 py-0.5 rounded-full bg-[#f3f3f3] text-[#646f79] text-xs font-heading font-black">
                   {selectedNewsDetail.tahun}
                 </span>
-                <h3 className="text-sm font-heading font-bold text-[#26251e] truncate">
+                <h3 className="text-sm font-heading font-bold text-[#0d0d0d] truncate">
                   Rilis Berita Resmi
                 </h3>
               </div>
@@ -4008,7 +4008,7 @@ export default function App() {
                 type="button"
                 aria-label="Tutup panel detail berita"
                 onClick={() => setSelectedNewsDetail(null)}
-                className="p-1.5 text-[#807d72] hover:text-[#26251e] hover:bg-white rounded-full transition-colors cursor-pointer"
+                className="p-1.5 text-[#646f79] hover:text-[#0d0d0d] hover:bg-white rounded-full transition-colors cursor-pointer"
                 title="Tutup (Esc)"
               >
                 <X className="w-5 h-5" aria-hidden="true" />
@@ -4020,33 +4020,33 @@ export default function App() {
               
               {/* Meta Stats Pill */}
               <div className="flex flex-wrap items-center gap-2">
-                <span className="inline-flex items-center gap-1 font-sans text-xs text-[#5a5852] bg-[#f7f7f4] border border-[#e6e5e0] px-3 py-1 rounded-full">
-                  <Calendar className="w-3.5 h-3.5 text-[#807d72]" />
+                <span className="inline-flex items-center gap-1 font-sans text-xs text-[#0d0d0d] bg-[#ffffff] border border-[#e5e5e5] px-3 py-1 rounded-full">
+                  <Calendar className="w-3.5 h-3.5 text-[#646f79]" />
                   {selectedNewsDetail.tanggal_formatted}
                 </span>
                 {selectedNewsDetail.lokasi && (
-                  <span className="inline-flex items-center gap-1 font-sans text-xs text-[#5a5852] bg-[#f7f7f4] border border-[#e6e5e0] px-3 py-1 rounded-full">
-                    <MapPin className="w-3.5 h-3.5 text-[#807d72]" />
+                  <span className="inline-flex items-center gap-1 font-sans text-xs text-[#0d0d0d] bg-[#ffffff] border border-[#e5e5e5] px-3 py-1 rounded-full">
+                    <MapPin className="w-3.5 h-3.5 text-[#646f79]" />
                     {selectedNewsDetail.lokasi}
                   </span>
                 )}
                 {selectedNewsDetail.pembaca > 0 && (
-                  <span className="inline-flex items-center gap-1 font-sans text-xs font-semibold text-[#553c7b] bg-[#f4effa] border border-[#c0a8dd]/50 px-3 py-1 rounded-full">
-                    <Eye className="w-3.5 h-3.5 text-[#553c7b]" />
+                  <span className="inline-flex items-center gap-1 font-sans text-xs font-semibold text-[#0d0d0d] bg-[#f3f3f3] border border-[#e5e5e5] px-3 py-1 rounded-full">
+                    <Eye className="w-3.5 h-3.5 text-[#0d0d0d]" />
                     {selectedNewsDetail.pembaca.toLocaleString('id-ID')} Pembaca
                   </span>
                 )}
               </div>
 
               {/* Title */}
-              <h2 className="text-base sm:text-lg font-heading font-bold text-[#26251e] leading-snug">
+              <h2 className="text-base sm:text-lg font-heading font-bold text-[#0d0d0d] leading-snug">
                 {selectedNewsDetail.judul}
               </h2>
 
               {/* Ringkasan / Lead paragraph */}
               {selectedNewsDetail.ringkasan && (
-                <div className="p-4 rounded-xl bg-[#f7f7f4] border-l-4 border-[#f54e00] border-y border-r border-[#e6e5e0] text-[#5a5852] text-xs leading-relaxed font-sans">
-                  <span className="text-[11px] font-sans font-bold text-[#f54e00] uppercase tracking-wider block mb-1">
+                <div className="p-4 rounded-2xl bg-[#ffffff] border-l-4 border-[#646f79] border-y border-r border-[#e5e5e5] text-[#0d0d0d] text-xs leading-relaxed font-sans">
+                  <span className="text-[11px] font-sans font-bold text-[#646f79] uppercase tracking-wider block mb-1">
                     Ringkasan Berita
                   </span>
                   {selectedNewsDetail.ringkasan}
@@ -4054,8 +4054,8 @@ export default function App() {
               )}
 
               {/* Full Body Article */}
-              <div className="space-y-3 pt-2 text-[#5a5852] leading-relaxed text-xs font-sans">
-                <span className="text-[11px] font-sans font-bold text-[#807d72] uppercase tracking-wider block">
+              <div className="space-y-3 pt-2 text-[#0d0d0d] leading-relaxed text-xs font-sans">
+                <span className="text-[11px] font-sans font-bold text-[#646f79] uppercase tracking-wider block">
                   Isi Rilis Lengkap
                 </span>
                 {(selectedNewsDetail.isi_lengkap || selectedNewsDetail.ringkasan || 'Isi rilis dapat dibaca langsung pada tautan resmi.')
@@ -4075,7 +4075,7 @@ export default function App() {
                     href={selectedNewsDetail.link}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1.5 text-[#f54e00] font-sans font-bold hover:underline text-xs"
+                    className="inline-flex items-center gap-1.5 text-[#646f79] font-sans font-bold hover:underline text-xs"
                   >
                     <span>Buka Rilis Resmi di pkp.go.id</span>
                     <ExternalLink className="w-3.5 h-3.5" />
@@ -4086,11 +4086,11 @@ export default function App() {
             </div>
 
             {/* Bottom Actions with Back Button */}
-            <div className="p-4 border-t border-[#e6e5e0] bg-[#f7f7f4] flex items-center gap-2">
+            <div className="p-4 border-t border-[#e5e5e5] bg-[#ffffff] flex items-center gap-2">
               <button
                 type="button"
                 onClick={() => setSelectedNewsDetail(null)}
-                className="px-4 py-2.5 rounded-full text-xs font-sans font-semibold text-[#5a5852] bg-white hover:bg-[#efeee8] border border-[#e6e5e0] transition-colors inline-flex items-center gap-1.5 shrink-0 cursor-pointer select-none"
+                className="px-4 py-2.5 rounded-full text-xs font-sans font-semibold text-[#0d0d0d] bg-white hover:bg-[#f3f3f3] border border-[#e5e5e5] transition-colors inline-flex items-center gap-1.5 shrink-0 cursor-pointer select-none"
               >
                 <ArrowLeft className="w-4 h-4" />
                 <span>Kembali</span>
@@ -4099,10 +4099,10 @@ export default function App() {
               <button
                 type="button"
                 onClick={() => copyNewsWA(selectedNewsDetail)}
-                className={`flex-1 h-10 rounded-full font-sans text-xs font-bold flex items-center justify-center gap-2 transition-all cursor-pointer shadow-none ${
+                className={`flex-1 h-10 rounded-full font-sans text-xs font-bold flex items-center justify-center gap-2 transition-all cursor-pointer shadow-xs ${
                   newsCopyStatus[selectedNewsDetail.id]
-                    ? 'bg-[#1f8a65] text-white shadow'
-                    : 'bg-[#f54e00] hover:bg-[#d04200] text-white hover:shadow'
+                    ? 'bg-[#45a985] text-white shadow'
+                    : 'bg-[#0d0e10] hover:bg-[#26282c] text-white hover:shadow'
                 }`}
               >
                 {newsCopyStatus[selectedNewsDetail.id] ? (
@@ -4123,7 +4123,7 @@ export default function App() {
                   href={selectedNewsDetail.link}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="px-4 h-10 rounded-full font-sans text-xs font-semibold bg-white hover:bg-[#efeee8] text-[#5a5852] border border-[#e6e5e0] flex items-center justify-center gap-1.5 shrink-0 transition-colors"
+                  className="px-4 h-10 rounded-full font-sans text-xs font-semibold bg-white hover:bg-[#f3f3f3] text-[#0d0d0d] border border-[#e5e5e5] flex items-center justify-center gap-1.5 shrink-0 transition-colors"
                 >
                   <span>Portal</span>
                   <ExternalLink className="w-3.5 h-3.5" />
@@ -4136,7 +4136,7 @@ export default function App() {
       )}
 
       {/* FOOTER - Uniform branding */}
-      <footer className="py-6 mt-auto text-center font-sans text-xs text-[#807d72] border-t border-[#e6e5e0] bg-white">
+      <footer className="py-6 mt-auto text-center font-sans text-xs text-[#646f79] border-t border-[#e5e5e5] bg-white">
         <p>© 2026 Tim Peliputan & Publikasi - Biro Komunikasi Publik Kementerian PKP</p>
       </footer>
 
