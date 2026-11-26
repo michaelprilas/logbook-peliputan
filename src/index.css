@@ -2,27 +2,28 @@
 
 @layer base {
   html, body {
-    background-color: #F7F8F9;
-    color: #363853;
+    background-color: #f7f7f4;
+    color: #26251e;
   }
   html {
     scrollbar-gutter: stable;
     overflow-y: scroll;
   }
   body {
-    font-family: 'Poppins', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     min-height: 100vh;
-    background-color: #F7F8F9;
+    background-color: #f7f7f4;
+    color: #26251e;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
 
   h1, h2, h3, h4, h5, h6, .font-heading {
-    font-family: 'Nunito', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   }
 
   code, kbd, samp, pre, .font-mono {
-    font-family: 'Menlo', Monaco, Consolas, 'Liberation Mono', monospace;
+    font-family: 'JetBrains Mono', 'Fira Code', Menlo, monospace;
   }
 
   /* R-39: Base interaction affordances */
@@ -33,41 +34,29 @@
     cursor: not-allowed;
   }
 
-  /* iFraldas Focus: 2px solid Iris Blue with 2px offset */
+  /* Cursor Focus: 2px solid Cursor Orange (#f54e00) with 2px offset */
   :focus-visible {
-    outline: 2px solid #01B6BC;
+    outline: 2px solid #f54e00;
     outline-offset: 2px;
   }
 }
 
 /* ------------------------------------------------------------- */
-/* StudioBlank Motion & Transitions (Under 200ms, strictly crisp)*/
+/* Cursor Hairline Cards & Surfaces (No heavy drop shadows)      */
 /* ------------------------------------------------------------- */
 
-@keyframes pageEntrance {
-  0% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
-  }
+.cursor-card, .invo-card {
+  background-color: #ffffff;
+  border-radius: 12px !important;
+  border: 1px solid #e6e5e0;
+  box-shadow: none !important;
+  transition: border-color 0.15s ease;
 }
 
-.page-transition {
-  animation: pageEntrance 0.15s ease-out forwards;
-}
-
-@keyframes fadeInUpSubtle {
-  0% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
-  }
-}
-
-.motion-card-enter {
-  animation: fadeInUpSubtle 0.15s ease-out both;
+.cursor-card-hover:hover, .invo-card-hover:hover {
+  border-color: #cfcdc4;
+  box-shadow: none !important;
+  transform: none !important;
 }
 
 /* Popover / Dropdown pure flat transition */
@@ -83,7 +72,7 @@
 }
 
 .popover-motion {
-  animation: popoverIn 0.14s ease-out forwards;
+  animation: popoverIn 0.12s ease-out forwards;
   transform-origin: top;
 }
 
@@ -107,7 +96,7 @@
 }
 
 .drawer-slide-in {
-  animation: drawerSlideInRight 0.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation: drawerSlideInRight 0.18s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 .drawer-backdrop {
@@ -125,7 +114,34 @@
 }
 
 .agenda-motion {
-  animation: agendaSlide 0.15s ease-out forwards;
+  animation: agendaSlide 0.12s ease-out forwards;
+}
+
+/* Page Entrance */
+@keyframes pageEntrance {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.page-transition {
+  animation: pageEntrance 0.12s ease-out forwards;
+}
+
+@keyframes fadeInUpSubtle {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.motion-card-enter {
+  animation: fadeInUpSubtle 0.12s ease-out both;
 }
 
 /* Chart Bars Initial Grow */
@@ -140,27 +156,12 @@
 
 .chart-bar-animated {
   transform-origin: bottom;
-  animation: barGrow 0.25s ease-out forwards;
+  animation: barGrow 0.2s ease-out forwards;
 }
 
-/* iFraldas Card: #FFFFFF fill, 16px radius, subtle border & soft elevation */
-.invo-card {
-  background: #FFFFFF;
-  border-radius: 16px !important;
-  border: 1px solid #EFF1F3;
-  box-shadow: 0 1px 3px rgba(43, 45, 66, 0.05) !important;
-  transition: all 0.2s ease;
-}
-
-.invo-card-hover:hover {
-  border-color: #B3E9EB;
-  box-shadow: 0 6px 16px rgba(1, 182, 188, 0.1) !important;
-  transform: translateY(-1px);
-}
-
-/* iFraldas Buttons & Interactive Elements */
+/* Buttons & Interactive Elements */
 .btn-motion {
-  transition: all 0.2s ease;
+  transition: all 0.15s ease;
 }
 
 /* R-03: Minimum touch target helper */
@@ -172,23 +173,23 @@
   justify-content: center;
 }
 
-/* Custom subtle scrollbar (iFraldas soft rounded) */
+/* Custom subtle scrollbar (Cursor hairline & warm neutral) */
 ::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
+  width: 5px;
+  height: 5px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #F7F8F9;
+  background: #f7f7f4;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #D7D7DD;
+  background: #cfcdc4;
   border-radius: 9999px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #9A9BA9;
+  background: #a09c92;
 }
 
 /* Respect user reduced motion */
